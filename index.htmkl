@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prof. Giuseppe Musumeci | Digital Medical Hub</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <style>
+        :root {
+            --tech-blue: #0a192f;
+            --neon-cyan: #64ffda;
+            --medical-blue: #112240;
+            --text-silver: #ccd6f6;
+            --glow: 0 0 10px rgba(100, 255, 218, 0.3);
+        }
+
+        body {
+            background-color: var(--tech-blue);
+            color: var(--text-silver);
+            font-family: 'Roboto', sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        /* --- Colonne Greche Digitali --- */
+        .greek-column {
+            position: fixed;
+            top: 0;
+            width: 80px;
+            height: 100vh;
+            border-left: 2px solid var(--neon-cyan);
+            border-right: 2px solid var(--neon-cyan);
+            background: linear-gradient(180deg, rgba(100,255,218,0.05) 0%, rgba(10,25,47,0) 100%);
+            z-index: -1;
+            opacity: 0.4;
+        }
+        /* Pattern interno alle colonne (effetto tech) */
+        .greek-column::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(var(--neon-cyan) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .col-left { left: 20px; }
+        .col-right { right: 20px; }
+
+        @media (max-width: 1200px) {
+            .greek-column { display: none; }
+        }
+
+        /* --- UI Components --- */
+        .content-wrapper {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: rgba(17, 34, 64, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 255, 218, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--glow);
+        }
+
+        .navbar {
+            background: rgba(10, 25, 47, 0.95) !important;
+            border-bottom: 1px solid var(--neon-cyan);
+        }
+
+        .nav-link {
+            color: var(--text-silver) !important;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            color: var(--neon-cyan) !important;
+            text-shadow: var(--glow);
+        }
+
+        h1, h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+        }
+
+        .asclepius-logo {
+            filter: invert(85%) sepia(20%) saturate(1000%) hue-rotate(120deg);
+            width: 60px;
+            margin-bottom: 20px;
+        }
+
+        /* Bottone Tech */
+        .btn-tech {
+            border: 1px solid var(--neon-cyan);
+            background: transparent;
+            color: var(--neon-cyan);
+            padding: 10px 20px;
+            transition: 0.3s;
+        }
+
+        .btn-tech:hover {
+            background: rgba(100, 255, 218, 0.1);
+            box-shadow: var(--glow);
+            color: white;
+        }
+
+        .lang-selector select {
+            background: var(--tech-blue);
+            color: var(--neon-cyan);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+
+        /* Accesso Status */
+        #userInfo {
+            border-left: 4px solid var(--neon-cyan);
+            background: rgba(100, 255, 218, 0.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="greek-column col-left"></div>
+    <div class="greek-column col-right"></div>
+
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand text-white" href="#">
+                <span style="color: var(--neon-cyan);">MUSUMECI</span>.DIGITAL
+            </a>
+            
+            <div class="lang-selector ms-auto me-3">
+                <select onchange="location = this.value;">
+                    <option value="/" selected>ITA</option>
+                    <option value="/en/">ENG</option>
+                    <option value="/fr/">FRA</option>
+                </select>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">Bio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#special">Specializzazioni</a></li>
+                    <li class="nav-item">
+                        <button class="btn btn-tech btn-sm ms-lg-3 mt-2 mt-lg-0" id="loginGoogle">ACCEDi</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <header class="text-center">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Caduceus.svg" alt="Logo" class="asclepius-logo">
+            <h1>Prof. Giuseppe Musumeci</h1>
+            <p class="text-info">Cardiologia Interventistica & Innovazione Chirurgica</p>
+        </header>
+
+        <hr style="border-color: rgba(100,255,218,0.2)">
+
+        <main>
+            <div id="userInfo" class="p-3 mb-4 d-none">
+                <span id="userName"></span> | <span class="text-info">SESSION ACTIVE</span>
+            </div>
+
+            <section id="home" class="py-4">
+                <h2>Clinical Excellence</h2>
+                <p>Integrazione di protocolli avanzati e tecnologie digitali per la salute cardiovascolare presso l'Ospedale Mauriziano di Torino.</p>
+            </section>
+
+            <section id="contatti" class="mt-5">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3>Contact Lab</h3>
+                        <p>Largo Turati, 62, Torino</p>
+                        <p>Terminal: +39 011 1234567</p>
+                    </div>
+                    <div class="col-md-6">
+                        <form class="p-3 border border-secondary rounded">
+                            <input type="text" class="form-control bg-transparent text-white border-secondary mb-3" placeholder="Paziente/ID">
+                            <input type="email" class="form-control bg-transparent text-white border-secondary mb-3" placeholder="Email Secure">
+                            <button type="submit" class="btn btn-tech w-100">SEND REQUEST</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // 1. Configurazione Firebase
+        const firebaseConfig = {
+  apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+  authDomain: "giuseppe-4c318.firebaseapp.com",
+  projectId: "giuseppe-4c318",
+  storageBucket: "giuseppe-4c318.firebasestorage.app",
+  messagingSenderId: "658885311131",
+  appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+};
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const provider = new firebase.auth.GoogleAuthProvider();
+
+        const loginBtn = document.getElementById('loginGoogle');
+        const userInfo = document.getElementById('userInfo');
+        const userName = document.getElementById('userName');
+
+        // Funzione per aggiornare UI
+        function updateUI(user) {
+            if (user) {
+                loginBtn.innerText = "LOGOUT";
+                userInfo.classList.remove('d-none');
+                userName.innerText = `BENVENUTO: ${user.displayName.toUpperCase()}`;
+                
+                loginBtn.onclick = () => {
+                    auth.signOut().then(() => location.reload());
+                };
+            } else {
+                loginBtn.innerText = "DATA ACCESS";
+                userInfo.classList.add('d-none');
+                loginBtn.onclick = () => {
+                    auth.signInWithPopup(provider).catch(err => console.log(err));
+                };
+            }
+        }
+
+        // 2. Controllo Stato Sessione (Funziona su tutte le pagine del dominio)
+        auth.onAuthStateChanged((user) => {
+            updateUI(user);
+        });
+
+        // 3. Gestione automatica selezione lingua nel menu a tendina
+        document.addEventListener('DOMContentLoaded', () => {
+            const path = window.location.pathname;
+            const selector = document.querySelector('.lang-selector select');
+            if (path.includes('/en/')) selector.value = '/en/';
+            else if (path.includes('/fr/')) selector.value = '/fr/';
+            else selector.value = '/';
+        });
+    </script>
+</body>
+</html>
