@@ -25,15 +25,21 @@
         .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--tech-black)!important; }
         .brand-accent { color: var(--med-red); }
         .nav-link { font-weight: 700; text-transform: uppercase; font-size: 0.85rem; color: var(--tech-black)!important; transition: 0.3s; }
+        .nav-link:hover { color: var(--med-red)!important; }
+
+        /* --- AUTH UI --- */
+        #user-info { display: none; align-items: center; }
+        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 10px 25px; font-weight: 600; text-decoration: none; border: none; display: inline-block; transition: 0.3s; }
+        .btn-medical:hover { background-color: var(--med-red); color: white; }
 
         /* --- HEADER --- */
         .profile-header { padding: 80px 0 40px; background: var(--soft-gray); border-bottom: 1px solid #eee; }
         .red-divider { width: 60px; height: 4px; background: var(--med-red); margin: 25px 0; }
 
-        /* --- CONTENT SECTION --- */
+        /* --- CONTENT --- */
         .content-section { padding-right: 30px; }
         .content-section h2 { font-family: 'Outfit', sans-serif; font-weight: 700; margin-top: 45px; margin-bottom: 20px; color: var(--tech-black); border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .news-tag { color: var(--med-red); font-weight: 800; font-size: 0.75rem; text-uppercase: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; }
+        .news-tag { color: var(--med-red); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; }
         .highlight-box { border-left: 5px solid var(--med-red); background: var(--soft-gray); padding: 30px; margin: 35px 0; font-style: italic; font-size: 1.1rem; }
         
         /* --- SIDEBAR --- */
@@ -49,15 +55,12 @@
         .assoc-list li { padding: 12px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.95rem; font-weight: 500; display: flex; align-items: center; }
         .assoc-list li i { color: var(--med-red); margin-right: 12px; }
 
-        /* --- ORIGINAL FOOTER STYLES --- */
+        /* --- FOOTER --- */
         .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--med-red); }
         .footer-logo { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.6rem; letter-spacing: -0.5px; }
         .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
         .footer-link:hover { color: var(--med-red); padding-left: 5px; }
         .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); margin-top: 60px; padding-top: 30px; font-size: 0.85rem; color: #6c757d; }
-
-        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 10px 25px; font-weight: 600; text-decoration: none; border: none; display: inline-block; transition: 0.3s; }
-        .btn-medical:hover { background-color: var(--med-red); color: white; }
 
         @media (max-width: 991px) {
             .sidebar { border-left: none; padding-left: 0; margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px; }
@@ -86,7 +89,14 @@
                     </li>
                     <li class="nav-item px-lg-2"><a class="nav-link" href="attualita.html" style="color: var(--med-red)!important;">Attualità</a></li>
                     <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link" href="change.html">Change</a></li>
-                    <li class="nav-item"><a href="login.html" class="btn btn-medical btn-sm">ACCESSO HUB</a></li>
+                    
+                    <li class="nav-item">
+                        <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+                        <div id="user-info">
+                            <span id="user-name" class="me-3 small fw-bold text-uppercase opacity-75"></span>
+                            <button onclick="logout()" class="btn btn-outline-danger btn-sm rounded-0 fw-bold">LOGOUT</button>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -107,23 +117,23 @@
                 <div class="searchable-unit mb-5">
                     <span class="news-tag">Leadership Scientifica</span>
                     <h2>Congresso "Change in Cardiology"</h2>
-                    <p>Sotto la direzione del Prof. Musumeci, il congresso <strong>Change in Cardiology</strong> si è confermato nel 2025 come l'evento di riferimento nazionale per la transizione digitale in sanità. La prossima edizione, programmata per il <strong>2026</strong> presso il Lingotto di Torino, si focalizzerà sull'applicazione dell'IA nei protocolli di emodinamica e sulla gestione multidisciplinare dell'obesità come fattore di rischio cardiovascolare primario.</p>
+                    <p>Sotto la direzione del Prof. Musumeci, il congresso <strong>Change in Cardiology</strong> si è confermato nel 2025 come l'evento di riferimento nazionale per la transizione digitale in sanità. La prossima edizione si focalizzerà sull'applicazione dell'IA nei protocolli di emodinamica.</p>
                 </div>
 
                 <div class="searchable-unit mb-5">
                     <span class="news-tag">Eccellenza Clinica</span>
                     <h2>Dipartimento Cardiologia - Ospedale Mauriziano</h2>
-                    <p>In qualità di <strong>Direttore della SC Cardiologia</strong>, il Professore ha recentemente coordinato l'implementazione del Centro "CardioDonna", un percorso d'eccellenza per la medicina di genere unico in Piemonte. Parallelamente, il dipartimento ha registrato successi record nell'impiego di valvole aortiche di ultima generazione per interventi TAVI su pazienti ad alto rischio.</p>
+                    <p>In qualità di <strong>Direttore della SC Cardiologia</strong>, il Professore ha recentemente coordinato l'implementazione del Centro "CardioDonna", un percorso d'eccellenza per la medicina di genere unico in Piemonte.</p>
                 </div>
 
                 <div class="highlight-box">
-                    "L'attualità della cardiologia moderna non risiede solo nel dispositivo utilizzato, ma nella capacità di creare una rete di emergenza interconnessa e basata su dati oggettivi."
+                    "L'attualità della cardiologia moderna non risiede solo nel dispositivo utilizzato, ma nella capacità di creare una rete di emergenza interconnessa."
                 </div>
 
                 <div class="searchable-unit mb-5">
                     <span class="news-tag">Istituzioni Nazionali</span>
                     <h2>AGENAS & Tavoli Tecnici</h2>
-                    <p>Il Prof. Musumeci ricopre attualmente il ruolo di coordinatore tecnico presso <strong>AGENAS</strong> per la revisione delle Reti di Emergenza Cardiologica nazionali. L'obiettivo operativo per il 2026 è l'ottimizzazione dei flussi 112/118 per ridurre drasticamente il tempo "door-to-balloon" nel trattamento dell'infarto miocardico acuto (STEMI).</p>
+                    <p>Il Prof. Musumeci ricopre attualmente il ruolo di coordinatore tecnico presso <strong>AGENAS</strong> per la revisione delle Reti di Emergenza Cardiologica nazionali.</p>
                 </div>
             </div>
 
@@ -141,17 +151,10 @@
                     <div class="sidebar-widget">
                         <h5 class="widget-title">Status Istituzionale</h5>
                         <ul class="assoc-list">
-                            <li><i class="bi bi-check-circle-fill"></i> Past President <br><strong>GISE</strong></li>
-                            <li><i class="bi bi-check-circle-fill"></i> Coordinatore <br><strong>AGENAS</strong></li>
-                            <li><i class="bi bi-check-circle-fill"></i> Fellow <br><strong>ESC</strong></li>
-                            <li><i class="bi bi-calendar-event"></i> Director  <br><strong>Change 2026</strong></li>
+                            <li><i class="bi bi-check-circle-fill"></i> Past President <strong>GISE</strong></li>
+                            <li><i class="bi bi-check-circle-fill"></i> Coordinatore <strong>AGENAS</strong></li>
+                            <li><i class="bi bi-calendar-event"></i> Director <strong>Change 2026</strong></li>
                         </ul>
-                    </div>
-
-                    <div class="p-4 bg-light border-start border-4 border-dark">
-                        <h6 class="fw-bold text-uppercase small mb-3">Supporto Strategico</h6>
-                        <p class="small text-muted">Per collaborazioni scientifiche o trial clinici.</p>
-                        <a href="mailto:info@drgiuseppemusumeci.com" class="btn btn-medical btn-sm w-100">Contatta la Segreteria</a>
                     </div>
                 </aside>
             </div>
@@ -163,43 +166,53 @@
             <div class="row g-5">
                 <div class="col-lg-5">
                     <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
-                    <p class="opacity-75 pe-lg-5">Sistemi avanzati per la gestione del dato clinico e l'eccellenza nel trattamento delle patologie cardiovascolari.</p>
-                    <div class="mt-4">
-                        <a href="https://it.linkedin.com/in/giuseppe-musumeci-96414358" class="btn btn-outline-light btn-sm rounded-0 me-2"><i class="bi bi-linkedin"></i></a>
-                        <a href="mailto:info@drgiuseppemusumeci.com" class="btn btn-outline-light btn-sm rounded-0"><i class="bi bi-envelope"></i></a>
-                    </div>
+                    <p class="opacity-75">Sistemi avanzati per la gestione del dato clinico e l'eccellenza cardiovascolare.</p>
                 </div>
-                
-                <div class="col-6 col-lg-3">
-                    <h6 class="fw-bold mb-4 text-uppercase small letter-spacing-lg">Navigazione</h6>
-                    <nav>
-                        <a href="index.html" class="footer-link">Home</a>
-                        <a href="login.html" class="footer-link">Accesso</a>
-                        <a href="register.html" class="footer-link">Registrazione</a>
-                        <a href="news.html" class="footer-link">News&Aggiornamenti</a>
-                    </nav>
+                <div class="col-lg-7 text-md-end">
+                    <p class="mb-0 text-uppercase fw-bold" style="font-size: 0.7rem; letter-spacing: 1px;">Powered by Aviation Eagle Strategic Support</p>
                 </div>
-
-                <div class="col-6 col-lg-4">
-                    <h6 class="fw-bold mb-4 text-uppercase small">Sicurezza & Protocolli</h6>
-                    <nav>
-                        <a href="privacy.html" class="footer-link">Privacy Policy (GDPR)</a>
-                        <a href="delete-account.html" class="footer-link">Elimina Account</a>
-                        <a href="mailto:info@drgiuseppemusumeci.com" class="footer-link">Supporto Tecnico</a>
-                        <span class="footer-link text-white-50 mt-3 small">Status Sistema: <span class="text-success">● Operativo</span></span>
-                    </nav>
-                </div>
-            </div>
-
-            <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center text-center text-md-start">
-                <p class="mb-2 mb-md-0">&copy; 2026 Prof. Giuseppe Musumeci. All Rights Reserved.</p>
-                <p class="mb-0 text-uppercase fw-bold" style="font-size: 0.7rem; letter-spacing: 1px;">Powered by Aviation Eagle Strategic Support</p>
             </div>
         </div>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
+        // 1. CONFIGURAZIONE NUCLEO
+        const firebaseConfig = {
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
+            projectId: "giuseppe-4c318",
+            storageBucket: "giuseppe-4c318.firebasestorage.app",
+            messagingSenderId: "658885311131",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // 2. GESTIONE SESSIONE UTENTE
+        auth.onAuthStateChanged((user) => {
+            const btnLogin = document.getElementById('btn-login-nav');
+            const userInfo = document.getElementById('user-info');
+            const userName = document.getElementById('user-name');
+
+            if (user) {
+                if(btnLogin) btnLogin.style.display = 'none';
+                if(userInfo) userInfo.style.display = 'flex';
+                if(userName) userName.innerText = user.displayName || user.email.split('@')[0];
+            } else {
+                if(btnLogin) btnLogin.style.display = 'inline-block';
+                if(userInfo) userInfo.style.display = 'none';
+            }
+        });
+
+        function logout() {
+            auth.signOut().then(() => window.location.reload());
+        }
+
+        // 3. LOGICA DI RICERCA HUB
         function runSearch() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const units = document.querySelectorAll('.searchable-unit');
@@ -213,8 +226,7 @@
             }
 
             units.forEach(unit => {
-                const text = unit.innerText.toLowerCase();
-                if (text.includes(query)) {
+                if (unit.innerText.toLowerCase().includes(query)) {
                     unit.style.display = "block";
                     found++;
                 } else {
