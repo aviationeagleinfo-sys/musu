@@ -3,76 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Musumeci Digital | Hub Medico</title>
+    <title>News & Aggiornamenti | Musumeci Digital</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
-        :root { --med-red: #d90429; --dark: #1b263b; }
-        body { background: #f8f9fa; font-family: 'Inter', sans-serif; }
-        .sidebar { background: var(--dark); min-height: 100vh; color: white; padding: 2rem; }
-        .card-custom { border: none; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: 0.3s; }
-        #admin-section { display: none; }
-        .btn-med { background: var(--dark); color: white; border: none; padding: 12px; font-weight: bold; }
-        .btn-med:hover { background: var(--med-red); color: white; }
+        :root { --eagle-red: #d90429; --eagle-dark: #2b2d42; }
+        body { background: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
+        .news-card { border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; transition: 0.3s; background: white; }
+        .news-card:hover { transform: translateY(-3px); }
+        .admin-box { background: var(--eagle-dark); color: white; border-radius: 12px; padding: 25px; display: none; margin-bottom: 40px; }
+        .btn-eagle { background: var(--eagle-red); color: white; border: none; font-weight: 600; }
+        .btn-eagle:hover { background: #b30422; color: white; }
+        .date-tag { font-size: 0.8rem; color: #8d99ae; font-weight: 600; text-transform: uppercase; }
     </style>
 </head>
 <body>
 
-<div class="container-fluid">
-    <div class="row">
-        <nav class="col-md-3 col-lg-2 sidebar">
-            <h3 class="fw-bold mb-5">M<span class="text-danger">.</span>DIGITAL</h3>
-            <div class="d-grid gap-3">
-                <button class="btn btn-outline-light btn-sm" onclick="location.reload()">Dashboard</button>
-                <button class="btn btn-danger btn-sm mt-5" id="logoutBtn">Esci</button>
-            </div>
-        </nav>
+<div class="container py-5">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold text-dark">NEWS <span class="text-danger">&</span> AGGIORNAMENTI</h1>
+        <p class="text-muted">Comunicazioni ufficiali e aggiornamenti tecnici</p>
+        <div id="userStatus" class="small mt-2"></div>
+    </header>
 
-        <main class="col-md-9 col-lg-10 p-5">
-            <div class="d-flex justify-content-between align-items-center mb-5">
-                <h2 class="fw-bold">Gestione Clinica</h2>
-                <div id="userBadge" class="badge bg-secondary p-2">Caricamento...</div>
+    <section id="adminArea" class="admin-box">
+        <h4 class="mb-4"><i class="bi bi-pencil-square me-2"></i>Pubblica Nuovo Aggiornamento</h4>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <input type="text" id="newsTitle" class="form-control" placeholder="Titolo dell'articolo">
             </div>
+            <div class="col-md-4">
+                <select id="newsCategory" class="form-select">
+                    <option value="Generale">Generale</option>
+                    <option value="Tecnico">Tecnico</option>
+                    <option value="Importante">Importante ⚠️</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="text" id="newsLink" class="form-control" placeholder="Link (opzionale - es. Google Drive)">
+            </div>
+            <div class="col-12">
+                <textarea id="newsContent" class="form-control" rows="3" placeholder="Scrivi qui il contenuto della news..."></textarea>
+            </div>
+            <div class="col-12 text-end">
+                <button class="btn btn-eagle px-5" id="btnPublish">Pubblica Ora</button>
+            </div>
+        </div>
+    </section>
 
-            <div id="admin-section">
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <div class="card card-custom p-4">
-                            <h5 class="fw-bold mb-3"><i class="bi bi-person-plus-fill text-danger me-2"></i>Anagrafica Paziente</h5>
-                            <input type="text" id="pNome" class="form-control mb-2" placeholder="Nome e Cognome">
-                            <input type="email" id="pEmail" class="form-control mb-3" placeholder="Email Paziente (univoca)">
-                            <button class="btn btn-med w-100" id="btnSalvaPaziente">Registra nel Database</button>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card card-custom p-4">
-                            <h5 class="fw-bold mb-3"><i class="bi bi-file-earmark-arrow-up-fill text-danger me-2"></i>Invia Referto</h5>
-                            <select id="pSelect" class="form-select mb-2"><option value="">Seleziona Paziente...</option></select>
-                            <input type="file" id="fInput" class="form-control mb-3">
-                            <button class="btn btn-med w-100" id="btnUpload">Carica e Notifica</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-5">
-                <div class="card card-custom p-4">
-                    <h5 class="fw-bold mb-4">Archivio Documenti</h5>
-                    <div id="docList" class="list-group list-group-flush">
-                        <p class="text-muted">Nessun documento trovato.</p>
-                    </div>
-                </div>
-            </div>
-        </main>
+    <div id="newsFeed" class="row justify-content-center">
+        <div class="text-center p-5">
+            <div class="spinner-border text-danger" role="status"></div>
+            <p class="mt-2">Caricamento notizie...</p>
+        </div>
     </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
 
 <script>
+    // Configurazione
     const firebaseConfig = {
         apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
         authDomain: "giuseppe-4c318.firebaseapp.com",
@@ -82,98 +74,85 @@
         appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
     };
     firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
     const db = firebase.firestore();
-    const storage = firebase.storage();
+    const auth = firebase.auth();
 
-    const MEDICI = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com'];
+    const ADMINS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com'];
 
+    // Controllo Accesso
     auth.onAuthStateChanged(user => {
-        if (!user) { window.location.href = "login.html"; return; }
-        
-        const email = user.email.toLowerCase();
-        const isMed = MEDICI.includes(email);
-        
-        document.getElementById('userBadge').innerText = isMed ? "MEDICO: " + email : "PAZIENTE: " + email;
-        if (isMed) {
-            document.getElementById('admin-section').style.display = 'block';
-            caricaPazienti();
+        if (user && ADMINS.includes(user.email.toLowerCase())) {
+            document.getElementById('adminArea').style.display = 'block';
+            document.getElementById('userStatus').innerHTML = `<span class="badge bg-success">Modalità Editor: ${user.email}</span>`;
         }
-        caricaDocumenti(email, isMed);
+        loadNews();
     });
 
-    // 1. SALVATAGGIO PAZIENTE
-    document.getElementById('btnSalvaPaziente').onclick = async () => {
-        const nome = document.getElementById('pNome').value;
-        const email = document.getElementById('pEmail').value.toLowerCase().trim();
+    // Funzione Pubblicazione
+    document.getElementById('btnPublish').onclick = async () => {
+        const title = document.getElementById('newsTitle').value;
+        const content = document.getElementById('newsContent').value;
+        const category = document.getElementById('newsCategory').value;
+        const link = document.getElementById('newsLink').value;
 
-        if(!nome || !email) return alert("Inserisci dati validi!");
+        if(!title || !content) return alert("Titolo e contenuto sono obbligatori!");
 
         try {
-            await db.collection('pazienti').add({ nome, email, data: new Date() });
-            alert("Paziente Registrato!");
-            document.getElementById('pNome').value = "";
-            document.getElementById('pEmail').value = "";
+            await db.collection('news').add({
+                titolo: title,
+                testo: content,
+                categoria: category,
+                link: link,
+                data: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            alert("News pubblicata!");
+            // Reset campi
+            document.getElementById('newsTitle').value = "";
+            document.getElementById('newsContent').value = "";
+            document.getElementById('newsLink').value = "";
         } catch (e) {
-            console.error(e);
             alert("Errore: " + e.message);
         }
     };
 
-    // 2. CARICA LISTA PAZIENTI NELLA SELECT
-    function caricaPazienti() {
-        db.collection('pazienti').orderBy('nome').onSnapshot(snap => {
-            const sel = document.getElementById('pSelect');
-            sel.innerHTML = '<option value="">Seleziona Paziente...</option>';
+    // Funzione Caricamento (Real-time)
+    function loadNews() {
+        db.collection('news').orderBy('data', 'desc').onSnapshot(snap => {
+            const feed = document.getElementById('newsFeed');
+            feed.innerHTML = snap.empty ? '<p class="text-center">Nessuna news presente.</p>' : '';
+
             snap.forEach(doc => {
-                sel.innerHTML += `<option value="${doc.data().email}">${doc.data().nome} (${doc.data().email})</option>`;
+                const n = doc.data();
+                const date = n.data ? n.data.toDate().toLocaleDateString('it-IT') : 'Adesso';
+                const isAdmin = auth.currentUser && ADMINS.includes(auth.currentUser.email.toLowerCase());
+
+                feed.innerHTML += `
+                    <div class="col-md-8">
+                        <article class="news-card p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <span class="date-tag">${date}</span>
+                                <span class="badge ${n.categoria === 'Importante' ? 'bg-danger' : 'bg-dark'}">${n.categoria}</span>
+                            </div>
+                            <h3 class="fw-bold mb-3">${n.titolo}</h3>
+                            <p class="text-secondary">${n.testo.replace(/\n/g, '<br>')}</p>
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                ${n.link ? `<a href="${n.link}" target="_blank" class="btn btn-sm btn-outline-danger">Approfondisci <i class="bi bi-arrow-right"></i></a>` : '<span></span>'}
+                                ${isAdmin ? `<button onclick="deleteNews('${doc.id}')" class="btn btn-link text-muted p-0"><i class="bi bi-trash"></i></button>` : ''}
+                            </div>
+                        </article>
+                    </div>
+                `;
             });
         });
     }
 
-    // 3. CARICA DOCUMENTI
-    function caricaDocumenti(userEmail, isMed) {
-        let q = db.collection('referti');
-        if (!isMed) q = q.where('pazienteEmail', '==', userEmail);
-        
-        q.orderBy('timestamp', 'desc').onSnapshot(snap => {
-            const list = document.getElementById('docList');
-            list.innerHTML = snap.empty ? "Nessun referto." : "";
-            snap.forEach(doc => {
-                const d = doc.data();
-                list.innerHTML += `
-                    <div class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <i class="bi bi-file-pdf text-danger me-2"></i>
-                            <strong>${d.nomeFile}</strong> <br>
-                            <small class="text-muted">Per: ${d.pazienteEmail}</small>
-                        </div>
-                        <a href="${d.url}" target="_blank" class="btn btn-sm btn-dark">Apri</a>
-                    </div>`;
-            });
-        });
-    }
-
-    // 4. UPLOAD FILE
-    document.getElementById('btnUpload').onclick = async () => {
-        const file = document.getElementById('fInput').files[0];
-        const pEmail = document.getElementById('pSelect').value;
-        if(!file || !pEmail) return alert("Seleziona tutto!");
-
-        const ref = storage.ref(`referti/${pEmail}/${Date.now()}_${file.name}`);
-        await ref.put(file);
-        const url = await ref.getDownloadURL();
-        
-        await db.collection('referti').add({
-            nomeFile: file.name,
-            url: url,
-            pazienteEmail: pEmail,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-        });
-        alert("Referto Caricato!");
+    // Funzione Elimina
+    window.deleteNews = async (id) => {
+        if(confirm("Vuoi davvero eliminare questa news?")) {
+            await db.collection('news').doc(id).delete();
+        }
     };
-
-    document.getElementById('logoutBtn').onclick = () => auth.signOut();
 </script>
+
 </body>
 </html>
