@@ -30,9 +30,15 @@
         }
         .col-left { left: 15px; } .col-right { right: 15px; }
 
-        .navbar { background: white; border-bottom: 3px solid var(--med-red); padding: 1rem 0; }
+        /* NAVBAR ENHANCEMENTS */
+        .navbar { background: white; border-bottom: 3px solid var(--med-red); padding: 1rem 0; transition: all 0.3s ease; }
         .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--tech-black)!important; }
         .brand-accent { color: var(--med-red); }
+        
+        .nav-link { color: var(--tech-black)!important; font-size: 0.85rem; letter-spacing: 0.5px; transition: 0.3s; }
+        .nav-link:hover { color: var(--med-red)!important; }
+        .dropdown-menu { border-radius: 0; border: none; border-top: 3px solid var(--med-red); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .dropdown-item:hover { background-color: var(--soft-gray); color: var(--med-red); }
 
         .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 10px 25px; font-weight: 600; transition: 0.3s; text-decoration: none; border: none; }
         .btn-medical:hover { background-color: var(--med-red); color: white; }
@@ -42,7 +48,7 @@
         h1 { font-family: 'Outfit', sans-serif; font-size: 3.2rem; margin-bottom: 20px; letter-spacing: -1px; }
         .red-line { width: 60px; height: 4px; background: var(--med-red); margin: 20px auto; }
         
-        .feature-card { padding: 40px; border-start: 4px solid var(--tech-black); background: var(--soft-gray); transition: 0.3s; height: 100%; }
+        .feature-card { padding: 40px; border-left: 4px solid var(--tech-black); background: var(--soft-gray); transition: 0.3s; height: 100%; }
         .feature-card.accent { border-color: var(--med-red); }
         .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
 
@@ -53,7 +59,6 @@
         .footer-link:hover { color: var(--med-red); padding-left: 5px; }
         .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); margin-top: 60px; padding-top: 30px; font-size: 0.85rem; color: #6c757d; }
         
-        /* Auth State Helpers */
         #user-info { display: none; align-items: center; }
     </style>
 </head>
@@ -64,16 +69,43 @@
 
     <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
                 <img src="favicon.ico" alt="Logo" width="35" class="me-2">
-                GIUSEPPE<span class="brand-accent">MUSUMECI</span>
+                <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
             </a>
-            <div class="ms-auto">
-                <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
-                <div id="user-info">
-                    <span id="user-name" class="me-3 small fw-bold text-uppercase opacity-75"></span>
-                    <button onclick="logout()" class="btn btn-outline-danger btn-sm rounded-0 fw-bold">LOGOUT</button>
-                </div>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">
+                            Marchio
+                        </a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="cv-scolastico.html">CV Scolastico</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="carriera.html">Carriera</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li class="nav-item px-lg-2">
+                        <a class="nav-link fw-bold text-uppercase" href="attualita.html">Attualità</a>
+                    </li>
+                    
+                    <li class="nav-item px-lg-2 me-lg-3">
+                        <a class="nav-link fw-bold text-uppercase" href="change.html">Change</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+                        <div id="user-info">
+                            <span id="user-name" class="me-3 small fw-bold text-uppercase opacity-75"></span>
+                            <button onclick="logout()" class="btn btn-outline-danger btn-sm rounded-0 fw-bold">LOGOUT</button>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -123,9 +155,9 @@
                 <div class="col-6 col-lg-3">
                     <h6 class="fw-bold mb-4 text-uppercase small letter-spacing-lg">Navigazione</h6>
                     <nav>
-                        <a href="index.html" class="footer-link">Home Terminal</a>
-                        <a href="login.html" class="footer-link">Accesso Medico</a>
-                        <a href="register.html" class="footer-link">Registrazione Paziente</a>
+                        <a href="index.html" class="footer-link">Home</a>
+                        <a href="login.html" class="footer-link">Accesso</a>
+                        <a href="register.html" class="footer-link">Registrazione</a>
                         <a href="news.html" class="footer-link">News&Aggiornamenti</a>
                     </nav>
                 </div>
@@ -135,7 +167,7 @@
                     <nav>
                         <a href="privacy.html" class="footer-link">Privacy Policy (GDPR)</a>
                         <a href="delete-account.html" class="footer-link">Elimina Account</a>
-                        <a href="mailto:support@drgiuseppemusumeci.com" class="footer-link">Supporto Tecnico</a>
+                        <a href="mailto:info@drgiuseppemusumeci.com" class="footer-link">Supporto Tecnico</a>
                         <span class="footer-link text-white-50 mt-3 small">Status Sistema: <span class="text-success">● Operativo</span></span>
                     </nav>
                 </div>
@@ -148,6 +180,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
@@ -163,7 +196,6 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
-        // Monitoraggio Stato Utente
         auth.onAuthStateChanged((user) => {
             const btnLogin = document.getElementById('btn-login-nav');
             const userInfo = document.getElementById('user-info');
