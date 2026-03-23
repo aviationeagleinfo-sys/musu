@@ -9,12 +9,20 @@
     <style>
         :root { --eagle-red: #d90429; --eagle-dark: #2b2d42; }
         body { background: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
-        .news-card { border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; transition: 0.3s; background: white; }
+        .news-card { border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; transition: 0.3s; background: white; border-left: 5px solid transparent; }
         .news-card:hover { transform: translateY(-3px); }
         .admin-box { background: var(--eagle-dark); color: white; border-radius: 12px; padding: 25px; display: none; margin-bottom: 40px; }
         .btn-eagle { background: var(--eagle-red); color: white; border: none; font-weight: 600; }
         .btn-eagle:hover { background: #b30422; color: white; }
         .date-tag { font-size: 0.8rem; color: #8d99ae; font-weight: 600; text-transform: uppercase; }
+        
+        /* Classi dinamiche per i colori delle card */
+        .border-primary { border-left-color: #0d6efd !important; }
+        .border-success { border-left-color: #198754 !important; }
+        .border-danger { border-left-color: #dc3545 !important; }
+        .border-warning { border-left-color: #ffc107 !important; }
+        .border-info { border-left-color: #0dcaf0 !important; }
+        .border-dark { border-left-color: #212529 !important; }
     </style>
 </head>
 <body>
@@ -30,23 +38,42 @@
         <h4 class="mb-4"><i class="bi bi-pencil-square me-2"></i>Pubblica Nuovo Aggiornamento</h4>
         <div class="row g-3">
             <div class="col-md-4">
+                <label class="form-label small">Titolo</label>
                 <input type="text" id="newsTitle" class="form-control" placeholder="Titolo dell'articolo">
             </div>
             <div class="col-md-4">
+                <label class="form-label small">Etichetta</label>
                 <select id="newsCategory" class="form-select">
                     <option value="Generale">Generale</option>
                     <option value="Tecnico">Tecnico</option>
                     <option value="Importante">Importante ⚠️</option>
+                    <option value="Sicurezza">Sicurezza</option>
+                    <option value="Manutenzione">Manutenzione</option>
+                    <option value="Aviation">Aviation Eagle</option>
+                    <option value="Evento">Evento</option>
                 </select>
             </div>
             <div class="col-md-4">
-                <input type="text" id="newsLink" class="form-control" placeholder="Link (opzionale - es. Google Drive)">
+                <label class="form-label small">Colore Evidenziatore</label>
+                <select id="newsColor" class="form-select">
+                    <option value="dark">Grigio Scuro (Default)</option>
+                    <option value="primary">Blu (Info)</option>
+                    <option value="success">Verde (Ok/Risolto)</option>
+                    <option value="danger">Rosso (Allarme)</option>
+                    <option value="warning">Giallo (Attenzione)</option>
+                    <option value="info">Azzurro (News)</option>
+                </select>
             </div>
             <div class="col-12">
-                <textarea id="newsContent" class="form-control" rows="3" placeholder="Scrivi qui il contenuto della news..."></textarea>
+                <label class="form-label small">Link Esterno (Opzionale)</label>
+                <input type="text" id="newsLink" class="form-control" placeholder="https://...">
             </div>
-            <div class="col-12 text-end">
-                <button class="btn btn-eagle px-5" id="btnPublish">Pubblica Ora</button>
+            <div class="col-12">
+                <label class="form-label small">Contenuto</label>
+                <textarea id="newsContent" class="form-control" rows="4" placeholder="Scrivi qui il contenuto..."></textarea>
+            </div>
+            <div class="col-12 text-end mt-3">
+                <button class="btn btn-eagle px-5 py-2" id="btnPublish">Pubblica Messaggio</button>
             </div>
         </div>
     </section>
@@ -54,7 +81,7 @@
     <div id="newsFeed" class="row justify-content-center">
         <div class="text-center p-5">
             <div class="spinner-border text-danger" role="status"></div>
-            <p class="mt-2">Caricamento notizie...</p>
+            <p class="mt-2">Sincronizzazione notizie...</p>
         </div>
     </div>
 </div>
@@ -64,7 +91,6 @@
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 
 <script>
-    // Configurazione
     const firebaseConfig = {
         apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
         authDomain: "giuseppe-4c318.firebaseapp.com",
@@ -79,34 +105,33 @@
 
     const ADMINS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com'];
 
-    // Controllo Accesso
     auth.onAuthStateChanged(user => {
         if (user && ADMINS.includes(user.email.toLowerCase())) {
             document.getElementById('adminArea').style.display = 'block';
-            document.getElementById('userStatus').innerHTML = `<span class="badge bg-success">Modalità Editor: ${user.email}</span>`;
+            document.getElementById('userStatus').innerHTML = `<span class="badge bg-success">Admin: ${user.email}</span>`;
         }
         loadNews();
     });
 
-    // Funzione Pubblicazione
     document.getElementById('btnPublish').onclick = async () => {
         const title = document.getElementById('newsTitle').value;
         const content = document.getElementById('newsContent').value;
         const category = document.getElementById('newsCategory').value;
+        const color = document.getElementById('newsColor').value;
         const link = document.getElementById('newsLink').value;
 
-        if(!title || !content) return alert("Titolo e contenuto sono obbligatori!");
+        if(!title || !content) return alert("Compila i campi obbligatori!");
 
         try {
             await db.collection('news').add({
                 titolo: title,
                 testo: content,
                 categoria: category,
+                colore: color,
                 link: link,
                 data: firebase.firestore.FieldValue.serverTimestamp()
             });
-            alert("News pubblicata!");
-            // Reset campi
+            alert("Aggiornamento inviato!");
             document.getElementById('newsTitle').value = "";
             document.getElementById('newsContent').value = "";
             document.getElementById('newsLink').value = "";
@@ -115,29 +140,31 @@
         }
     };
 
-    // Funzione Caricamento (Real-time)
     function loadNews() {
         db.collection('news').orderBy('data', 'desc').onSnapshot(snap => {
             const feed = document.getElementById('newsFeed');
-            feed.innerHTML = snap.empty ? '<p class="text-center">Nessuna news presente.</p>' : '';
+            feed.innerHTML = snap.empty ? '<p class="text-center">Nessuna comunicazione presente.</p>' : '';
 
             snap.forEach(doc => {
                 const n = doc.data();
-                const date = n.data ? n.data.toDate().toLocaleDateString('it-IT') : 'Adesso';
+                const date = n.data ? n.data.toDate().toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' }) : 'Inviando...';
                 const isAdmin = auth.currentUser && ADMINS.includes(auth.currentUser.email.toLowerCase());
+                
+                // Mappa dei colori per le etichette
+                const badgeColor = n.colore || 'dark';
 
                 feed.innerHTML += `
                     <div class="col-md-8">
-                        <article class="news-card p-4">
+                        <article class="news-card p-4 border-${badgeColor}">
                             <div class="d-flex justify-content-between align-items-start mb-2">
-                                <span class="date-tag">${date}</span>
-                                <span class="badge ${n.categoria === 'Importante' ? 'bg-danger' : 'bg-dark'}">${n.categoria}</span>
+                                <span class="date-tag"><i class="bi bi-calendar3 me-1"></i> ${date}</span>
+                                <span class="badge bg-${badgeColor}">${n.categoria}</span>
                             </div>
                             <h3 class="fw-bold mb-3">${n.titolo}</h3>
-                            <p class="text-secondary">${n.testo.replace(/\n/g, '<br>')}</p>
+                            <p class="text-secondary" style="white-space: pre-wrap;">${n.testo}</p>
                             <div class="d-flex justify-content-between align-items-center mt-4">
-                                ${n.link ? `<a href="${n.link}" target="_blank" class="btn btn-sm btn-outline-danger">Approfondisci <i class="bi bi-arrow-right"></i></a>` : '<span></span>'}
-                                ${isAdmin ? `<button onclick="deleteNews('${doc.id}')" class="btn btn-link text-muted p-0"><i class="bi bi-trash"></i></button>` : ''}
+                                ${n.link ? `<a href="${n.link}" target="_blank" class="btn btn-sm btn-outline-${badgeColor}">Vedi Dettagli <i class="bi bi-box-arrow-up-right ms-1"></i></a>` : '<span></span>'}
+                                ${isAdmin ? `<button onclick="deleteNews('${doc.id}')" class="btn btn-link text-danger p-0 opacity-50"><i class="bi bi-trash"></i></button>` : ''}
                             </div>
                         </article>
                     </div>
@@ -146,9 +173,8 @@
         });
     }
 
-    // Funzione Elimina
     window.deleteNews = async (id) => {
-        if(confirm("Vuoi davvero eliminare questa news?")) {
+        if(confirm("Eliminare definitivamente questo aggiornamento?")) {
             await db.collection('news').doc(id).delete();
         }
     };
