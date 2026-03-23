@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrazione | Musumeci Digital</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <style>
+        :root { --med-red: #d90429; --tech-black: #2b2d42; --soft-gray: #f8f9fa; }
+        body { background-color: var(--soft-gray); font-family: 'Inter', sans-serif; padding: 50px 0; }
+        
+        .reg-card {
+            background: white;
+            border-left: 5px solid var(--med-red);
+            padding: 40px;
+            max-width: 600px;
+            margin: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .form-control { border-radius: 0; border: 1px solid #ddd; padding: 12px; }
+        .form-control:focus { border-color: var(--med-red); box-shadow: none; }
+        
+        .btn-register { background: var(--tech-black); color: white; border-radius: 0; font-weight: 600; border: none; }
+        .btn-register:hover { background: var(--med-red); color: white; }
+
+        .btn-google-reg {
+            background: white;
+            border: 1px solid #ddd;
+            color: var(--tech-black);
+            border-radius: 0;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        .btn-google-reg:hover { background: #f8f9fa; border-color: #bbb; }
+
+        .divider { display: flex; align-items: center; text-align: center; margin: 25px 0; color: #888; font-size: 0.8rem; }
+        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #eee; }
+        .divider:not(:empty)::before { margin-right: .5em; }
+        .divider:not(:empty)::after { margin-left: .5em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="reg-card">
+            <h2 class="fw-bold mb-1">CREA ACCOUNT CLINICO</h2>
+            <p class="text-muted small mb-4">Accesso riservato al personale e ai pazienti autorizzati.</p>
+
+            <button class="btn btn-google-reg w-100 py-2" id="googleReg">
+                <i class="bi bi-google text-danger"></i> REGISTRATI CON GOOGLE
+            </button>
+
+            <div class="divider">OPPURE USA LA TUA EMAIL</div>
+
+            <form id="regForm" class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label small fw-bold">NOME</label>
+                    <input type="text" id="regNome" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label small fw-bold">COGNOME</label>
+                    <input type="text" id="regCognome" class="form-control" required>
+                </div>
+                <div class="col-12">
+                    <label class="form-label small fw-bold">EMAIL PROFESSIONALE</label>
+                    <input type="email" id="regEmail" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label small fw-bold">PASSWORD</label>
+                    <input type="password" id="regPass" class="form-control" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label small fw-bold">CONFERMA PASSWORD</label>
+                    <input type="password" id="regConfirm" class="form-control" required>
+                </div>
+                
+                <div class="col-12 mt-4">
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="privacy" required>
+                        <label class="form-check-label small" for="privacy">
+                            Accetto il trattamento dei dati secondo protocolli clinici e GDPR.
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-register w-100 py-3">CONFERMA REGISTRAZIONE</button>
+                </div>
+            </form>
+
+            <div class="text-center mt-4 border-top pt-3">
+                <p class="small text-muted">Hai già un account operativo? <a href="login.html" class="text-danger fw-bold text-decoration-none">ACCEDI AL TERMINALE</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configurazione Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
+            projectId: "giuseppe-4c318",
+            storageBucket: "giuseppe-4c318.firebasestorage.app",
+            messagingSenderId: "658885311131",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // 1. REGISTRAZIONE CON GOOGLE
+        document.getElementById('googleReg').onclick = () => {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then(() => window.location.href = "index.html")
+                .catch(err => alert("Errore Google: " + err.message));
+        };
+
+        // 2. REGISTRAZIONE EMAIL/PASSWORD
+        document.getElementById('regForm').onsubmit = (e) => {
+            e.preventDefault();
+            
+            const nome = document.getElementById('regNome').value;
+            const cognome = document.getElementById('regCognome').value;
+            const email = document.getElementById('regEmail').value;
+            const pass = document.getElementById('regPass').value;
+            const confirm = document.getElementById('regConfirm').value;
+
+            if (pass !== confirm) {
+                alert("Le password non coincidono, Comandante.");
+                return;
+            }
+
+            auth.createUserWithEmailAndPassword(email, pass)
+                .then((userCredential) => {
+                    // Aggiorniamo il profilo con Nome e Cognome
+                    return userCredential.user.updateProfile({
+                        displayName: `${nome} ${cognome}`
+                    });
+                })
+                .then(() => {
+                    alert("Account creato con successo.");
+                    window.location.href = "index.html";
+                })
+                .catch(err => alert("Errore: " + err.message));
+        };
+    </script>
+</body>
+</html>
