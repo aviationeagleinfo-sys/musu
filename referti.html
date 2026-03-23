@@ -3,136 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Referti e News | Musumeci Digital</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico"> 
+    <title>Area Riservata | Musumeci Digital</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --med-red: #d90429; --tech-black: #2b2d42; --soft-gray: #f8f9fa; }
-        body { background-color: var(--soft-gray); font-family: 'Inter', sans-serif; color: #333; }
-        .sidebar { background: var(--tech-black); min-height: 100vh; color: white; padding: 25px; }
-        .main-content { padding: 40px; }
-        .card-custom { background: white; border-radius: 8px; border-top: 5px solid var(--med-red); padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 25px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee; }
-        #admin-zone, #news-editor { display: none; }
-        .btn-med { background: var(--tech-black); color: white; border-radius: 4px; font-weight: 600; border: none; transition: 0.3s; }
-        .btn-med:hover { background: var(--med-red); color: white; transform: translateY(-1px); }
-        .progress { height: 10px; border-radius: 10px; margin-top: 15px; display: none; }
-        .progress-bar { background-color: var(--med-red); }
-        .file-item { transition: 0.2s; border-left: 4px solid transparent; margin-bottom: 8px; border-radius: 4px !important; }
-        .file-item:hover { border-left: 4px solid var(--med-red); background: #fdfdfd; }
-        .main-footer { background-color: #1a1b29; color: #ffffff; padding: 50px 0 20px 0; margin-top: 60px; border-top: 5px solid var(--med-red); }
-        .footer-link { color: #9da3a8; text-decoration: none; font-size: 0.9rem; display: block; margin-bottom: 5px; }
-        .footer-link:hover { color: var(--med-red); }
+        :root { --med-red: #d90429; --dark: #2b2d42; --bg: #f4f7f6; }
+        body { background: var(--bg); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .sidebar { background: var(--dark); min-height: 100vh; color: white; }
+        .card-med { background: white; border: none; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); padding: 25px; margin-bottom: 20px; }
+        .btn-primary-med { background: var(--dark); border: none; color: white; padding: 10px 20px; border-radius: 8px; font-weight: 600; }
+        .btn-primary-med:hover { background: var(--med-red); }
+        .status-online { color: #2ecc71; font-size: 0.8rem; }
+        #admin-panel { display: none; }
     </style>
 </head>
 <body>
 
 <div class="container-fluid">
     <div class="row">
-        <nav class="col-md-3 col-lg-2 sidebar">
-            <h5 class="text-uppercase fw-bold mb-4" style="letter-spacing:1px">Musumeci Hub</h5>
-            <ul class="nav flex-column">
-                <li class="nav-item mb-2"><a href="#" class="nav-link text-white active"><i class="bi bi-grid-1x2-fill me-2"></i> Dashboard</a></li>
-                <li class="nav-item mb-2"><a href="#news-section" class="nav-link text-white"><i class="bi bi-megaphone me-2"></i> News</a></li>
-                <hr class="opacity-20">
-                <li class="nav-item"><a href="#" id="logoutBtn" class="nav-link text-danger fw-bold"><i class="bi bi-power me-2"></i> Logout</a></li>
-            </ul>
-        </nav>
+        <aside class="col-md-3 col-lg-2 sidebar p-4">
+            <h4 class="fw-bold mb-5">MUSUMECI<span class="text-danger">.</span>HUB</h4>
+            <nav class="nav flex-column gap-2">
+                <a href="#" class="nav-link text-white opacity-75"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
+                <a href="#" class="nav-link text-white opacity-75"><i class="bi bi-folder me-2"></i> Documenti</a>
+                <hr>
+                <button class="btn btn-outline-danger btn-sm" id="logoutBtn">Log-out</button>
+            </nav>
+        </aside>
 
-        <main class="col-md-9 col-lg-10 main-content">
-            <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
-                <h2 class="fw-bold text-uppercase m-0">Area Riservata</h2>
+        <main class="col-md-9 col-lg-10 p-5">
+            <header class="d-flex justify-content-between align-items-center mb-5">
+                <div>
+                    <h2 class="fw-bold mb-0">Gestione Operativa</h2>
+                    <p class="text-muted" id="user-info">Caricamento utente...</p>
+                </div>
                 <div class="text-end">
-                    <span class="badge bg-dark px-3 py-2" id="role-badge">Paziente</span><br>
-                    <small id="user-display" class="text-muted fw-bold"></small>
+                    <span class="badge bg-dark" id="role-tag">Accesso in corso</span>
                 </div>
-            </div>
+            </header>
 
-            <div id="news-section" class="mb-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="fw-bold m-0"><i class="bi bi-newspaper me-2 text-danger"></i>Comunicazioni</h4>
-                    <button id="addNewsBtn" class="btn btn-sm btn-med" style="display:none;">Pubblica News</button>
+            <section id="admin-panel">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card-med">
+                            <h5 class="fw-bold mb-4"><i class="bi bi-person-plus text-danger me-2"></i>Registra Nuovo Paziente</h5>
+                            <div class="mb-3">
+                                <label class="form-label small">Nome Completo</label>
+                                <input type="text" id="pNome" class="form-control" placeholder="es. Mario Rossi">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small">Email (Chiave di accesso)</label>
+                                <input type="email" id="pEmail" class="form-control" placeholder="es. mario@email.it">
+                            </div>
+                            <button class="btn btn-primary-med w-100" id="btnSavePatient">Salva nel Database</button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card-med">
+                            <h5 class="fw-bold mb-4"><i class="bi bi-upload text-danger me-2"></i>Invia Referto</h5>
+                            <div class="mb-3">
+                                <label class="form-label small">Seleziona Destinatario</label>
+                                <select id="selectPaziente" class="form-select">
+                                    <option value="">Caricamento lista...</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label small">File PDF/Immagine</label>
+                                <input type="file" id="fileIn" class="form-control">
+                            </div>
+                            <button class="btn btn-primary-med w-100" id="btnUpload">Carica Referto</button>
+                            <div class="progress mt-3" id="progBar" style="display:none; height: 10px;">
+                                <div class="progress-bar bg-danger progress-bar-striped progress-bar-animated" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
-                <div id="news-editor" class="card-custom mb-4">
-                    <h6 class="fw-bold mb-3">Nuova Comunicazione</h6>
-                    <div class="row g-3">
-                        <div class="col-md-6"><input type="text" id="newsTitle" class="form-control" placeholder="Titolo"></div>
-                        <div class="col-md-3">
-                            <select id="newsType" class="form-select" onchange="toggleCustomTag()">
-                                <option value="AVVISO">AVVISO</option>
-                                <option value="URGENTE">URGENTE</option>
-                                <option value="ALTRO">Altro...</option>
+            </section>
+
+            <section class="mt-4">
+                <div class="card-med">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="fw-bold m-0"><i class="bi bi-archive text-danger me-2"></i>Archivio Documenti</h5>
+                        <div id="admin-filter" style="display:none">
+                            <select id="filterSelect" class="form-select form-select-sm" onchange="loadDocuments()">
+                                <option value="all">Mostra Tutti</option>
                             </select>
                         </div>
-                        <div class="col-md-3" id="customTagZone" style="display:none;"><input type="text" id="customTagName" class="form-control" placeholder="Nome Etichetta"></div>
-                        <div class="col-md-12"><textarea id="newsContent" class="form-control" rows="2" placeholder="Scrivi il messaggio qui..."></textarea></div>
-                        <div class="col-12 text-end">
-                            <button class="btn btn-sm btn-light me-2" onclick="hideNewsEditor()">Chiudi</button>
-                            <button class="btn btn-sm btn-med" onclick="saveNews()">Invia News</button>
-                        </div>
                     </div>
+                    <div id="document-list" class="list-group list-group-flush">
+                        </div>
                 </div>
-                <div id="news-list" class="row"></div>
-            </div>
-
-            <div id="admin-zone">
-                <div class="card-custom">
-                    <h4 class="fw-bold mb-3 text-uppercase"><i class="bi bi-person-plus me-2 text-danger"></i>Anagrafica Pazienti</h4>
-                    <div class="row g-3">
-                        <div class="col-md-5">
-                            <input type="text" id="pazienteNome" class="form-control" placeholder="Nome e Cognome Paziente">
-                        </div>
-                        <div class="col-md-5">
-                            <input type="email" id="pazienteEmail" class="form-control" placeholder="Email (quella usata per il login)">
-                        </div>
-                        <div class="col-md-2">
-                            <button class="btn btn-med w-100" onclick="registraPaziente()">SALVA</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-custom">
-                    <h4 class="fw-bold mb-3 text-uppercase"><i class="bi bi-file-earmark-medical me-2 text-danger"></i>Invio Referto</h4>
-                    <div class="row g-3">
-                        <div class="col-md-4">
-                            <select id="pazienteSelect" class="form-select"><option value="">Caricamento...</option></select>
-                        </div>
-                        <div class="col-md-5">
-                            <input type="file" id="fileInput" class="form-control">
-                        </div>
-                        <div class="col-md-3">
-                            <button class="btn btn-med w-100" id="uploadBtn">CARICA E INVIA</button>
-                        </div>
-                    </div>
-                    <div class="progress" id="uploadProgress"><div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%"></div></div>
-                </div>
-            </div>
-
-            <div class="card-custom">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="fw-bold m-0 text-uppercase"><i class="bi bi-folder2-open me-2 text-danger"></i>Archivio Personale</h4>
-                    <div id="pazienteFilterZone" style="display:none;">
-                        <select id="filterPaziente" class="form-select form-select-sm" onchange="loadRealtimeFiles()">
-                            <option value="all">Visualizza: Tutti i pazienti</option>
-                        </select>
-                    </div>
-                </div>
-                <div id="realtime-file-list" class="list-group list-group-flush">
-                    <div class="text-center p-5"><div class="spinner-border text-danger"></div></div>
-                </div>
-            </div>
+            </section>
         </main>
     </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
 
 <script>
+    // CONFIGURAZIONE
     const firebaseConfig = {
         apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
         authDomain: "giuseppe-4c318.firebaseapp.com",
@@ -142,172 +115,155 @@
         appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
     };
     firebase.initializeApp(firebaseConfig);
+    
     const auth = firebase.auth();
-    const storage = firebase.storage();
     const db = firebase.firestore();
-
+    const storage = firebase.storage();
     const ADMINS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com'];
-    let isAdmin = false;
 
+    // STATO INIZIALE
     auth.onAuthStateChanged(user => {
         if (!user) { window.location.href = "login.html"; return; }
-        document.getElementById('user-display').innerText = user.email;
-        isAdmin = ADMINS.includes(user.email.toLowerCase());
+        
+        const email = user.email.toLowerCase();
+        document.getElementById('user-info').innerText = email;
+        const isAdmin = ADMINS.includes(email);
 
         if (isAdmin) {
-            document.getElementById('admin-zone').style.display = 'block';
-            document.getElementById('addNewsBtn').style.display = 'block';
-            document.getElementById('pazienteFilterZone').style.display = 'block';
-            document.getElementById('role-badge').innerText = "Amministratore";
-            document.getElementById('role-badge').className = "badge bg-danger";
-            syncPazienti(); // Carica i pazienti registrati
+            document.getElementById('admin-panel').style.display = 'block';
+            document.getElementById('admin-filter').style.display = 'block';
+            document.getElementById('role-tag').innerText = "Amministratore";
+            document.getElementById('role-tag').className = "badge bg-danger";
+            syncPatients(); // Avvia caricamento pazienti
+        } else {
+            document.getElementById('role-tag').innerText = "Paziente";
+            document.getElementById('role-tag').className = "badge bg-primary";
         }
-        loadRealtimeFiles();
-        loadNews();
+        loadDocuments();
     });
 
-    // --- NEWS ---
-    function toggleCustomTag() { document.getElementById('customTagZone').style.display = (document.getElementById('newsType').value === 'ALTRO') ? 'block' : 'none'; }
-    document.getElementById('addNewsBtn').onclick = () => document.getElementById('news-editor').style.display = 'block';
-    function hideNewsEditor() { document.getElementById('news-editor').style.display = 'none'; }
+    // --- FUNZIONE 1: SALVATAGGIO PAZIENTE ---
+    document.getElementById('btnSavePatient').onclick = async function() {
+        const nome = document.getElementById('pNome').value.trim();
+        const email = document.getElementById('pEmail').value.toLowerCase().trim();
 
-    async function saveNews() {
-        const title = document.getElementById('newsTitle').value;
-        const content = document.getElementById('newsContent').value;
-        const type = document.getElementById('newsType').value;
-        let tag = type === 'ALTRO' ? document.getElementById('customTagName').value : type;
-        if(!title || !content) return alert("Compila i campi.");
-        await db.collection('news').add({ title, content, tag, timestamp: firebase.firestore.FieldValue.serverTimestamp() });
-        hideNewsEditor();
-    }
+        if (!nome || !email) { alert("Compila entrambi i campi!"); return; }
 
-    function loadNews() {
-        db.collection('news').orderBy('timestamp', 'desc').onSnapshot(snap => {
-            const container = document.getElementById('news-list');
-            container.innerHTML = "";
-            snap.forEach(doc => {
-                const d = doc.data();
-                container.innerHTML += `
-                    <div class="col-md-6 mb-3">
-                        <div class="card p-3 border-0 shadow-sm">
-                            <div class="d-flex justify-content-between"><span class="badge bg-dark mb-2">${d.tag}</span>
-                            ${isAdmin ? `<i class="bi bi-trash text-danger pointer" onclick="deleteNews('${doc.id}')"></i>` : ''}</div>
-                            <h6 class="fw-bold">${d.title}</h6><p class="small mb-0 text-muted">${d.content}</p>
-                        </div>
-                    </div>`;
+        try {
+            await db.collection('pazienti').add({
+                nome: nome,
+                email: email,
+                creatoIl: firebase.firestore.FieldValue.serverTimestamp()
             });
-        });
-    }
-    async function deleteNews(id) { if(confirm("Eliminare?")) await db.collection('news').doc(id).delete(); }
+            alert("Paziente salvato con successo!");
+            document.getElementById('pNome').value = "";
+            document.getElementById('pEmail').value = "";
+        } catch (error) {
+            console.error("Errore salvataggio:", error);
+            alert("Errore: " + error.message);
+        }
+    };
 
-    // --- GESTIONE ANAGRAFICA PAZIENTI (Novità) ---
-    async function registraPaziente() {
-        const nome = document.getElementById('pazienteNome').value;
-        const email = document.getElementById('pazienteEmail').value.toLowerCase().trim();
-        if(!nome || !email) return alert("Inserisci nome ed email!");
-        
-        await db.collection('anagrafica_pazienti').add({ nome, email, data: new Date() });
-        alert("Paziente registrato con successo!");
-        document.getElementById('pazienteNome').value = "";
-        document.getElementById('pazienteEmail').value = "";
-    }
+    // --- FUNZIONE 2: SINCRONIZZAZIONE LISTA PAZIENTI ---
+    function syncPatients() {
+        db.collection('pazienti').orderBy('nome').onSnapshot(snap => {
+            const sel = document.getElementById('selectPaziente');
+            const fil = document.getElementById('filterSelect');
+            
+            let options = '<option value="">-- Seleziona --</option>';
+            let filters = '<option value="all">Mostra Tutti</option>';
 
-    function syncPazienti() {
-        db.collection('anagrafica_pazienti').orderBy('nome').onSnapshot(snap => {
-            const sel = document.getElementById('pazienteSelect');
-            const fil = document.getElementById('filterPaziente');
-            sel.innerHTML = '<option value="">-- Seleziona Paziente --</option>';
-            fil.innerHTML = '<option value="all">Visualizza: Tutti i pazienti</option>';
             snap.forEach(doc => {
                 const p = doc.data();
                 const opt = `<option value="${p.email}">${p.nome} (${p.email})</option>`;
-                sel.innerHTML += opt;
-                fil.innerHTML += opt;
+                options += opt;
+                filters += opt;
             });
-        });
+
+            sel.innerHTML = options;
+            fil.innerHTML = filters;
+        }, err => console.log("Errore sync:", err));
     }
 
-    // --- REFERTI ---
-    document.getElementById('uploadBtn').onclick = async () => {
-        const file = document.getElementById('fileInput').files[0];
-        const emailPaziente = document.getElementById('pazienteSelect').value;
-        if (!file || !emailPaziente) return alert("Seleziona file e paziente!");
+    // --- FUNZIONE 3: UPLOAD REFERTO ---
+    document.getElementById('btnUpload').onclick = async function() {
+        const file = document.getElementById('fileIn').files[0];
+        const email = document.getElementById('selectPaziente').value;
 
-        const path = `referti/${emailPaziente}/${Date.now()}_${file.name}`;
+        if (!file || !email) { alert("Seleziona file e paziente!"); return; }
+
+        const path = `referti/${email}/${Date.now()}_${file.name}`;
         const ref = storage.ref(path);
-        document.getElementById('uploadProgress').style.display = 'block';
+        const bar = document.getElementById('progBar');
+        bar.style.display = 'block';
 
         const task = ref.put(file);
+        
         task.on('state_changed', 
-            s => document.querySelector('.progress-bar').style.width = (s.bytesTransferred / s.totalBytes) * 100 + '%',
+            s => {
+                let p = (s.bytesTransferred / s.totalBytes) * 100;
+                document.querySelector('.progress-bar').style.width = p + '%';
+            },
             e => alert(e.message),
             async () => {
                 const url = await ref.getDownloadURL();
-                await db.collection('referti').add({
+                await db.collection('documenti').add({
                     nomeFile: file.name,
-                    url: url,
-                    pazienteEmail: emailPaziente,
+                    fileUrl: url,
+                    pazienteEmail: email,
                     data: firebase.firestore.FieldValue.serverTimestamp()
                 });
-                alert("Inviato!");
-                document.getElementById('uploadProgress').style.display = 'none';
-                document.getElementById('fileInput').value = "";
+                alert("Documento inviato!");
+                bar.style.display = 'none';
+                document.getElementById('fileIn').value = "";
             }
         );
     };
 
-    function loadRealtimeFiles() {
-        let q = db.collection('referti');
+    // --- FUNZIONE 4: CARICAMENTO DOCUMENTI ---
+    function loadDocuments() {
+        const user = auth.currentUser;
+        if (!user) return;
+
+        const email = user.email.toLowerCase();
+        const isAdmin = ADMINS.includes(email);
+        let query = db.collection('documenti');
+
         if (!isAdmin) {
-            q = q.where('pazienteEmail', '==', auth.currentUser.email.toLowerCase());
+            // Se sei paziente, vedi solo i tuoi
+            query = query.where('pazienteEmail', '==', email);
         } else {
-            const f = document.getElementById('filterPaziente').value;
-            if (f !== 'all') q = q.where('pazienteEmail', '==', f);
+            // Se sei admin, controlla il filtro
+            const filter = document.getElementById('filterSelect').value;
+            if (filter !== 'all') {
+                query = query.where('pazienteEmail', '==', filter);
+            }
         }
 
-        q.orderBy('data', 'desc').onSnapshot(snap => {
-            const list = document.getElementById('realtime-file-list');
-            list.innerHTML = snap.empty ? '<div class="p-4 text-center text-muted">Nessun documento trovato.</div>' : '';
+        query.orderBy('data', 'desc').onSnapshot(snap => {
+            const list = document.getElementById('document-list');
+            list.innerHTML = snap.empty ? '<p class="text-center p-4">Nessun documento.</p>' : '';
+            
             snap.forEach(doc => {
                 const d = doc.data();
-                const dataStr = d.data ? d.data.toDate().toLocaleDateString() : '...';
+                const date = d.data ? d.data.toDate().toLocaleDateString() : '...';
                 list.innerHTML += `
-                    <div class="list-group-item file-item d-flex justify-content-between align-items-center p-3 shadow-sm border mb-2">
+                    <div class="list-group-item d-flex justify-content-between align-items-center py-3">
                         <div>
-                            <h6 class="mb-0 fw-bold">${d.nomeFile}</h6>
-                            <small class="text-muted">Data: ${dataStr} ${isAdmin ? `| Per: ${d.pazienteEmail}` : ''}</small>
+                            <span class="fw-bold d-block">${d.nomeFile}</span>
+                            <small class="text-muted">Inviato il ${date} ${isAdmin ? `per ${d.pazienteEmail}` : ''}</small>
                         </div>
-                        <a href="${d.url}" target="_blank" class="btn btn-sm btn-outline-danger"><i class="bi bi-file-earmark-pdf"></i> Apri</a>
+                        <a href="${d.fileUrl}" target="_blank" class="btn btn-sm btn-outline-dark"><i class="bi bi-eye"></i> Apri</a>
                     </div>`;
             });
-        });
+        }, err => console.log("Errore doc:", err));
     }
 
-    document.getElementById('logoutBtn').onclick = () => auth.signOut().then(() => window.location.href = "login.html");
+    document.getElementById('logoutBtn').onclick = () => auth.signOut();
 </script>
 
-<footer class="main-footer">
-    <div class="container text-center text-md-start">
-        <div class="row g-4">
-            <div class="col-md-6">
-                <h5 class="fw-bold">MUSUMECI<span style="color:var(--med-red)">.DIGITAL</span></h5>
-                <p class="small text-muted mb-0">Gestione telematica dei referti clinici e supporto cardiovascolare.</p>
-                <p class="small mt-2" style="color:#6c757d">Powered by <strong>Aviation Eagle Strategic Support</strong></p>
-            </div>
-            <div class="col-md-3">
-                <h6 class="text-uppercase small fw-bold mb-3">Supporto</h6>
-                <a href="#" class="footer-link">Privacy Policy</a>
-                <a href="#" class="footer-link">Termini e Condizioni</a>
-            </div>
-            <div class="col-md-3">
-                <h6 class="text-uppercase small fw-bold mb-3">Contatti</h6>
-                <p class="small text-muted">Per assistenza tecnica contattare l'amministratore di sistema.</p>
-            </div>
-        </div>
-        <hr class="mt-4 opacity-10">
-        <p class="text-center small text-muted mb-0">&copy; 2026 Prof. Giuseppe Musumeci. Tutti i diritti riservati.</p>
-    </div>
-</footer>
+<footer class="p-4 text-center text-muted small border-top bg-white">
+    &copy; 2026 Prof. Giuseppe Musumeci 
 
 </body>
 </html>
