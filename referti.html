@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Riservata | Musumeci Digital</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root { --med-red: #d90429; --tech-black: #2b2d42; --soft-gray: #f8f9fa; }
+        body { background-color: var(--soft-gray); font-family: 'Inter', sans-serif; }
+        .sidebar { background: var(--tech-black); min-height: 100vh; color: white; padding: 20px; }
+        .main-content { padding: 40px; }
+        .card-custom { background: white; border-radius: 0; border-top: 5px solid var(--med-red); padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        /* Nascosto di default, attivato solo per admin */
+        #admin-zone { display: none; }
+        .progress { height: 8px; border-radius: 0; margin-top: 15px; display: none; }
+        .progress-bar { background-color: var(--med-red); }
+        .btn-med { background: var(--tech-black); color: white; border-radius: 0; font-weight: bold; border: none; }
+        .btn-med:hover { background: var(--med-red); color: white; }
+        .file-item { transition: 0.2s; border-left: 3px solid transparent; }
+        .file-item:hover { border-left: 3px solid var(--med-red); background: #fefefe; }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-3 col-lg-2 sidebar">
+            <h5 class="text-uppercase fw-bold mb-4">Musumeci Hub</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link text-white active"><i class="bi bi-shield-lock"></i> Area Protetta</a></li>
+                <hr>
+                <li class="nav-item"><a href="#" id="logoutBtn" class="nav-link text-danger"><i class="bi bi-box-arrow-left"></i> Disconnetti</a></li>
+            </ul>
+        </nav>
+
+        <main class="col-md-9 col-lg-10 main-content">
+            <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
+                <h2 class="fw-bold text-uppercase">Gestione Referti</h2>
+                <div class="text-end">
+                    <span class="badge bg-dark" id="role-badge">Paziente</span><br>
+                    <small id="user-display" class="text-muted"></small>
+                </div>
+            </div>
+
+            <div id="admin-zone" class="card-custom">
+                <h4 class="fw-bold text-uppercase mb-3"><i class="bi bi-cloud-arrow-up"></i> Pannello di Comando Admin</h4>
+                <div class="row g-3">
+                    <div class="col-md-8">
+                        <input type="file" id="fileInput" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-med w-100" id="uploadBtn">CARICA NEL DATABASE</button>
+                    </div>
+                </div>
+                <div class="progress" id="uploadProgress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="card-custom">
+                <h4 class="fw-bold text-uppercase mb-3"><i class="bi bi-folder2-open"></i> I Tuoi Documenti</h4>
+                <div id="realtime-file-list" class="list-group list-group-flush">
+                    <div class="text-center p-4">
+                        <div class="spinner-border text-danger" role="status"></div>
+                        <p class="small text-muted mt-2">Sincronizzazione con il database...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+        authDomain: "giuseppe-4c318.firebaseapp.com",
+        projectId: "giuseppe-4c318",
+        storageBucket: "giuseppe-4c318.firebasestorage.app",
+        messagingSenderId: "658885311131",
+        appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+    };
+    firebase.initializeApp(firebaseConfig);
+    
+    const auth = firebase.auth();
+    const storage = firebase.storage();
+    const db = firebase.firestore();
+
+    const ADMINS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com'];
+
+    auth.onAuthStateChanged(user => {
+        if (!user) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        document.getElementById('user-display').innerText = user.email;
+
+        // CONTROLLO PRIVILEGI: Se l'utente è un Admin, mostra la zona upload
+        if (ADMINS.includes(user.email.toLowerCase())) {
+            document.getElementById('admin-zone').style.display = 'block';
+            document.getElementById('role-badge').innerText = "Amministratore";
+            document.getElementById('role-badge').className = "badge bg-danger";
+        }
+
+        // AVVIO SINCRONIZZAZIONE DATABASE IN TEMPO REALE
+        loadRealtimeFiles(user);
+    });
+
+    // FUNZIONE CARICAMENTO (SOLO ADMIN)
+    document.getElementById('uploadBtn').onclick = () => {
+        const file = document.getElementById('fileInput').files[0];
+        if (!file) return alert("Nessun file selezionato.");
+
+        const user = auth.currentUser;
+        const filePath = `referti/${user.uid}/${Date.now()}_${file.name}`;
+        const storageRef = storage.ref(filePath);
+        const uploadTask = storageRef.put(file);
+
+        const progContainer = document.getElementById('uploadProgress');
+        const progBar = progContainer.querySelector('.progress-bar');
+        progContainer.style.display = 'flex';
+
+        uploadTask.on('state_changed', 
+            (snap) => {
+                const p = (snap.bytesTransferred / snap.totalBytes) * 100;
+                progBar.style.width = p + '%';
+            },
+            (err) => alert("Errore: " + err.message),
+            async () => {
+                const url = await storageRef.getDownloadURL();
+                // Salvataggio su Firestore per tempo reale
+                await db.collection('referti').add({
+                    fileName: file.name,
+                    fileUrl: url,
+                    ownerId: user.uid, // Qui puoi decidere se assegnarlo a un paziente specifico
+                    uploadedBy: user.email,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                alert("Documento inviato al database.");
+                progContainer.style.display = 'none';
+            }
+        );
+    };
+
+    // FUNZIONE DATABASE REAL-TIME
+    function loadRealtimeFiles(user) {
+        // Query: Mostra i file caricati (puoi filtrare per ownerId se necessario)
+        db.collection('referti').orderBy('timestamp', 'desc')
+          .onSnapshot(snapshot => {
+            const list = document.getElementById('realtime-file-list');
+            list.innerHTML = "";
+
+            if (snapshot.empty) {
+                list.innerHTML = "<p class='text-center p-3 small text-muted'>Nessun referto disponibile nel sistema.</p>";
+                return;
+            }
+
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                const date = data.timestamp ? data.timestamp.toDate().toLocaleDateString() : 'In arrivo...';
+                
+                const item = `
+                    <div class="list-group-item file-item d-flex justify-content-between align-items-center py-3">
+                        <div>
+                            <h6 class="mb-0 fw-bold">${data.fileName}</h6>
+                            <small class="text-muted">Caricato il: ${date}</small>
+                        </div>
+                        <a href="${data.fileUrl}" target="_blank" class="btn btn-sm btn-outline-dark">
+                            <i class="bi bi-download"></i> Scarica
+                        </a>
+                    </div>`;
+                list.innerHTML += item;
+            });
+        });
+    }
+
+    document.getElementById('logoutBtn').onclick = () => auth.signOut().then(() => window.location.href = "login.html");
+</script>
+</body>
+</html>
