@@ -5,24 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Area Riservata | Musumeci Digital</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico"> 
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --med-red: #d90429; --tech-black: #2b2d42; --soft-gray: #f8f9fa; }
+        :root { --med-red: #d90429; --tech-black: #2b2d42; --soft-gray: #f8f9fa; --footer-bg: #1a1b29; }
         body { background-color: var(--soft-gray); font-family: 'Inter', sans-serif; }
+        
         .sidebar { background: var(--tech-black); min-height: 100vh; color: white; padding: 20px; }
         .main-content { padding: 40px; }
-        .card-custom { background: white; border-radius: 0; border-top: 5px solid var(--med-red); padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        
+        /* Cards */
+        .card-custom { background: white; border-radius: 0; border-top: 5px solid var(--med-red); padding: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        
+        /* UI Elements */
         #admin-zone, #news-editor { display: none; }
+        .btn-med { background: var(--tech-black); color: white; border-radius: 0; font-weight: bold; border: none; transition: 0.3s; }
+        .btn-med:hover { background: var(--med-red); color: white; }
         .progress { height: 8px; border-radius: 0; margin-top: 15px; display: none; }
         .progress-bar { background-color: var(--med-red); }
-        .btn-med { background: var(--tech-black); color: white; border-radius: 0; font-weight: bold; border: none; }
-        .btn-med:hover { background: var(--med-red); color: white; }
+        
+        /* News Tags */
+        .badge-news { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; padding: 5px 10px; border-radius: 0; }
+        
+        /* List Items */
         .file-item { transition: 0.2s; border-left: 3px solid transparent; }
         .file-item:hover { border-left: 3px solid var(--med-red); background: #fefefe; }
-        .tag-preview { padding: 2px 8px; font-weight: bold; font-size: 0.8rem; text-transform: uppercase; }
-        /* Footer Styles */
-        .main-footer { background-color: #1a1b29; color: #ffffff; padding: 60px 0 30px 0; margin-top: 60px; border-top: 6px solid var(--med-red); }
+
+        /* Footer */
+        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 60px 0 30px 0; margin-top: 60px; border-top: 6px solid var(--med-red); }
         .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
         .footer-link:hover { color: var(--med-red); padding-left: 5px; }
     </style>
@@ -35,7 +48,7 @@
             <h5 class="text-uppercase fw-bold mb-4">Musumeci Hub</h5>
             <ul class="nav flex-column">
                 <li class="nav-item mb-2"><a href="#" class="nav-link text-white active"><i class="bi bi-shield-lock"></i> Dashboard</a></li>
-                <li class="nav-item mb-2"><a href="#news-section" class="nav-link text-white"><i class="bi bi-newspaper"></i> News & Avvisi</a></li>
+                <li class="nav-item mb-2"><a href="#news-section" class="nav-link text-white"><i class="bi bi-newspaper"></i> Comunicazioni</a></li>
                 <hr>
                 <li class="nav-item"><a href="#" id="logoutBtn" class="nav-link text-danger"><i class="bi bi-box-arrow-left"></i> Disconnetti</a></li>
             </ul>
@@ -43,23 +56,24 @@
 
         <main class="col-md-9 col-lg-10 main-content">
             <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-                <h2 class="fw-bold text-uppercase">Gestione Clinica</h2>
+                <h2 class="fw-bold text-uppercase m-0">Gestione Clinica</h2>
                 <div class="text-end">
                     <span class="badge bg-dark" id="role-badge">Paziente</span><br>
                     <small id="user-display" class="text-muted"></small>
                 </div>
             </div>
 
-            <div id="news-container" class="mb-5">
+            <div id="news-section" class="mb-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="fw-bold text-uppercase m-0"><i class="bi bi-megaphone"></i> Comunicazioni</h4>
-                    <button id="addNewsBtn" class="btn btn-sm btn-med" style="display:none;">Nuova News</button>
+                    <h4 class="fw-bold text-uppercase m-0"><i class="bi bi-megaphone"></i> News & Avvisi</h4>
+                    <button id="addNewsBtn" class="btn btn-sm btn-med" style="display:none;">Nuova Comunicazione</button>
                 </div>
+
                 <div id="news-editor" class="card-custom mb-4">
-                    <h6>Crea/Modifica Comunicazione</h6>
+                    <h6 class="fw-bold mb-3">Pubblica Nuovo Avviso</h6>
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <input type="text" id="newsTitle" class="form-control" placeholder="Titolo della news">
+                            <input type="text" id="newsTitle" class="form-control" placeholder="Titolo">
                         </div>
                         <div class="col-md-3">
                             <select id="newsType" class="form-select" onchange="toggleCustomTag()">
@@ -69,14 +83,14 @@
                             </select>
                         </div>
                         <div class="col-md-3" id="customTagZone" style="display:none;">
-                            <input type="text" id="customTagName" class="form-control" placeholder="Nome Etichetta">
+                            <input type="text" id="customTagName" class="form-control" placeholder="Testo Etichetta">
                         </div>
                         <div class="col-md-4">
-                            <label class="small text-muted">Colore Etichetta</label>
+                            <label class="small text-muted">Colore Visualizzato</label>
                             <select id="tagColor" class="form-select">
-                                <option value="bg-danger">Rosso (Critico)</option>
+                                <option value="bg-danger">Rosso (Importante)</option>
                                 <option value="bg-primary">Blu (Info)</option>
-                                <option value="bg-success">Verde (Ok)</option>
+                                <option value="bg-success">Verde (Operativo)</option>
                                 <option value="bg-warning text-dark">Giallo (Attenzione)</option>
                                 <option value="bg-dark">Nero (Standard)</option>
                             </select>
@@ -86,32 +100,49 @@
                         </div>
                         <div class="col-12 text-end">
                             <button class="btn btn-sm btn-secondary" onclick="hideNewsEditor()">Annulla</button>
-                            <button class="btn btn-sm btn-med" onclick="saveNews()">Pubblica Comunicazione</button>
+                            <button class="btn btn-sm btn-med" onclick="saveNews()">Pubblica</button>
                         </div>
                     </div>
                 </div>
                 <div id="news-list" class="row"></div>
             </div>
 
-            <div id="admin-zone" class="card-custom">
-                <h4 class="fw-bold text-uppercase mb-3"><i class="bi bi-cloud-arrow-up"></i> Carica Referto Medico</h4>
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <label class="small text-muted">1. Seleziona Paziente (Email)</label>
-                        <select id="pazienteSelect" class="form-select">
-                            <option value="">Caricamento pazienti...</option>
-                        </select>
+            <div id="admin-zone">
+                <div class="card-custom">
+                    <h4 class="fw-bold text-uppercase mb-3"><i class="bi bi-people"></i> Gestione Pazienti</h4>
+                    <div class="row g-3 align-items-end border-bottom pb-4 mb-4">
+                        <div class="col-md-4">
+                            <label class="small text-muted">Nome e Cognome Paziente</label>
+                            <input type="text" id="newPatientName" class="form-control" placeholder="Es: Mario Rossi">
+                        </div>
+                        <div class="col-md-5">
+                            <label class="small text-muted">Email (Necessaria per il collegamento)</label>
+                            <input type="email" id="newPatientEmail" class="form-control" placeholder="Es: mario.rossi@email.it">
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-med w-100" onclick="addNewPatient()">REGISTRA PAZIENTE</button>
+                        </div>
                     </div>
-                    <div class="col-md-5">
-                        <label class="small text-muted">2. File (PDF/Immagine)</label>
-                        <input type="file" id="fileInput" class="form-control">
+
+                    <h4 class="fw-bold text-uppercase mb-3"><i class="bi bi-cloud-arrow-up"></i> Carica Referto</h4>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="small text-muted">Seleziona Destinatario</label>
+                            <select id="pazienteSelect" class="form-select">
+                                <option value="">Caricamento...</option>
+                            </select>
+                        </div>
+                        <div class="col-md-5">
+                            <label class="small text-muted">File Referto (PDF/JPG)</label>
+                            <input type="file" id="fileInput" class="form-control">
+                        </div>
+                        <div class="col-md-3 d-flex align-items-end">
+                            <button class="btn btn-med w-100" id="uploadBtn">INVIA DOCUMENTO</button>
+                        </div>
                     </div>
-                    <div class="col-md-3 d-flex align-items-end">
-                        <button class="btn btn-med w-100" id="uploadBtn">INVIA AL PAZIENTE</button>
+                    <div class="progress" id="uploadProgress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%"></div>
                     </div>
-                </div>
-                <div class="progress" id="uploadProgress">
-                    <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%"></div>
                 </div>
             </div>
 
@@ -120,7 +151,7 @@
                     <h4 class="fw-bold text-uppercase m-0"><i class="bi bi-folder2-open"></i> Archivio Documenti</h4>
                     <div id="pazienteFilterZone" style="display:none;">
                         <select id="filterPaziente" class="form-select form-select-sm" onchange="loadRealtimeFiles()">
-                            <option value="all">Tutti i pazienti</option>
+                            <option value="all">Filtra per Paziente: Tutti</option>
                         </select>
                     </div>
                 </div>
@@ -176,16 +207,13 @@
         loadNews();
     });
 
-    // --- GESTIONE NEWS ---
+    // --- LOGICA NEWS ---
     function toggleCustomTag() {
         const type = document.getElementById('newsType').value;
         document.getElementById('customTagZone').style.display = (type === 'ALTRO') ? 'block' : 'none';
     }
 
-    document.getElementById('addNewsBtn').onclick = () => {
-        document.getElementById('news-editor').style.display = 'block';
-    };
-
+    document.getElementById('addNewsBtn').onclick = () => { document.getElementById('news-editor').style.display = 'block'; };
     function hideNewsEditor() { document.getElementById('news-editor').style.display = 'none'; }
 
     async function saveNews() {
@@ -195,7 +223,7 @@
         const color = document.getElementById('tagColor').value;
         let tagLabel = type === 'ALTRO' ? document.getElementById('customTagName').value : type;
 
-        if(!title || !content) return alert("Inserisci titolo e contenuto.");
+        if(!title || !content) return alert("Compila tutti i campi.");
 
         await db.collection('news').add({
             title, content, tagLabel, color,
@@ -214,12 +242,12 @@
                 const data = doc.data();
                 container.innerHTML += `
                     <div class="col-md-6 mb-3">
-                        <div class="card p-3 border-0 shadow-sm">
-                            <div class="d-flex justify-content-between">
-                                <span class="badge ${data.color} mb-2">${data.tagLabel}</span>
+                        <div class="card p-3 border-0 shadow-sm h-100">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <span class="badge badge-news ${data.color}">${data.tagLabel}</span>
                                 ${isAdmin ? `<button class="btn btn-link btn-sm text-danger p-0" onclick="deleteNews('${doc.id}')"><i class="bi bi-trash"></i></button>` : ''}
                             </div>
-                            <h6 class="fw-bold">${data.title}</h6>
+                            <h6 class="fw-bold mb-1">${data.title}</h6>
                             <p class="small text-muted mb-0">${data.content}</p>
                         </div>
                     </div>`;
@@ -227,32 +255,45 @@
         });
     }
 
-    async function deleteNews(id) { if(confirm("Eliminare questa news?")) await db.collection('news').doc(id).delete(); }
+    async function deleteNews(id) { if(confirm("Eliminare questa comunicazione?")) await db.collection('news').doc(id).delete(); }
 
-    // --- GESTIONE REFERTI ---
-    async function loadPazientiList() {
-        // Nota: Qui dovresti avere una collection 'users'. Se non l'hai, puoi popolare la select manualmente
-        // o estrarla dai referti esistenti. Per ora cerco referti unici per popolare la lista.
-        const snapshot = await db.collection('referti').get();
-        const select = document.getElementById('pazienteSelect');
-        const filter = document.getElementById('filterPaziente');
-        const emails = new Set();
-        
-        snapshot.forEach(doc => emails.add(doc.data().uploadedBy)); // Esempio logico
-        
-        // In una configurazione reale, l'admin inserirebbe l'UID o l'Email registrata
-        select.innerHTML = `<option value="">Seleziona Destinatario</option>`;
-        // Mock per test (In produzione carica i veri utenti)
-        select.innerHTML += `<option value="UID_ESEMPIO_PAZIENTE">Paziente Demo (UID_ESEMPIO)</option>`;
+    // --- GESTIONE PAZIENTI ---
+    async function addNewPatient() {
+        const name = document.getElementById('newPatientName').value;
+        const email = document.getElementById('newPatientEmail').value.toLowerCase().trim();
+        if (!name || !email) return alert("Inserisci dati validi.");
+
+        const check = await db.collection('pazienti').where('email', '==', email).get();
+        if (!check.empty) return alert("Email già presente nel database.");
+
+        await db.collection('pazienti').add({ nome: name, email: email, createdAt: firebase.firestore.FieldValue.serverTimestamp() });
+        alert("Paziente registrato.");
+        document.getElementById('newPatientName').value = ""; document.getElementById('newPatientEmail').value = "";
     }
 
+    function loadPazientiList() {
+        db.collection('pazienti').orderBy('nome', 'asc').onSnapshot(snapshot => {
+            const select = document.getElementById('pazienteSelect');
+            const filter = document.getElementById('filterPaziente');
+            select.innerHTML = `<option value="">-- Seleziona Paziente --</option>`;
+            filter.innerHTML = `<option value="all">Filtra per Paziente: Tutti</option>`;
+
+            snapshot.forEach(doc => {
+                const p = doc.data();
+                const opt = `<option value="${p.email}">${p.nome} (${p.email})</option>`;
+                select.innerHTML += opt; filter.innerHTML += opt;
+            });
+        });
+    }
+
+    // --- GESTIONE REFERTI ---
     document.getElementById('uploadBtn').onclick = async () => {
         const file = document.getElementById('fileInput').files[0];
-        const targetPatientId = document.getElementById('pazienteSelect').value;
+        const targetEmail = document.getElementById('pazienteSelect').value;
 
-        if (!file || !targetPatientId) return alert("Seleziona sia il file che il paziente!");
+        if (!file || !targetEmail) return alert("Seleziona file e destinatario!");
 
-        const filePath = `referti/${targetPatientId}/${Date.now()}_${file.name}`;
+        const filePath = `referti/${targetEmail}/${Date.now()}_${file.name}`;
         const storageRef = storage.ref(filePath);
         const uploadTask = storageRef.put(file);
 
@@ -263,18 +304,19 @@
                 const p = (snap.bytesTransferred / snap.totalBytes) * 100;
                 document.querySelector('.progress-bar').style.width = p + '%';
             },
-            (err) => alert(err.message),
+            (err) => alert("Errore: " + err.message),
             async () => {
                 const url = await storageRef.getDownloadURL();
                 await db.collection('referti').add({
                     fileName: file.name,
                     fileUrl: url,
-                    ownerId: targetPatientId, // ASSEGNATO AL PAZIENTE
+                    patientEmail: targetEmail,
                     uploadedBy: auth.currentUser.email,
                     timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 });
-                alert("Referto caricato con successo per il paziente.");
+                alert("Referto inviato al paziente.");
                 document.getElementById('uploadProgress').style.display = 'none';
+                document.getElementById('fileInput').value = "";
             }
         );
     };
@@ -282,28 +324,27 @@
     function loadRealtimeFiles() {
         let query = db.collection('referti');
         
-        // Se è paziente, vede solo i suoi. Se è Admin, può filtrare.
         if (!isAdmin) {
-            query = query.where('ownerId', '==', auth.currentUser.uid);
+            query = query.where('patientEmail', '==', auth.currentUser.email.toLowerCase());
         } else {
-            const filter = document.getElementById('filterPaziente').value;
-            if (filter !== 'all') query = query.where('ownerId', '==', filter);
+            const filterValue = document.getElementById('filterPaziente').value;
+            if (filterValue !== 'all') query = query.where('patientEmail', '==', filterValue);
         }
 
         query.orderBy('timestamp', 'desc').onSnapshot(snapshot => {
             const list = document.getElementById('realtime-file-list');
-            list.innerHTML = snapshot.empty ? "<p class='text-center p-3 small text-muted'>Nessun documento trovato.</p>" : "";
+            list.innerHTML = snapshot.empty ? "<p class='text-center p-4 small text-muted'>Nessun documento disponibile.</p>" : "";
 
             snapshot.forEach(doc => {
                 const data = doc.data();
-                const date = data.timestamp ? data.timestamp.toDate().toLocaleDateString() : 'In elaborazione...';
+                const date = data.timestamp ? data.timestamp.toDate().toLocaleDateString('it-IT') : 'In arrivo...';
                 list.innerHTML += `
                     <div class="list-group-item file-item d-flex justify-content-between align-items-center py-3">
                         <div>
-                            <h6 class="mb-0 fw-bold">${data.fileName}</h6>
-                            <small class="text-muted">Data: ${date} ${isAdmin ? `| Per: ${data.ownerId}` : ''}</small>
+                            <h6 class="mb-0 fw-bold text-uppercase" style="font-size: 0.8rem">${data.fileName}</h6>
+                            <small class="text-muted">Data: ${date} ${isAdmin ? `| Per: ${data.patientEmail}` : ''}</small>
                         </div>
-                        <a href="${data.fileUrl}" target="_blank" class="btn btn-sm btn-outline-dark"><i class="bi bi-download"></i> Scarica</a>
+                        <a href="${data.fileUrl}" target="_blank" class="btn btn-sm btn-outline-dark"><i class="bi bi-eye"></i> Visualizza</a>
                     </div>`;
             });
         });
@@ -314,24 +355,26 @@
 
 <footer class="main-footer">
     <div class="container text-center text-md-start">
-        <div class="row">
-            <div class="col-md-6 mb-4">
+        <div class="row g-4">
+            <div class="col-md-5">
                 <h5 class="fw-bold">MUSUMECI<span style="color:var(--med-red)">.DIGITAL</span></h5>
-                <p class="small text-muted">Eccellenza digitale nel supporto clinico cardiovascolare.</p>
+                <p class="small text-muted opacity-75">Sistemi avanzati per la gestione del dato clinico cardiovascolare.</p>
             </div>
-            <div class="col-md-3">
-                <h6 class="text-uppercase small fw-bold">Link Rapidi</h6>
-                <a href="#" class="footer-link">Privacy Policy</a>
+            <div class="col-6 col-md-3">
+                <h6 class="text-uppercase small fw-bold mb-3">Protocolli</h6>
+                <a href="#" class="footer-link">Privacy (GDPR)</a>
                 <a href="#" class="footer-link">Termini Servizio</a>
             </div>
-            <div class="col-md-3">
-                <h6 class="text-uppercase small fw-bold">Supporto</h6>
-                <p class="small text-muted">Powered by Aviation Eagle Strategic Support</p>
+            <div class="col-6 col-md-4">
+                <h6 class="text-uppercase small fw-bold mb-3">Supporto Tecnico</h6>
+                <p class="mb-0 text-uppercase fw-bold text-white-50" style="font-size: 0.7rem; letter-spacing: 1px;">Powered by Aviation Eagle Strategic Support</p>
+                <small class="text-success">● Server Status: Online</small>
             </div>
         </div>
         <hr class="mt-4 opacity-10">
         <p class="text-center small text-muted mb-0">&copy; 2026 Prof. Giuseppe Musumeci. All Rights Reserved.</p>
     </div>
 </footer>
+
 </body>
 </html>
