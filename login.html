@@ -27,6 +27,8 @@
         .form-control { border-radius: 0; padding: 12px; }
         .btn-dark { background: var(--tech-black); border: none; transition: 0.3s; }
         .btn-dark:hover { background: var(--med-red); }
+        .forgot-link { font-size: 0.75rem; text-decoration: none; color: var(--tech-black); transition: 0.2s; }
+        .forgot-link:hover { color: var(--med-red); }
     </style>
 </head>
 <body>
@@ -41,9 +43,12 @@
                 <label class="form-label small fw-bold">EMAIL</label>
                 <input type="email" id="email-field" class="form-control" placeholder="med.user@hub.com" required>
             </div>
-            <div class="mb-3">
+            <div class="mb-2">
                 <label class="form-label small fw-bold">PASSWORD</label>
                 <input type="password" id="pass-field" class="form-control" required>
+            </div>
+            <div class="text-end mb-3">
+                <a href="#" id="forgot-password" class="forgot-link italic">Password dimenticata?</a>
             </div>
             <button type="submit" class="btn btn-dark w-100 rounded-0 py-2 mb-3 fw-bold text-uppercase">Accedi al Terminale</button>
         </form>
@@ -56,7 +61,6 @@
         <button id="btn-facebook" class="social-btn">
             <i class="bi bi-facebook text-primary"></i> Facebook
         </button>
-        
 
         <div class="text-center mt-4 border-top pt-3">
             <p class="small text-muted">Primo accesso? <a href="register.html" class="text-danger fw-bold text-decoration-none">REGISTRATI QUI</a></p>
@@ -86,10 +90,9 @@
                 .catch(err => alert("Errore: " + err.message));
         }
 
-        // Eventi Bottoni
+        // Eventi Bottoni Social
         document.getElementById('btn-google').onclick = () => socialLogin(new firebase.auth.GoogleAuthProvider());
         document.getElementById('btn-facebook').onclick = () => socialLogin(new firebase.auth.FacebookAuthProvider());
-        document.getElementById('btn-microsoft').onclick = () => socialLogin(new firebase.auth.OAuthProvider('microsoft.com'));
 
         // Email Login
         document.getElementById('loginForm').onsubmit = (e) => {
@@ -99,6 +102,25 @@
             auth.signInWithEmailAndPassword(email, pass)
                 .then(() => window.location.href = "index.html")
                 .catch(err => alert("Errore Accesso: " + err.message));
+        };
+
+        // Recupero Password
+        document.getElementById('forgot-password').onclick = (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email-field').value;
+            
+            if (!email) {
+                alert("Inserire l'indirizzo email nel campo sopra per procedere al recupero.");
+                return;
+            }
+
+            auth.sendPasswordResetEmail(email)
+                .then(() => {
+                    alert("Protocollo di reset inviato. Controlla la tua posta elettronica.");
+                })
+                .catch((err) => {
+                    alert("Errore durante la richiesta: " + err.message);
+                });
         };
     </script>
 </body>
