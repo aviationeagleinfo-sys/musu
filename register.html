@@ -12,13 +12,16 @@
         body { background-color: var(--soft-gray); font-family: 'Inter', sans-serif; padding: 50px 0; }
         .reg-card { background: white; border-left: 5px solid var(--med-red); padding: 40px; max-width: 600px; margin: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .form-control { border-radius: 0; border: 1px solid #ddd; padding: 12px; }
-        .btn-register { background: var(--tech-black); color: white; border-radius: 0; font-weight: 600; border: none; }
+        .btn-register { background: var(--tech-black); color: white; border-radius: 0; font-weight: 600; border: none; transition: 0.3s; }
         .btn-register:hover { background: var(--med-red); color: white; }
-        .social-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
-        .social-btn-reg { border: 1px solid #ddd; background: white; padding: 10px; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; transition: 0.3s; }
+        /* Griglia social aggiornata a 2 colonne */
+        .social-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+        .social-btn-reg { border: 1px solid #ddd; background: white; padding: 10px; font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 5px; transition: 0.3s; text-transform: uppercase;}
         .social-btn-reg:hover { background: #f8f9fa; border-color: #bbb; }
         .divider { display: flex; align-items: center; text-align: center; margin: 25px 0; color: #888; font-size: 0.8rem; }
         .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #eee; }
+        .divider:not(:empty)::before { margin-right: .5em; }
+        .divider:not(:empty)::after { margin-left: .5em; }
     </style>
 </head>
 <body>
@@ -30,8 +33,7 @@
             <div class="social-grid">
                 <button class="social-btn-reg" id="regGoogle"><i class="bi bi-google text-danger"></i> GOOGLE</button>
                 <button class="social-btn-reg" id="regFB"><i class="bi bi-facebook text-primary"></i> FACEBOOK</button>
-
-            </div>
+                </div>
 
             <div class="divider">OPPURE USA LA TUA EMAIL</div>
 
@@ -50,7 +52,7 @@
                 </div>
                 <div class="col-md-6">
                     <label class="form-label small fw-bold">PASSWORD</label>
-                    <input type="password" id="regPass" class="form-control" required>
+                    <input type="password" id="regPass" class="form-control" required placeholder="Min. 8 caratteri, 1 numero">
                 </div>
                 <div class="col-md-6">
                     <label class="form-label small fw-bold">CONFERMA PASSWORD</label>
@@ -63,6 +65,7 @@
 
             <div class="text-center mt-4 border-top pt-3">
                 <p class="small text-muted">Hai già un account? <a href="login.html" class="text-danger fw-bold text-decoration-none">ACCEDI AL TERMINALE</a></p>
+                <a href="index.html" class="small text-decoration-none text-dark"><i class="bi bi-arrow-left"></i> Torna alla Home</a>
             </div>
         </div>
     </div>
@@ -71,6 +74,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
     <script>
+        // Configurazione Firebase (identica alla precedente)
         const firebaseConfig = {
             apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
             authDomain: "giuseppe-4c318.firebaseapp.com",
@@ -82,27 +86,53 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
+        // Funzione Generica Registrazione Social
         function socialReg(provider) {
             auth.signInWithPopup(provider)
-                .then(() => window.location.href = "index.html")
-                .catch(err => alert("Errore: " + err.message));
+                .then(() => {
+                    // Firebase esegue il login automatico dopo createUser, reindirizziamo
+                    window.location.href = "index.html";
+                })
+                .catch(err => alert("Errore di protocollo social: " + err.message));
         }
 
+        // Eventi Bottoni Social
         document.getElementById('regGoogle').onclick = () => socialReg(new firebase.auth.GoogleAuthProvider());
         document.getElementById('regFB').onclick = () => socialReg(new firebase.auth.FacebookAuthProvider());
-        document.getElementById('regMS').onclick = () => socialReg(new firebase.auth.OAuthProvider('microsoft.com'));
+        // Riferimento a regMS rimosso per evitare errori JS
 
+        // Validazione e Registrazione Email
         document.getElementById('regForm').onsubmit = (e) => {
             e.preventDefault();
             const email = document.getElementById('regEmail').value;
             const pass = document.getElementById('regPass').value;
-            if (pass !== document.getElementById('regConfirm').value) {
-                alert("Le password non coincidono.");
+            const confirmPass = document.getElementById('regConfirm').value;
+
+            // Protocollo di Sicurezza Password: Minimo 8 caratteri E almeno un numero
+            // Regex: ^ (inizio), (?=.*[0-9]) (almeno un numero), .{8,} (almeno 8 caratteri qualsiasi), $ (fine)
+            const passwordRegex = /^(?=.*[0-9]).{8,}$/;
+
+            if (!passwordRegex.test(pass)) {
+                alert("Protocollo di sicurezza fallito: la password deve contenere almeno 8 caratteri e almeno un numero.");
+                return; // Interrompe l'invio
+            }
+
+            if (pass !== confirmPass) {
+                alert("Errore di sincronizzazione: le password non coincidono.");
                 return;
             }
+
+            // Procedi con la creazione se i controlli passano
             auth.createUserWithEmailAndPassword(email, pass)
-                .then(() => window.location.href = "index.html")
-                .catch(err => alert(err.message));
+                .then((userCredential) => {
+                    // Registrazione completata, Firebase effettua il login automatico.
+                    console.log("Account creato per:", userCredential.user.email);
+                    window.location.href = "index.html"; // Salto a curvatura verso la home
+                })
+                .catch(err => {
+                    alert("Intercettazione errore database: " + err.message);
+                    console.error(err);
+                });
         };
     </script>
 </body>
