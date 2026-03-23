@@ -16,11 +16,7 @@
             --column-color: rgba(43, 45, 66, 0.05);
         }
 
-        body {
-            background-color: var(--clean-white);
-            color: var(--tech-black);
-            font-family: 'Inter', sans-serif;
-        }
+        body { background-color: var(--clean-white); color: var(--tech-black); font-family: 'Inter', sans-serif; }
 
         /* Colonne Greche Digitali */
         .greek-column {
@@ -35,33 +31,18 @@
         .col-right { right: 15px; }
 
         /* Navbar */
-        .navbar {
-            background: white;
-            border-bottom: 3px solid var(--med-red);
-            padding: 1rem 0;
-        }
+        .navbar { background: white; border-bottom: 3px solid var(--med-red); padding: 1rem 0; }
         .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--tech-black)!important; }
         .brand-accent { color: var(--med-red); }
 
-        .btn-medical {
-            background-color: var(--tech-black);
-            color: white;
-            border-radius: 0;
-            padding: 10px 25px;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-        .btn-medical:hover {
-            background-color: var(--med-red);
-            color: white;
-        }
+        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 10px 25px; font-weight: 600; transition: 0.3s; text-decoration: none; }
+        .btn-medical:hover { background-color: var(--med-red); color: white; }
 
-        .hero-section {
-            padding: 100px 0;
-            text-align: center;
-        }
+        .hero-section { padding: 100px 0; text-align: center; }
         h1 { font-family: 'Outfit', sans-serif; font-size: 3rem; margin-bottom: 20px; }
         .red-line { width: 60px; height: 4px; background: var(--med-red); margin: 20px auto; }
+        
+        #user-info { display: none; align-items: center; }
     </style>
 </head>
 <body>
@@ -76,7 +57,12 @@
                 MUSUMECI<span class="brand-accent">.DIGITAL</span>
             </a>
             <div class="ms-auto">
-                <a href="login.html" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+                <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+                
+                <div id="user-info">
+                    <span id="user-name" class="me-3 small fw-bold text-uppercase text-muted"></span>
+                    <button onclick="logout()" class="btn btn-outline-danger btn-sm rounded-0">LOGOUT</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -89,7 +75,7 @@
             <p class="lead">Eccellenza Clinica e Integrazione Digitale di Nuova Generazione.</p>
         </section>
 
-        <div class="row g-4 mb-5">
+        <div class="row g-4 mb-5 text-center">
             <div class="col-md-4">
                 <div class="p-4 border-start border-4 border-danger bg-light">
                     <h4>Diagnostica</h4>
@@ -111,6 +97,40 @@
         </div>
     </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
+            projectId: "giuseppe-4c318",
+            storageBucket: "giuseppe-4c318.firebasestorage.app",
+            messagingSenderId: "658885311131",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Monitoraggio Stato Utente
+        auth.onAuthStateChanged((user) => {
+            const btnLogin = document.getElementById('btn-login-nav');
+            const userInfo = document.getElementById('user-info');
+            const userName = document.getElementById('user-name');
+
+            if (user) {
+                btnLogin.style.display = 'none';
+                userInfo.style.display = 'flex';
+                userName.innerText = user.displayName || user.email;
+            } else {
+                btnLogin.style.display = 'inline-block';
+                userInfo.style.display = 'none';
+            }
+        });
+
+        function logout() {
+            auth.signOut().then(() => window.location.reload());
+        }
+    </script>
 </body>
 </html>
