@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accesso Hub | Musumeci Digital</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root { --med-red: #d90429; --tech-black: #2b2d42; }
+        body { background-color: #f8f9fa; font-family: 'Inter', sans-serif; display: flex; align-items: center; min-height: 100vh; }
+        .login-card {
+            background: white;
+            border-top: 5px solid var(--med-red);
+            border-radius: 0;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            margin: auto;
+        }
+        .social-btn {
+            border: 1px solid #ddd;
+            background: white;
+            margin-bottom: 10px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+            transition: 0.2s;
+        }
+        .social-btn:hover { background: #f0f0f0; }
+        .divider { display: flex; align-items: center; text-align: center; margin: 20px 0; }
+        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #ddd; }
+        .divider:not(:empty)::before { margin-right: .5em; }
+        .divider:not(:empty)::after { margin-left: .5em; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold">DATA HUB LOGIN</h2>
+            <p class="text-muted small">Inserisci le credenziali protette</p>
+        </div>
+
+        <form>
+            <div class="mb-3">
+                <label class="form-label small fw-bold">EMAIL</label>
+                <input type="email" class="form-control rounded-0" placeholder="med.user@hub.com">
+            </div>
+            <div class="mb-3">
+                <label class="form-label small fw-bold">PASSWORD</label>
+                <input type="password" class="form-control rounded-0">
+            </div>
+            <button class="btn btn-dark w-100 rounded-0 py-2 mb-3">ACCEDI</button>
+        </form>
+
+        <div class="divider">OPPURE ACCEDI CON</div>
+
+        <button class="social-btn"><i class="bi bi-google text-danger"></i> Google</button>
+      
+
+        <div class="text-center mt-4">
+            <p class="small text-muted">Non hai un account? <a href="register.html" class="text-danger fw-bold text-decoration-none">REGISTRATI</a></p>
+            <a href="index.html" class="small text-decoration-none text-dark"><i class="bi bi-arrow-left"></i> Torna alla Home</a>
+        </div>
+    </div>
+</body>
+<script>
+    // Configurazione Firebase (Assicurati che sia corretta)
+const firebaseConfig = {
+  apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+  authDomain: "giuseppe-4c318.firebaseapp.com",
+  projectId: "giuseppe-4c318",
+  storageBucket: "giuseppe-4c318.firebasestorage.app",
+  messagingSenderId: "658885311131",
+  appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+};
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+
+// --- PROVIDERS ---
+const providers = {
+    google: new firebase.auth.GoogleAuthProvider(),
+    facebook: new firebase.auth.FacebookAuthProvider(),
+    microsoft: new firebase.auth.OAuthProvider('microsoft.com'),
+    apple: new firebase.auth.OAuthProvider('apple.com')
+};
+
+// Funzione di accesso universale
+function loginWith(providerName) {
+    const provider = providers[providerName];
+    auth.signInWithPopup(provider)
+        .then((result) => {
+            console.log("Accesso riuscito:", result.user.displayName);
+            window.location.href = "index.html"; // Rotta verso la Home
+        })
+        .catch((error) => {
+            console.error("Errore di accesso:", error.message);
+            alert("Errore durante l'accesso con " + providerName);
+        });
+}
+
+// Collegamento tasti (aggiungi questi ID ai tuoi bottoni HTML)
+document.getElementById('btn-google').onclick = () => loginWith('google');
+document.getElementById('btn-facebook').onclick = () => loginWith('facebook');
+document.getElementById('btn-apple').onclick = () => loginWith('apple');
+document.getElementById('btn-microsoft').onclick = () => loginWith('microsoft');
+
+// Accesso Email/Password
+function loginEmail() {
+    const email = document.getElementById('email-field').value;
+    const pass = document.getElementById('pass-field').value;
+    auth.signInWithEmailAndPassword(email, pass)
+        .then(() => window.location.href = "index.html")
+        .catch(err => alert(err.message));
+}
+</script>
+</html>
