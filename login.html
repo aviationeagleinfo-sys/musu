@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         :root { --med-red: #d90429; --tech-black: #2b2d42; }
-        body { background-color: #f8f9fa; font-family: 'Inter', sans-serif; display: flex; align-items: center; min-height: 100vh; }
+        body { background-color: #f8f9fa; font-family: 'Inter', sans-serif; display: flex; align-items: center; min-height: 100vh; padding: 20px 0;}
         .login-card {
             background: white; border-top: 5px solid var(--med-red); padding: 40px;
             width: 100%; max-width: 450px; margin: auto; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
@@ -24,47 +24,48 @@
         .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #eee; }
         .divider:not(:empty)::before { margin-right: .5em; }
         .divider:not(:empty)::after { margin-left: .5em; }
-        .form-control { border-radius: 0; padding: 12px; }
-        .btn-dark { background: var(--tech-black); border: none; transition: 0.3s; }
-        .btn-dark:hover { background: var(--med-red); }
-        .forgot-link { font-size: 0.75rem; text-decoration: none; color: var(--tech-black); transition: 0.2s; }
+        .form-control { border-radius: 0; padding: 12px; border: 1px solid #ddd; }
+        .btn-dark-hub { background: var(--tech-black); color: white; border: none; transition: 0.3s; width: 100%; border-radius: 0; padding: 12px; font-weight: bold; text-transform: uppercase;}
+        .btn-dark-hub:hover { background: var(--med-red); color: white;}
+        .forgot-link { font-size: 0.75rem; text-decoration: none; color: var(--tech-black); transition: 0.2s; font-style: italic;}
         .forgot-link:hover { color: var(--med-red); }
     </style>
 </head>
 <body>
-    <div class="login-card">
-        <div class="text-center mb-4">
-            <h2 class="fw-bold">DATA HUB LOGIN</h2>
-            <p class="text-muted small text-uppercase">Credenziali operative protette</p>
-        </div>
-
-        <form id="loginForm">
-            <div class="mb-3">
-                <label class="form-label small fw-bold">EMAIL</label>
-                <input type="email" id="email-field" class="form-control" placeholder="med.user@hub.com" required>
+    <div class="container d-flex justify-content-center">
+        <div class="login-card">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold text-uppercase">Data Hub Login</h2>
+                <p class="text-muted small text-uppercase">Credenziali operative protette</p>
             </div>
-            <div class="mb-2">
-                <label class="form-label small fw-bold">PASSWORD</label>
-                <input type="password" id="pass-field" class="form-control" required>
+
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">EMAIL</label>
+                    <input type="email" id="email-field" class="form-control" placeholder="med.user@hub.com" required>
+                </div>
+                <div class="mb-2">
+                    <label class="form-label small fw-bold">PASSWORD</label>
+                    <input type="password" id="pass-field" class="form-control" required>
+                </div>
+                <div class="text-end mb-3">
+                    <a href="#" id="forgot-password" class="forgot-link">Password dimenticata?</a>
+                </div>
+                <button type="submit" class="btn-dark-hub mb-3">Accedi al Terminale</button>
+            </form>
+
+            <div class="divider">ACCESSO SOCIAL</div>
+
+            <button id="btn-google" class="social-btn">
+                <i class="bi bi-google text-danger"></i> Google
+            </button>
+            <button id="btn-facebook" class="social-btn">
+                <i class="bi bi-facebook text-primary"></i> Facebook
+            </button>
+            <div class="text-center mt-4 border-top pt-3">
+                <p class="small text-muted">Primo accesso? <a href="register.html" class="text-danger fw-bold text-decoration-none">REGISTRATI QUI</a></p>
+                <a href="index.html" class="small text-decoration-none text-dark"><i class="bi bi-arrow-left"></i> Torna alla Home</a>
             </div>
-            <div class="text-end mb-3">
-                <a href="#" id="forgot-password" class="forgot-link italic">Password dimenticata?</a>
-            </div>
-            <button type="submit" class="btn btn-dark w-100 rounded-0 py-2 mb-3 fw-bold text-uppercase">Accedi al Terminale</button>
-        </form>
-
-        <div class="divider">ACCESSO SOCIAL</div>
-
-        <button id="btn-google" class="social-btn">
-            <i class="bi bi-google text-danger"></i> Google
-        </button>
-        <button id="btn-facebook" class="social-btn">
-            <i class="bi bi-facebook text-primary"></i> Facebook
-        </button>
-
-        <div class="text-center mt-4 border-top pt-3">
-            <p class="small text-muted">Primo accesso? <a href="register.html" class="text-danger fw-bold text-decoration-none">REGISTRATI QUI</a></p>
-            <a href="index.html" class="small text-decoration-none text-dark"><i class="bi bi-arrow-left"></i> Torna alla Home</a>
         </div>
     </div>
 
@@ -72,6 +73,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
     <script>
+        // Configurazione Firebase (identica)
         const firebaseConfig = {
             apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
             authDomain: "giuseppe-4c318.firebaseapp.com",
@@ -86,41 +88,47 @@
         // Funzione Generica Social
         function socialLogin(provider) {
             auth.signInWithPopup(provider)
-                .then(() => window.location.href = "index.html")
-                .catch(err => alert("Errore: " + err.message));
+                .then(() => {
+                    // Login social riuscito, reindirizziamo
+                    window.location.href = "index.html";
+                })
+                .catch(err => alert("Errore di intercettazione social: " + err.message));
         }
 
         // Eventi Bottoni Social
         document.getElementById('btn-google').onclick = () => socialLogin(new firebase.auth.GoogleAuthProvider());
         document.getElementById('btn-facebook').onclick = () => socialLogin(new firebase.auth.FacebookAuthProvider());
 
-        // Email Login
+        // Email Login - Verificato e Corretto per il Redirect
         document.getElementById('loginForm').onsubmit = (e) => {
             e.preventDefault();
             const email = document.getElementById('email-field').value;
             const pass = document.getElementById('pass-field').value;
+
             auth.signInWithEmailAndPassword(email, pass)
-                .then(() => window.location.href = "index.html")
-                .catch(err => alert("Errore Accesso: " + err.message));
+                .then((userCredential) => {
+                    // Login riuscito
+                    console.log("Accesso eseguito per:", userCredential.user.email);
+                    window.location.href = "index.html"; // Salto a curvatura autorizzato
+                })
+                .catch(err => {
+                    // Mostra errore se le credenziali sono errate o l'utente non esiste
+                    alert("Accesso negato: credenziali non riconosciute dal database centrale.");
+                    console.error("Errore Accesso:", err.code, err.message);
+                });
         };
 
-        // Recupero Password
+        // Recupero Password... (rimane invariato)
         document.getElementById('forgot-password').onclick = (e) => {
             e.preventDefault();
             const email = document.getElementById('email-field').value;
-            
             if (!email) {
                 alert("Inserire l'indirizzo email nel campo sopra per procedere al recupero.");
                 return;
             }
-
             auth.sendPasswordResetEmail(email)
-                .then(() => {
-                    alert("Protocollo di reset inviato. Controlla la tua posta elettronica.");
-                })
-                .catch((err) => {
-                    alert("Errore durante la richiesta: " + err.message);
-                });
+                .then(() => alert("Protocollo di reset inviato. Controlla la tua posta elettronica."))
+                .catch((err) => alert("Errore durante la richiesta: " + err.message));
         };
     </script>
 </body>
