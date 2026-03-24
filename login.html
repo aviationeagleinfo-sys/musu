@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accesso Hub | Musumeci Digital</title>
-     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
@@ -70,7 +70,7 @@
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
 <script>
     const firebaseConfig = {
@@ -90,10 +90,11 @@
         const params = new URLSearchParams(window.location.search);
         const destination = params.get('redirect');
 
-        if (destination === 'change') {
-            window.location.href = "https://change.drgiuseppemusumeci.com/index.html";
+        // Se esiste una rotta di origine nel parametro, usa quella. Altrimenti torna alla Base Madre.
+        if (destination) {
+            window.location.href = destination;
         } else {
-            window.location.href = "index.html"; // Default Home Madre
+            window.location.href = "index.html"; 
         }
     }
 
