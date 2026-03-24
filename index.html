@@ -13,53 +13,84 @@
     <style>
         :root {
             --med-red: #d90429;
+            --deep-red: #b00202;
+            --soft-red-white: #f5d7d7;
             --tech-black: #2b2d42;
             --clean-white: #ffffff;
             --soft-gray: #f8f9fa;
             --footer-bg: #1a1b29;
-            --column-color: rgba(43, 45, 66, 0.05);
+            --column-base: rgba(210, 210, 215, 0.6); 
+            --column-highlight: rgba(255, 255, 255, 0.8);
+            --column-shadow: rgba(0, 0, 0, 0.2);
         }
 
         body { background-color: var(--clean-white); color: var(--tech-black); font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-        /* --- UI ELEMENTS --- */
+        /* --- COLONNE GRECHE (RIGHE SPESSE) --- */
         .greek-column {
-            position: fixed; top: 0; width: 60px; height: 100vh;
-            background: repeating-linear-gradient(90deg, var(--column-color), var(--column-color) 2px, transparent 2px, transparent 10px);
-            border-left: 1px solid var(--column-color); border-right: 1px solid var(--column-color); z-index: -1;
+            position: fixed; top: 0; width: 65px; height: 100vh; z-index: -1;
+            background: linear-gradient(90deg, var(--column-shadow) 0%, var(--column-base) 20%, var(--column-highlight) 35%, var(--column-base) 50%, var(--column-shadow) 65%, var(--column-base) 80%, var(--column-shadow) 100%);
+            background-size: 32px 100%; border-left: 2px solid rgba(0,0,0,0.1); border-right: 2px solid rgba(0,0,0,0.1);
+            box-shadow: 5px 0 15px rgba(0,0,0,0.05), -5px 0 15px rgba(0,0,0,0.05);
         }
-        .col-left { left: 15px; } .col-right { right: 15px; }
+        .col-left { left: 5px; } .col-right { right: 5px; }
 
-        /* NAVBAR ENHANCEMENTS */
-        .navbar { background: white; border-bottom: 3px solid var(--med-red); padding: 1rem 0; transition: all 0.3s ease; }
+        /* --- NAVBAR --- */
+        .navbar { 
+            background: linear-gradient(90deg, var(--soft-red-white) 0%, var(--deep-red) 100%); 
+            border-bottom: 3px solid var(--deep-red); 
+            padding: 0.8rem 0; 
+        }
         .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--tech-black)!important; }
-        .brand-accent { color: var(--med-red); }
+        .brand-accent { color: var(--deep-red); }
+        .nav-link { color: white!important; font-size: 0.85rem; letter-spacing: 0.5px; transition: 0.3s; }
         
-        .nav-link { color: var(--tech-black)!important; font-size: 0.85rem; letter-spacing: 0.5px; transition: 0.3s; }
-        .nav-link:hover { color: var(--med-red)!important; }
-        .dropdown-menu { border-radius: 0; border: none; border-top: 3px solid var(--med-red); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        .dropdown-item:hover { background-color: var(--soft-gray); color: var(--med-red); }
+        /* --- MOBILE MENU AMALGAMATO --- */
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: linear-gradient(180deg, rgba(176, 2, 2, 0.95) 0%, rgba(43, 45, 66, 0.98) 100%);
+                margin: 0 -1rem; padding: 1rem; border-top: 1px solid rgba(255,255,255,0.1);
+            }
+            .dropdown-menu {
+                background: rgba(255, 255, 255, 0.1)!important;
+                border: 1px solid rgba(255, 255, 255, 0.2)!important;
+                backdrop-filter: blur(10px);
+                margin-top: 10px!important;
+            }
+            .dropdown-item { color: white!important; }
+            .dropdown-item:hover { background: rgba(255,255,255,0.2)!important; }
+        }
 
-        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 10px 25px; font-weight: 600; transition: 0.3s; text-decoration: none; border: none; }
-        .btn-medical:hover { background-color: var(--med-red); color: white; }
-
-        /* --- MAIN CONTENT --- */
-        .hero-section { padding: 100px 0; text-align: center; }
-        h1 { font-family: 'Outfit', sans-serif; font-size: 3.2rem; margin-bottom: 20px; letter-spacing: -1px; }
-        .red-line { width: 60px; height: 4px; background: var(--med-red); margin: 20px auto; }
+        /* --- HERO SECTION CON FOTO --- */
+        .hero-section { padding: 60px 0; text-align: center; }
+        .hero-content-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px; }
+        .hero-profile-img { 
+            width: 180px; height: auto; border-radius: 23%; object-fit: cover; 
+            margin-bottom: 20px; border: 5px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
+        }
+        h1 { font-family: 'Outfit', sans-serif; font-size: 3.5rem; margin-bottom: 0; letter-spacing: -1px; line-height: 1.1; }
         
-        .feature-card { padding: 40px; border-left: 4px solid var(--tech-black); background: var(--soft-gray); transition: 0.3s; height: 100%; }
-        .feature-card.accent { border-color: var(--med-red); }
-        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        @media (min-width: 768px) {
+            .hero-content-wrapper { flex-direction: row; text-align: left; }
+            .hero-profile-img { margin-bottom: 0; margin-right: 40px; }
+        }
 
-        /* --- FOOTER SYSTEM --- */
-        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--med-red); }
-        .footer-logo { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.6rem; letter-spacing: -0.5px; }
+        .red-line { width: 80px; height: 5px; background: var(--deep-red); margin: 25px auto; }
+        
+        /* --- FEATURE CARDS --- */
+        .feature-card { 
+            padding: 40px; background: linear-gradient(135deg, var(--deep-red) 0%, var(--tech-black) 100%);
+            color: white; border: none; transition: 0.4s; height: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+
+        /* --- FOOTER --- */
+        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); }
         .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
-        .footer-link:hover { color: var(--med-red); padding-left: 5px; }
-        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); margin-top: 60px; padding-top: 30px; font-size: 0.85rem; color: #6c757d; }
+        .footer-link:hover { color: var(--deep-red); padding-left: 5px; }
         
-        #user-info { display: none; align-items: center; }
+        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 10px 25px; font-weight: 600; border: none; }
+        #user-info { display: none; align-items: center; color: white; }
     </style>
 </head>
 <body>
@@ -67,42 +98,42 @@
     <div class="greek-column col-left"></div>
     <div class="greek-column col-right"></div>
 
-    <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
+    <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="favicon.png" alt="Logo" width="55" class="me-2">
+                <img src="https://www.drgiuseppemusumeci.com/favicon.png" alt="Logo" width="55" class="me-2">
                 <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
             </a>
-            
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <i class="bi bi-list fs-1"></i>
             </button>
 
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item dropdown px-lg-2">
-                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="marchio.html" role="button" data-bs-toggle="dropdown">
-                            Marchio
-                        </a>
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Chi Sono</a>
                         <ul class="dropdown-menu shadow">
-                            <li><a class="dropdown-item py-2 fw-semibold" href="cv-scolastico.html">CV Scolastico</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="giuseppe-musumeci.html">Giuseppe Musumeci</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="formazione.html">Formazione</a></li>
                             <li><a class="dropdown-item py-2 fw-semibold" href="carriera.html">Carriera</a></li>
                         </ul>
                     </li>
-                    
-                    <li class="nav-item px-lg-2">
-                        <a class="nav-link fw-bold text-uppercase" href="attualita.html">Attualità</a>
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Cosa faccio</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="direttore.html">Direttore</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="interventistica.html">Intervantistica Strutturale</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="cardiologia.html">Cardiologia Clinica</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="patologie.html">Patologie Cardiovascolari</a></li>
+                        </ul>
                     </li>
-                    
-                    <li class="nav-item px-lg-2 me-lg-3">
-                        <a class="nav-link fw-bold text-uppercase" href="https://www.change.drgiuseppemusumeci.com/">Change</a>
-                    </li>
-
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="attualita.html">Attualità</a></li>
+                    <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="https://www.change.drgiuseppemusumeci.com/">Change</a></li>
                     <li class="nav-item">
-                        <a href="#" onclick="window.location.href='login.html?redirect=' + encodeURIComponent(window.location.href); return false;" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+                        <a href="login.html" onclick="window.location.href='login.html?redirect=' + encodeURIComponent(window.location.href); return false;" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
                         <div id="user-info">
                             <span id="user-name" class="me-3 small fw-bold text-uppercase opacity-75"></span>
-                            <button onclick="logout()" class="btn btn-outline-danger btn-sm rounded-0 fw-bold">LOGOUT</button>
+                            <button onclick="logout()" class="btn btn-outline-light btn-sm rounded-0 fw-bold">LOGOUT</button>
                         </div>
                     </li>
                 </ul>
@@ -112,78 +143,71 @@
 
     <main class="container">
         <section class="hero-section">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Caduceus.svg" alt="Medical" style="width: 70px; opacity: 0.15;" class="mb-4">
-            <h1>Giuseppe <br>Musumeci</h1>
-            <div class="red-line"></div>
-            <p class="lead text-muted">Eccelenza nella cardiologia italiana.</p>
-        </section>
-
-       <div class="row g-4 text-start">
-    <div class="col-md-4">
-        <div class="feature-card accent">
-            <h4 class="fw-bold">Direzione Medica</h4>
-            <p class="small text-muted mb-0">
-                Direttore della SC Cardiologia presso l'<strong>Ospedale Mauriziano di Torino</strong>, centro di eccellenza per il trattamento delle patologie cardiovascolari tempo-dipendenti.
-            </p>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="feature-card">
-            <h4 class="fw-bold">Interventistica</h4>
-            <p class="small text-muted mb-0">
-                Specialista in emodinamica con focus su procedure mininvasive (TAVI, Mitraclip) e trattamento complesso delle coronaropatie e cardiopatie strutturali.
-            </p>
-        </div>
-    </div>
-
-    <div class="col-md-4">
-        <div class="feature-card accent">
-            <h4 class="fw-bold">Esperienza GISE</h4>
-            <p class="small text-muted mb-0">
-                Già <strong>Presidente Nazionale GISE</strong> (Società Italiana di Cardiologia Interventistica), impegnato nella definizione delle linee guida e nell'innovazione tecnologica in sala operatoria.
-            </p>
-        </div>
-    </div>
-</div>
-    </main>
-
-    <footer class="main-footer">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-5">
-                    <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
-                    <p class="opacity-75 pe-lg-5">Primario di Cardiologia dell'ospedale dell'Ordine Mauriziano di Torino.</p>
-                    <div class="mt-4">
-                        <a href="https://it.linkedin.com/in/giuseppe-musumeci-96414358" class="btn btn-outline-light btn-sm rounded-0 me-2"><i class="bi bi-linkedin"></i></a>
-                        <a href="#" class="btn btn-outline-light btn-sm rounded-0"><i class="bi bi-envelope"></i></a>
-                    </div>
-                </div>
-                
-                <div class="col-6 col-lg-3">
-                    <h6 class="fw-bold mb-4 text-uppercase small letter-spacing-lg">Navigazione</h6>
-                    <nav>
-                        <a href="index.html" class="footer-link">Home</a>
-                        <a href="#" id="btn-login-footer" onclick="window.location.href='login.html?redirect=' + encodeURIComponent(window.location.href); return false;" class="footer-link">Accesso</a>
-                        <a href="register.html" class="footer-link">Registrazione</a>
-                        <a href="news.html" class="footer-link">News&Aggiornamenti</a>
-                    </nav>
-                </div>
-
-                <div class="col-6 col-lg-4">
-                    <h6 class="fw-bold mb-4 text-uppercase small">Sicurezza & Protocolli</h6>
-                    <nav>
-                        <a href="privacy.html" class="footer-link">Privacy Policy (GDPR)</a>
-                        <a href="delete-account.html" class="footer-link">Elimina Account</a>
-                        <a href="mailto:info@drgiuseppemusumeci.com" class="footer-link">Supporto Tecnico</a>
-                        <span class="footer-link text-white-50 mt-3 small">Status Sistema: <span class="text-success">● Operativo</span></span>
-                    </nav>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Caduceus.svg" alt="Medical" style="width: 70px; opacity: 0.1;" class="mb-4">
+            
+            <div class="hero-content-wrapper">
+                <img src="https://www.drgiuseppemusumeci.com/mitraclip.png" alt="Prof. Giuseppe Musumeci" class="hero-profile-img shadow-lg">
+                <div>
+                    <h1>Giuseppe <br>Musumeci</h1>
                 </div>
             </div>
 
+            <div class="red-line"></div>
+            <p class="lead text-muted fw-light">Eccellenza nella cardiologia italiana.</p>
+        </section>
+
+        <div class="row g-4 text-start">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <h4 class="fw-bold mb-3">Direzione Medica</h4>
+                    <p class="small opacity-75 mb-0">Direttore della SC Cardiologia presso l'<strong>Ospedale Mauriziano di Torino</strong>.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <h4 class="fw-bold mb-3">Interventistica</h4>
+                    <p class="small opacity-75 mb-0">Specialista in emodinamica con focus su procedure mininvasive (TAVI, Mitraclip).</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <h4 class="fw-bold mb-3">Esperienza GISE</h4>
+                    <p class="small opacity-75 mb-0">Già <strong>Presidente Nazionale GISE</strong>, impegnato nell'innovazione tecnologica.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container text-center text-md-start">
+            <div class="row g-5">
+                <div class="col-lg-5">
+                    <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
+                    <p class="opacity-75">Primario di Cardiologia dell'ospedale dell'Ordine Mauriziano di Torino.</p>
+                    <div class="mt-4">
+                        <a href="https://it.linkedin.com/in/giuseppe-musumeci-96414358" class="btn btn-outline-light btn-sm rounded-0 me-2"><i class="bi bi-linkedin"></i></a>
+                        <a href="mailto:info@drgiuseppemusumeci.com" class="btn btn-outline-light btn-sm rounded-0"><i class="bi bi-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <h6 class="fw-bold mb-4 text-uppercase small">Navigazione</h6>
+                    <nav>
+                        <a href="index.html" class="footer-link">Home</a>
+                        <a href="login.html" class="footer-link">Accesso</a>
+                        <a href="news.html" class="footer-link">News</a>
+                    </nav>
+                </div>
+                <div class="col-6 col-lg-4">
+                    <h6 class="fw-bold mb-4 text-uppercase small">Sicurezza</h6>
+                    <nav>
+                        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                        <span class="footer-link text-white-50 mt-3 small">Status: <span class="text-success">● Operativo</span></span>
+                    </nav>
+                </div>
+            </div>
             <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
-                <p class="mb-2 mb-md-0">&copy; 2026 Prof. Giuseppe Musumeci. All Rights Reserved.</p>
-                <p class="mb-0 text-uppercase fw-bold" style="font-size: 0.7rem; letter-spacing: 1px;">Developed by <a class="mb-0 text-uppercase fw-bold" style="font-size: 0.7rem; letter-spacing: 1px;" color="fff" href="https://aviationeagle.co.uk">aviationeagle.co.uk</a></p>
+                <p class="mb-0">&copy; 2026 Prof. Giuseppe Musumeci.</p>
+                <p class="mb-0 text-uppercase fw-bold" style="font-size: 0.7rem;">Developed by <a style="color: #fff;" href="https://aviationeagle.co.uk">aviationeagle.co.uk</a></p>
             </div>
         </div>
     </footer>
@@ -206,25 +230,19 @@
 
         auth.onAuthStateChanged((user) => {
             const btnLoginNav = document.getElementById('btn-login-nav');
-            const btnLoginFooter = document.getElementById('btn-login-footer');
             const userInfo = document.getElementById('user-info');
             const userName = document.getElementById('user-name');
-
             if (user) {
                 if(btnLoginNav) btnLoginNav.style.display = 'none';
-                if(btnLoginFooter) btnLoginFooter.style.display = 'none';
                 if(userInfo) userInfo.style.display = 'flex';
                 if(userName) userName.innerText = user.displayName || user.email;
             } else {
                 if(btnLoginNav) btnLoginNav.style.display = 'inline-block';
-                if(btnLoginFooter) btnLoginFooter.style.display = 'block';
                 if(userInfo) userInfo.style.display = 'none';
             }
         });
 
-        function logout() {
-            auth.signOut().then(() => window.location.reload());
-        }
+        function logout() { auth.signOut().then(() => window.location.reload()); }
     </script>
 </body>
 </html>
