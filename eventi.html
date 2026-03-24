@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prof. Giuseppe Musumeci</title>
+    <title>Attualità & Leadership | Prof. Giuseppe Musumeci</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -24,9 +24,9 @@
             --column-shadow: rgba(0, 0, 0, 0.2);
         }
 
-        body { background-color: var(--clean-white); color: var(--tech-black); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        body { background-color: var(--clean-white); color: var(--tech-black); font-family: 'Inter', sans-serif; overflow-x: hidden; line-height: 1.8; }
 
-        /* --- COLONNE GRECHE (RIGHE SPESSE) --- */
+        /* --- COLONNE GRECHE --- */
         .greek-column {
             position: fixed; top: 0; width: 65px; height: 100vh; z-index: -1;
             background: linear-gradient(90deg, var(--column-shadow) 0%, var(--column-base) 20%, var(--column-highlight) 35%, var(--column-base) 50%, var(--column-shadow) 65%, var(--column-base) 80%, var(--column-shadow) 100%);
@@ -35,7 +35,7 @@
         }
         .col-left { left: 5px; } .col-right { right: 5px; }
 
-        /* --- NAVBAR --- */
+        /* --- NAVBAR AGGIORNATA --- */
         .navbar { 
             background: linear-gradient(90deg, var(--soft-red-white) 0%, var(--deep-red) 100%); 
             border-bottom: 3px solid var(--deep-red); 
@@ -61,35 +61,26 @@
             .dropdown-item:hover { background: rgba(255,255,255,0.2)!important; }
         }
 
-        /* --- HERO SECTION CON FOTO --- */
-        .hero-section { padding: 60px 0; text-align: center; }
-        .hero-content-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px; }
-        .hero-profile-img { 
-            width: 180px; height: auto; border-radius: 23%; object-fit: cover; 
-            margin-bottom: 20px; border: 5px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
-        }
-        h1 { font-family: 'Outfit', sans-serif; font-size: 3.5rem; margin-bottom: 0; letter-spacing: -1px; line-height: 1.1; }
+        /* --- HEADER & CONTENT --- */
+        .profile-header { padding: 80px 0 40px; background: rgba(248, 249, 250, 0.8); border-bottom: 1px solid #eee; }
+        .red-divider { width: 60px; height: 4px; background: var(--deep-red); margin: 25px 0; }
         
-        @media (min-width: 768px) {
-            .hero-content-wrapper { flex-direction: row; text-align: left; }
-            .hero-profile-img { margin-bottom: 0; margin-right: 40px; }
-        }
+        .content-section h2 { font-family: 'Outfit', sans-serif; font-weight: 700; margin-top: 45px; margin-bottom: 20px; color: var(--tech-black); border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .news-tag { color: var(--deep-red); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; }
+        .highlight-box { border-left: 5px solid var(--deep-red); background: var(--soft-gray); padding: 30px; margin: 35px 0; font-style: italic; font-size: 1.1rem; }
 
-        .red-line { width: 80px; height: 5px; background: var(--deep-red); margin: 25px auto; }
-        
-        /* --- FEATURE CARDS --- */
-        .feature-card { 
-            padding: 40px; background: linear-gradient(135deg, var(--deep-red) 0%, var(--tech-black) 100%);
-            color: white; border: none; transition: 0.4s; height: 100%; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+        /* --- SIDEBAR --- */
+        .sidebar { position: sticky; top: 120px; padding-left: 20px; border-left: 1px solid #eee; }
+        .widget-title { font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--deep-red); margin-bottom: 20px; }
+        .search-group .btn { background: var(--tech-black); color: white; border-radius: 0; }
+        .assoc-list { list-style: none; padding: 0; }
+        .assoc-list li { padding: 12px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.95rem; }
+        .assoc-list li i { color: var(--deep-red); margin-right: 12px; }
 
-        /* --- FOOTER --- */
+        /* --- BUTTONS & FOOTER --- */
+        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 10px 25px; font-weight: 600; border: none; }
         .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); }
         .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
-        .footer-link:hover { color: var(--deep-red); padding-left: 5px; }
-        
-        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 10px 25px; font-weight: 600; border: none; }
         #user-info { display: none; align-items: center; color: white; }
     </style>
 </head>
@@ -125,10 +116,10 @@
                             <li><a class="dropdown-item py-2 fw-semibold" href="interventistica.html">Intervantistica Strutturale</a></li>
                             <li><a class="dropdown-item py-2 fw-semibold" href="cardiologia.html">Cardiologia Clinica</a></li>
                             <li><a class="dropdown-item py-2 fw-semibold" href="patologie.html">Patologie Cardiovascolari</a></li>
-                             <li><a class="dropdown-item py-2 fw-semibold" href="incarichi.html">Incarichi Istituzionali</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="incarichi.html">Incarichi Istituzionali</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="eventi.html">News&Eventi</a></li>
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="eventi.html" style="color: var(--tech-black)!important; font-weight: 800;">News&Eventi</a></li>
                     <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="https://www.change.drgiuseppemusumeci.com/">Change</a></li>
                     <li class="nav-item">
                         <a href="login.html" onclick="window.location.href='login.html?redirect=' + encodeURIComponent(window.location.href); return false;" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
@@ -142,73 +133,74 @@
         </div>
     </nav>
 
-    <main class="container">
-        <section class="hero-section">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Caduceus.svg" alt="Medical" style="width: 70px; opacity: 0.1;" class="mb-4">
-            
-            <div class="hero-content-wrapper">
-                <img src="https://www.drgiuseppemusumeci.com/mitraclip.png" alt="Prof. Giuseppe Musumeci" class="hero-profile-img shadow-lg">
-                <div>
-                    <h1>Giuseppe <br>Musumeci</h1>
+    <header class="profile-header">
+        <div class="container">
+            <h6 class="text-uppercase fw-bold opacity-50 small mb-2" style="letter-spacing: 2px;">Aggiornamento Operativo 2026</h6>
+            <h1 class="display-4 fw-bold" style="font-family: 'Outfit';">Incarichi & Attualità</h1>
+            <div class="red-divider"></div>
+        </div>
+    </header>
+
+    <div class="container my-5">
+        <div class="row g-5">
+            <div class="col-lg-8 content-section" id="hub-content">
+                <div class="searchable-unit mb-5">
+                    <span class="news-tag">Leadership Scientifica</span>
+                    <h2>Congresso "Change in Cardiology"</h2>
+                    <p>Sotto la direzione del Prof. Musumeci, il congresso <strong>Change in Cardiology</strong> si è confermato nel 2025 come l'evento di riferimento nazionale per la transizione digitale in sanità.</p>
+                </div>
+
+                <div class="searchable-unit mb-5">
+                    <span class="news-tag">Eccellenza Clinica</span>
+                    <h2>Dipartimento Cardiologia - Ospedale Mauriziano</h2>
+                    <p>In qualità di <strong>Direttore della SC Cardiologia</strong>, il Professore ha coordinato l'implementazione del Centro "CardioDonna", unico in Piemonte.</p>
+                </div>
+
+                <div class="highlight-box">
+                    "L'attualità della cardiologia moderna non risiede solo nel dispositivo utilizzato, ma nella capacità di creare una rete di emergenza interconnessa."
+                </div>
+
+                <div class="searchable-unit mb-5">
+                    <span class="news-tag">Istituzioni Nazionali</span>
+                    <h2>AGENAS & Tavoli Tecnici</h2>
+                    <p>Coordinatore tecnico presso <strong>AGENAS</strong> per la revisione delle Reti di Emergenza Cardiologica nazionali.</p>
                 </div>
             </div>
 
-            <div class="red-line"></div>
-            <p class="lead text-muted fw-light">Eccellenza nella cardiologia italiana.</p>
-        </section>
+            <div class="col-lg-4">
+                <aside class="sidebar">
+                    <div class="sidebar-widget">
+                        <h5 class="widget-title">Cerca nell'Hub</h5>
+                        <div class="input-group search-group">
+                            <input type="text" id="searchInput" class="form-control rounded-0" placeholder="Cerca parole chiave..." onkeyup="if(event.key==='Enter') runSearch()">
+                            <button class="btn" type="button" onclick="runSearch()"><i class="bi bi-search"></i></button>
+                        </div>
+                        <div id="searchCounter" class="small mt-2 fw-bold text-muted" style="display:none;"></div>
+                    </div>
 
-        <div class="row g-4 text-start">
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <h4 class="fw-bold mb-3">Direzione Medica</h4>
-                    <p class="small opacity-75 mb-0">Direttore della SC Cardiologia presso l'<strong>Ospedale Mauriziano di Torino</strong>.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <h4 class="fw-bold mb-3">Interventistica</h4>
-                    <p class="small opacity-75 mb-0">Specialista in emodinamica con focus su procedure mininvasive (TAVI, Mitraclip).</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="feature-card">
-                    <h4 class="fw-bold mb-3">Esperienza GISE</h4>
-                    <p class="small opacity-75 mb-0">Già <strong>Presidente Nazionale GISE</strong>, impegnato nell'innovazione tecnologica.</p>
-                </div>
+                    <div class="sidebar-widget">
+                        <h5 class="widget-title">Status Istituzionale</h5>
+                        <ul class="assoc-list">
+                            <li><i class="bi bi-check-circle-fill"></i> Past President <strong>GISE</strong></li>
+                            <li><i class="bi bi-check-circle-fill"></i> Coordinatore <strong>AGENAS</strong></li>
+                            <li><i class="bi bi-calendar-event"></i> Director <strong>Change 2026</strong></li>
+                        </ul>
+                    </div>
+                </aside>
             </div>
         </div>
-    </main>
+    </div>
 
     <footer class="main-footer">
-        <div class="container text-center text-md-start">
+        <div class="container">
             <div class="row g-5">
                 <div class="col-lg-5">
                     <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
                     <p class="opacity-75">Primario di Cardiologia dell'ospedale dell'Ordine Mauriziano di Torino.</p>
-                    <div class="mt-4">
-                        <a href="https://it.linkedin.com/in/giuseppe-musumeci-96414358" class="btn btn-outline-light btn-sm rounded-0 me-2"><i class="bi bi-linkedin"></i></a>
-                        <a href="mailto:info@drgiuseppemusumeci.com" class="btn btn-outline-light btn-sm rounded-0"><i class="bi bi-envelope"></i></a>
-                    </div>
                 </div>
-                <div class="col-6 col-lg-3">
-                    <h6 class="fw-bold mb-4 text-uppercase small">Navigazione</h6>
-                    <nav>
-                        <a href="index.html" class="footer-link">Home</a>
-                        <a href="login.html" class="footer-link">Accesso</a>
-                        <a href="news.html" class="footer-link">Aggiornamenti</a>
-                    </nav>
+                <div class="col-lg-7 text-md-end">
+                    <p class="mb-0 text-uppercase fw-bold" style="font-size: 0.7rem;">Developed by <a style="color: #fff; text-decoration: none;" href="https://aviationeagle.co.uk">aviationeagle.co.uk</a></p>
                 </div>
-                <div class="col-6 col-lg-4">
-                    <h6 class="fw-bold mb-4 text-uppercase small">Sicurezza</h6>
-                    <nav>
-                        <a href="privacy.html" class="footer-link">Privacy Policy</a>
-                        <span class="footer-link text-white-50 mt-3 small">Status: <span class="text-success">● Operativo</span></span>
-                    </nav>
-                </div>
-            </div>
-            <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
-                <p class="mb-0">&copy; 2026 Prof. Giuseppe Musumeci. Tutti i diritti riservati ove non esplicato altra licenza.</p>
-                <p class="mb-0 text-uppercase fw-bold" style="font-size: 0.7rem;">Developed by <a style="color: #fff;" href="https://aviationeagle.co.uk">aviationeagle.co.uk</a></p>
             </div>
         </div>
     </footer>
@@ -230,20 +222,39 @@
         const auth = firebase.auth();
 
         auth.onAuthStateChanged((user) => {
-            const btnLoginNav = document.getElementById('btn-login-nav');
+            const btnLogin = document.getElementById('btn-login-nav');
             const userInfo = document.getElementById('user-info');
             const userName = document.getElementById('user-name');
             if (user) {
-                if(btnLoginNav) btnLoginNav.style.display = 'none';
+                if(btnLogin) btnLogin.style.display = 'none';
                 if(userInfo) userInfo.style.display = 'flex';
-                if(userName) userName.innerText = user.displayName || user.email;
+                if(userName) userName.innerText = user.displayName || user.email.split('@')[0];
             } else {
-                if(btnLoginNav) btnLoginNav.style.display = 'inline-block';
+                if(btnLogin) btnLogin.style.display = 'inline-block';
                 if(userInfo) userInfo.style.display = 'none';
             }
         });
 
         function logout() { auth.signOut().then(() => window.location.reload()); }
+
+        function runSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const units = document.querySelectorAll('.searchable-unit');
+            const counterBox = document.getElementById('searchCounter');
+            let found = 0;
+            if (query === "") {
+                units.forEach(u => u.style.display = "block");
+                counterBox.style.display = "none";
+                return;
+            }
+            units.forEach(unit => {
+                if (unit.innerText.toLowerCase().includes(query)) {
+                    unit.style.display = "block"; found++;
+                } else { unit.style.display = "none"; }
+            });
+            counterBox.style.display = "block";
+            counterBox.innerHTML = found > 0 ? `Trovati ${found} risultati` : `<span class="text-danger">Nessun match</span>`;
+        }
     </script>
 </body>
 </html>
