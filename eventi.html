@@ -13,88 +13,118 @@
     <style>
         :root {
             --med-red: #d90429;
+            --deep-red: #b00202;
+            --soft-red-white: #f5d7d7;
             --tech-black: #2b2d42;
+            --clean-white: #ffffff;
             --soft-gray: #f8f9fa;
             --footer-bg: #1a1b29;
+            --column-base: rgba(210, 210, 215, 0.6); 
+            --column-highlight: rgba(255, 255, 255, 0.8);
+            --column-shadow: rgba(0, 0, 0, 0.2);
         }
 
-        body { background-color: #ffffff; color: var(--tech-black); font-family: 'Inter', sans-serif; line-height: 1.8; }
+        body { background-color: var(--clean-white); color: var(--tech-black); font-family: 'Inter', sans-serif; overflow-x: hidden; line-height: 1.8; }
 
-        /* --- NAVBAR --- */
-        .navbar { background: white; border-bottom: 3px solid var(--med-red); padding: 1rem 0; }
+        /* --- COLONNE GRECHE --- */
+        .greek-column {
+            position: fixed; top: 0; width: 65px; height: 100vh; z-index: -1;
+            background: linear-gradient(90deg, var(--column-shadow) 0%, var(--column-base) 20%, var(--column-highlight) 35%, var(--column-base) 50%, var(--column-shadow) 65%, var(--column-base) 80%, var(--column-shadow) 100%);
+            background-size: 32px 100%; border-left: 2px solid rgba(0,0,0,0.1); border-right: 2px solid rgba(0,0,0,0.1);
+            box-shadow: 5px 0 15px rgba(0,0,0,0.05), -5px 0 15px rgba(0,0,0,0.05);
+        }
+        .col-left { left: 5px; } .col-right { right: 5px; }
+
+        /* --- NAVBAR AGGIORNATA --- */
+        .navbar { 
+            background: linear-gradient(90deg, var(--soft-red-white) 0%, var(--deep-red) 100%); 
+            border-bottom: 3px solid var(--deep-red); 
+            padding: 0.8rem 0; 
+        }
         .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--tech-black)!important; }
-        .brand-accent { color: var(--med-red); }
-        .nav-link { font-weight: 700; text-transform: uppercase; font-size: 0.85rem; color: var(--tech-black)!important; transition: 0.3s; }
-        .nav-link:hover { color: var(--med-red)!important; }
-
-        /* --- AUTH UI --- */
-        #user-info { display: none; align-items: center; }
-        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 10px 25px; font-weight: 600; text-decoration: none; border: none; display: inline-block; transition: 0.3s; }
-        .btn-medical:hover { background-color: var(--med-red); color: white; }
-
-        /* --- HEADER --- */
-        .profile-header { padding: 80px 0 40px; background: var(--soft-gray); border-bottom: 1px solid #eee; }
-        .red-divider { width: 60px; height: 4px; background: var(--med-red); margin: 25px 0; }
-
-        /* --- CONTENT --- */
-        .content-section { padding-right: 30px; }
-        .content-section h2 { font-family: 'Outfit', sans-serif; font-weight: 700; margin-top: 45px; margin-bottom: 20px; color: var(--tech-black); border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .news-tag { color: var(--med-red); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; }
-        .highlight-box { border-left: 5px solid var(--med-red); background: var(--soft-gray); padding: 30px; margin: 35px 0; font-style: italic; font-size: 1.1rem; }
+        .brand-accent { color: var(--deep-red); }
+        .nav-link { color: white!important; font-size: 0.85rem; letter-spacing: 0.5px; transition: 0.3s; }
         
+        /* --- MOBILE MENU AMALGAMATO --- */
+        @media (max-width: 991.98px) {
+            .navbar-collapse {
+                background: linear-gradient(180deg, rgba(176, 2, 2, 0.95) 0%, rgba(43, 45, 66, 0.98) 100%);
+                margin: 0 -1rem; padding: 1rem; border-top: 1px solid rgba(255,255,255,0.1);
+            }
+            .dropdown-menu {
+                background: rgba(255, 255, 255, 0.1)!important;
+                border: 1px solid rgba(255, 255, 255, 0.2)!important;
+                backdrop-filter: blur(10px);
+                margin-top: 10px!important;
+            }
+            .dropdown-item { color: white!important; }
+            .dropdown-item:hover { background: rgba(255,255,255,0.2)!important; }
+        }
+
+        /* --- HEADER & CONTENT --- */
+        .profile-header { padding: 80px 0 40px; background: rgba(248, 249, 250, 0.8); border-bottom: 1px solid #eee; }
+        .red-divider { width: 60px; height: 4px; background: var(--deep-red); margin: 25px 0; }
+        
+        .content-section h2 { font-family: 'Outfit', sans-serif; font-weight: 700; margin-top: 45px; margin-bottom: 20px; color: var(--tech-black); border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .news-tag { color: var(--deep-red); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px; }
+        .highlight-box { border-left: 5px solid var(--deep-red); background: var(--soft-gray); padding: 30px; margin: 35px 0; font-style: italic; font-size: 1.1rem; }
+
         /* --- SIDEBAR --- */
         .sidebar { position: sticky; top: 120px; padding-left: 20px; border-left: 1px solid #eee; }
-        .sidebar-widget { margin-bottom: 45px; }
-        .widget-title { font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--med-red); margin-bottom: 20px; }
-        
-        .search-group .form-control { border-radius: 0; border: 1px solid #ddd; padding: 12px; font-size: 0.9rem; }
-        .search-group .form-control:focus { box-shadow: none; border-color: var(--med-red); }
-        .search-group .btn { border-radius: 0; background: var(--tech-black); color: white; border: none; padding: 0 20px; }
-
+        .widget-title { font-family: 'Outfit', sans-serif; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--deep-red); margin-bottom: 20px; }
+        .search-group .btn { background: var(--tech-black); color: white; border-radius: 0; }
         .assoc-list { list-style: none; padding: 0; }
-        .assoc-list li { padding: 12px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.95rem; font-weight: 500; display: flex; align-items: center; }
-        .assoc-list li i { color: var(--med-red); margin-right: 12px; }
+        .assoc-list li { padding: 12px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.95rem; }
+        .assoc-list li i { color: var(--deep-red); margin-right: 12px; }
 
-        /* --- FOOTER --- */
-        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--med-red); }
-        .footer-logo { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.6rem; letter-spacing: -0.5px; }
+        /* --- BUTTONS & FOOTER --- */
+        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 10px 25px; font-weight: 600; border: none; }
+        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); }
         .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
-        .footer-link:hover { color: var(--med-red); padding-left: 5px; }
-        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); margin-top: 60px; padding-top: 30px; font-size: 0.85rem; color: #6c757d; }
-
-        @media (max-width: 991px) {
-            .sidebar { border-left: none; padding-left: 0; margin-top: 50px; border-top: 1px solid #eee; padding-top: 30px; }
-        }
+        #user-info { display: none; align-items: center; color: white; }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg sticky-top shadow-sm">
+    <div class="greek-column col-left"></div>
+    <div class="greek-column col-right"></div>
+
+    <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="favicon.ico" alt="Logo" width="35" class="me-2">
+                <img src="https://www.drgiuseppemusumeci.com/favicon.png" alt="Logo" width="55" class="me-2">
                 <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
             </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <i class="bi bi-list fs-1"></i>
             </button>
+
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item dropdown px-lg-2">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Marchio</a>
-                        <ul class="dropdown-menu shadow border-0">
-                            <li><a class="dropdown-item py-2" href="cv-scolastico.html">CV Scolastico</a></li>
-                            <li><a class="dropdown-item py-2" href="carriera.html">Carriera</a></li>
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Chi Sono</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="giuseppe-musumeci.html">Giuseppe Musumeci</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="formazione.html">Formazione</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="carriera.html">Carriera</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item px-lg-2"><a class="nav-link" href="attualita.html" style="color: var(--med-red)!important;">Attualità</a></li>
-                    <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link" href="https://www.change.drgiuseppemusumeci.com/">Change</a></li>
-                    
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Cosa faccio</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="direttore.html">Direttore</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="interventistica.html">Intervantistica Strutturale</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="cardiologia.html">Cardiologia Clinica</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="patologie.html">Patologie Cardiovascolari</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="eventi.html" style="color: var(--tech-black)!important; font-weight: 800;">News&Eventi</a></li>
+                    <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="https://www.change.drgiuseppemusumeci.com/">Change</a></li>
                     <li class="nav-item">
-                        <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+                        <a href="login.html" onclick="window.location.href='login.html?redirect=' + encodeURIComponent(window.location.href); return false;" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
                         <div id="user-info">
                             <span id="user-name" class="me-3 small fw-bold text-uppercase opacity-75"></span>
-                            <button onclick="logout()" class="btn btn-outline-danger btn-sm rounded-0 fw-bold">LOGOUT</button>
+                            <button onclick="logout()" class="btn btn-outline-light btn-sm rounded-0 fw-bold">LOGOUT</button>
                         </div>
                     </li>
                 </ul>
@@ -113,17 +143,16 @@
     <div class="container my-5">
         <div class="row g-5">
             <div class="col-lg-8 content-section" id="hub-content">
-                
                 <div class="searchable-unit mb-5">
                     <span class="news-tag">Leadership Scientifica</span>
                     <h2>Congresso "Change in Cardiology"</h2>
-                    <p>Sotto la direzione del Prof. Musumeci, il congresso <strong>Change in Cardiology</strong> si è confermato nel 2025 come l'evento di riferimento nazionale per la transizione digitale in sanità. La prossima edizione si focalizzerà sull'applicazione dell'IA nei protocolli di emodinamica.</p>
+                    <p>Sotto la direzione del Prof. Musumeci, il congresso <strong>Change in Cardiology</strong> si è confermato nel 2025 come l'evento di riferimento nazionale per la transizione digitale in sanità.</p>
                 </div>
 
                 <div class="searchable-unit mb-5">
                     <span class="news-tag">Eccellenza Clinica</span>
                     <h2>Dipartimento Cardiologia - Ospedale Mauriziano</h2>
-                    <p>In qualità di <strong>Direttore della SC Cardiologia</strong>, il Professore ha recentemente coordinato l'implementazione del Centro "CardioDonna", un percorso d'eccellenza per la medicina di genere unico in Piemonte.</p>
+                    <p>In qualità di <strong>Direttore della SC Cardiologia</strong>, il Professore ha coordinato l'implementazione del Centro "CardioDonna", unico in Piemonte.</p>
                 </div>
 
                 <div class="highlight-box">
@@ -133,7 +162,7 @@
                 <div class="searchable-unit mb-5">
                     <span class="news-tag">Istituzioni Nazionali</span>
                     <h2>AGENAS & Tavoli Tecnici</h2>
-                    <p>Il Prof. Musumeci ricopre attualmente il ruolo di coordinatore tecnico presso <strong>AGENAS</strong> per la revisione delle Reti di Emergenza Cardiologica nazionali.</p>
+                    <p>Coordinatore tecnico presso <strong>AGENAS</strong> per la revisione delle Reti di Emergenza Cardiologica nazionali.</p>
                 </div>
             </div>
 
@@ -142,7 +171,7 @@
                     <div class="sidebar-widget">
                         <h5 class="widget-title">Cerca nell'Hub</h5>
                         <div class="input-group search-group">
-                            <input type="text" id="searchInput" class="form-control" placeholder="Cerca parole chiave..." onkeyup="if(event.key==='Enter') runSearch()">
+                            <input type="text" id="searchInput" class="form-control rounded-0" placeholder="Cerca parole chiave..." onkeyup="if(event.key==='Enter') runSearch()">
                             <button class="btn" type="button" onclick="runSearch()"><i class="bi bi-search"></i></button>
                         </div>
                         <div id="searchCounter" class="small mt-2 fw-bold text-muted" style="display:none;"></div>
@@ -166,24 +195,23 @@
             <div class="row g-5">
                 <div class="col-lg-5">
                     <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
-                    <p class="opacity-75">Sistemi avanzati per la gestione del dato clinico e l'eccellenza cardiovascolare.</p>
+                    <p class="opacity-75">Primario di Cardiologia dell'ospedale dell'Ordine Mauriziano di Torino.</p>
                 </div>
                 <div class="col-lg-7 text-md-end">
-                    <p class="mb-0 text-uppercase fw-bold" style="font-size: 0.7rem; letter-spacing: 1px;">Powered by Aviation Eagle Strategic Support</p>
+                    <p class="mb-0 text-uppercase fw-bold" style="font-size: 0.7rem;">Developed by <a style="color: #fff; text-decoration: none;" href="https://aviationeagle.co.uk">aviationeagle.co.uk</a></p>
                 </div>
             </div>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // 1. CONFIGURAZIONE NUCLEO
         const firebaseConfig = {
             apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
-            authDomain: "giuseppe-4c318.firebaseapp.com/",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
             projectId: "giuseppe-4c318",
             storageBucket: "giuseppe-4c318.firebasestorage.app",
             messagingSenderId: "658885311131",
@@ -192,12 +220,10 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
-        // 2. GESTIONE SESSIONE UTENTE
         auth.onAuthStateChanged((user) => {
             const btnLogin = document.getElementById('btn-login-nav');
             const userInfo = document.getElementById('user-info');
             const userName = document.getElementById('user-name');
-
             if (user) {
                 if(btnLogin) btnLogin.style.display = 'none';
                 if(userInfo) userInfo.style.display = 'flex';
@@ -208,34 +234,25 @@
             }
         });
 
-        function logout() {
-            auth.signOut().then(() => window.location.reload());
-        }
+        function logout() { auth.signOut().then(() => window.location.reload()); }
 
-        // 3. LOGICA DI RICERCA HUB
         function runSearch() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const units = document.querySelectorAll('.searchable-unit');
             const counterBox = document.getElementById('searchCounter');
             let found = 0;
-
             if (query === "") {
                 units.forEach(u => u.style.display = "block");
                 counterBox.style.display = "none";
                 return;
             }
-
             units.forEach(unit => {
                 if (unit.innerText.toLowerCase().includes(query)) {
-                    unit.style.display = "block";
-                    found++;
-                } else {
-                    unit.style.display = "none";
-                }
+                    unit.style.display = "block"; found++;
+                } else { unit.style.display = "none"; }
             });
-
             counterBox.style.display = "block";
-            counterBox.innerHTML = found > 0 ? `Trovati ${found} risultati` : `<span class="text-danger">Nessun match per "${query}"</span>`;
+            counterBox.innerHTML = found > 0 ? `Trovati ${found} risultati` : `<span class="text-danger">Nessun match</span>`;
         }
     </script>
 </body>
