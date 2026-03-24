@@ -70,66 +70,53 @@
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
-    <script>
-        // Configurazione Firebase (identica)
-        const firebaseConfig = {
-            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
-            authDomain: "giuseppe-4c318.firebaseapp.com/",
-            projectId: "giuseppe-4c318",
-            storageBucket: "giuseppe-4c318.firebasestorage.app",
-            messagingSenderId: "658885311131",
-            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+        authDomain: "giuseppe-4c318.firebaseapp.com",
+        projectId: "giuseppe-4c318",
+        storageBucket: "giuseppe-4c318.firebasestorage.app",
+        messagingSenderId: "658885311131",
+        appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+    };
 
-        // Funzione Generica Social
-        function socialLogin(provider) {
-            auth.signInWithPopup(provider)
-                .then(() => {
-                    // Login social riuscito, reindirizziamo
-                    window.location.href = "index.html";
-                })
-                .catch(err => alert("Errore di intercettazione social: " + err.message));
+    if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig); }
+    const auth = firebase.auth();
+
+    // --- PROTOCOLLO DI REINDIRIZZAMENTO ---
+    function handleNavigation() {
+        const params = new URLSearchParams(window.location.search);
+        const destination = params.get('redirect');
+
+        if (destination === 'change') {
+            window.location.href = "https://change.drgiuseppemusumeci.com/index.html";
+        } else {
+            window.location.href = "index.html"; // Default Home Madre
         }
+    }
 
-        // Eventi Bottoni Social
-        document.getElementById('btn-google').onclick = () => socialLogin(new firebase.auth.GoogleAuthProvider());
-        document.getElementById('btn-facebook').onclick = () => socialLogin(new firebase.auth.FacebookAuthProvider());
+    // Login Email/Password
+    document.getElementById('loginForm').onsubmit = (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email-field').value;
+        const pass = document.getElementById('pass-field').value;
 
-        // Email Login - Verificato e Corretto per il Redirect
-        document.getElementById('loginForm').onsubmit = (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email-field').value;
-            const pass = document.getElementById('pass-field').value;
+        auth.signInWithEmailAndPassword(email, pass)
+            .then(() => { handleNavigation(); })
+            .catch(err => alert("Errore di accesso: " + err.message));
+    };
 
-            auth.signInWithEmailAndPassword(email, pass)
-                .then((userCredential) => {
-                    // Login riuscito
-                    console.log("Accesso eseguito per:", userCredential.user.email);
-                    window.location.href = "index.html"; // Salto a curvatura autorizzato
-                })
-                .catch(err => {
-                    // Mostra errore se le credenziali sono errate o l'utente non esiste
-                    alert("Accesso negato: credenziali non riconosciute dal database centrale.");
-                    console.error("Errore Accesso:", err.code, err.message);
-                });
-        };
+    // Login Social
+    function socialLogin(provider) {
+        auth.signInWithPopup(provider)
+            .then(() => { handleNavigation(); })
+            .catch(err => alert("Errore Social: " + err.message));
+    }
 
-        // Recupero Password... (rimane invariato)
-        document.getElementById('forgot-password').onclick = (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email-field').value;
-            if (!email) {
-                alert("Inserire l'indirizzo email nel campo sopra per procedere al recupero.");
-                return;
-            }
-            auth.sendPasswordResetEmail(email)
-                .then(() => alert("Protocollo di reset inviato. Controlla la tua posta elettronica."))
-                .catch((err) => alert("Errore durante la richiesta: " + err.message));
-        };
-    </script>
+    document.getElementById('btn-google').onclick = () => socialLogin(new firebase.auth.GoogleAuthProvider());
+    document.getElementById('btn-facebook').onclick = () => socialLogin(new firebase.auth.FacebookAuthProvider());
+</script>
 </body>
 </html>
