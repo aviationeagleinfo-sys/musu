@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi Sono | Prof. Giuseppe Musumeci</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
+        'analytics_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied'
+      });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HYME8VH6Y5');
+    </script>
+
+    <style>
+        :root {
+            --med-red: #d90429;
+            --deep-red: #b00202;
+            --soft-red-white: #f5d7d7;
+            --tech-black: #2b2d42;
+            --clean-white: #ffffff;
+            --soft-gray: #f8f9fa;
+            --footer-bg: #1a1b29;
+            --column-base: rgba(210, 210, 215, 0.6); 
+            --column-highlight: rgba(255, 255, 255, 0.8);
+            --column-shadow: rgba(0, 0, 0, 0.2);
+        }
+
+        body { background-color: var(--clean-white); color: var(--tech-black); font-family: 'Inter', sans-serif; overflow-x: hidden; line-height: 1.8; }
+
+        /* --- COLONNE GRECHE --- */
+        .greek-column {
+            position: fixed; top: 0; width: 65px; height: 100vh; z-index: -1;
+            background: linear-gradient(90deg, var(--column-shadow) 0%, var(--column-base) 20%, var(--column-highlight) 35%, var(--column-base) 50%, var(--column-shadow) 65%, var(--column-base) 80%, var(--column-shadow) 100%);
+            background-size: 32px 100%; border-left: 2px solid rgba(0,0,0,0.1); border-right: 2px solid rgba(0,0,0,0.1);
+        }
+        .col-left { left: 5px; } .col-right { right: 5px; }
+
+        /* --- NAVBAR --- */
+        .navbar { 
+            background: linear-gradient(90deg, var(--soft-red-white) 0%, var(--deep-red) 100%); 
+            border-bottom: 3px solid var(--deep-red); 
+            padding: 0.8rem 0; 
+        }
+        .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--tech-black)!important; }
+        .brand-accent { color: var(--deep-red); }
+        .nav-link { color: white!important; font-size: 0.85rem; letter-spacing: 0.5px; transition: 0.3s; }
+        
+        /* --- ABOUT ME SPECIFIC STYLES --- */
+        .about-section { padding: 100px 0; border-bottom: 1px solid #eee; }
+        .about-section:last-child { border-bottom: none; }
+        .about-img { width: 100%; height: 500px; object-fit: cover; box-shadow: 20px 20px 0px var(--soft-red-white); }
+        .section-tag { color: var(--deep-red); font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; display: block; margin-bottom: 15px; }
+        .section-title { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 2.5rem; margin-bottom: 30px; }
+        .red-divider { width: 60px; height: 4px; background: var(--deep-red); margin: 25px 0; }
+
+        /* --- BUTTONS & FOOTER --- */
+        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 10px 25px; font-weight: 600; border: none; }
+        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 0; border-top: 6px solid var(--deep-red); }
+        .footer-logo { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1.5rem; }
+        #user-info { display: none; align-items: center; color: white; }
+
+        /* Cookie UI (Sincronizzata con file precedente) */
+        #cookie-settings-trigger { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: #1a1a1a; color: #e63946; border: 2px solid #e63946; cursor: pointer; z-index: 9998; display: flex; align-items: center; justify-content: center; transition: transform 0.3s; }
+        .cookie-overlay { position: fixed; bottom: 0; left: 0; right: 0; top: 0; background: rgba(0,0,0,0.7); z-index: 9999; display: none; align-items: flex-end; padding: 20px; }
+        .cookie-card { background: #1a1a1a; color: white; padding: 25px; border-radius: 12px; max-width: 500px; margin: 0 auto; border-top: 4px solid #e63946; }
+    </style>
+</head>
+<body>
+
+    <div class="greek-column col-left"></div>
+    <div class="greek-column col-right"></div>
+
+    <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="https://www.drgiuseppemusumeci.com/favicon.png" alt="Logo" width="55" class="me-2">
+                <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
+            </a>
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <i class="bi bi-list fs-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Chi Sono</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="giuseppe-musumeci.html">Giuseppe Musumeci</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="formazione.html">Formazione</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="carriera.html">Carriera</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Cosa faccio</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="direttore.html">Direttore</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="interventistica.html">Interventistica Strutturale</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="cardiologia.html">Cardiologia Clinica</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="patologie.html">Patologie Cardiovascolari</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="incarichi.html">Incarichi Istituzionali</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="eventi.html">News&Eventi</a></li>
+                    <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="https://www.change.drgiuseppemusumeci.com/">Change</a></li>
+                    <li class="nav-item">
+                        <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+                        <div id="user-info">
+                            <span id="user-name" class="me-3 small fw-bold text-uppercase opacity-75"></span>
+                            <button onclick="logout()" class="btn btn-outline-light btn-sm rounded-0 fw-bold">LOGOUT</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        
+        <section class="about-section">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-5">
+                        <img src="https://placehold.co/600x800/2b2d42/white?text=Profilo+Professionale" alt="Giuseppe Musumeci" class="about-img">
+                    </div>
+                    <div class="col-lg-7">
+                        <span class="section-tag">Il Profilo</span>
+                        <h2 class="section-title">Una visione umana della cardiologia moderna</h2>
+                        <div class="red-divider"></div>
+                        <p class="lead fw-bold">Il Prof. Giuseppe Musumeci dedica la sua carriera all'eccellenza clinica e all'innovazione tecnologica nel campo cardiovascolare.</p>
+                        <p>Attraverso anni di esperienza internazionale e una leadership consolidata nelle principali istituzioni cardiologiche italiane, ha ridefinito gli standard di cura per le patologie coronariche e strutturali, mantenendo sempre al centro il rapporto di fiducia con il paziente.</p>
+                        <p>La sua attività si divide tra la pratica interventistica ad alto volume, il coordinamento dipartimentale e l'impegno costante nella formazione delle nuove generazioni di medici.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-section bg-light">
+            <div class="container">
+                <div class="row g-5">
+                    <div class="col-lg-6">
+                        <span class="section-tag">Leadership</span>
+                        <h3 class="h2 fw-bold">Direzione e Strategia</h3>
+                        <p>Gestire un dipartimento di eccellenza richiede una sintesi perfetta tra competenze tecniche e visione strategica. Il Prof. Musumeci coordina team multidisciplinari per garantire percorsi di cura integrati, ottimizzando le risorse tecnologiche per massimizzare il successo terapeutico e la sicurezza del paziente.</p>
+                    </div>
+                    <div class="col-lg-6">
+                        <span class="section-tag">Ricerca</span>
+                        <h3 class="h2 fw-bold">Innovazione Scientifica</h3>
+                        <p>L'impegno nella ricerca non è solo accademico, ma una necessità operativa. Partecipando attivamente a trial clinici internazionali e pubblicando sulle più prestigiose riviste scientifiche, il Professore contribuisce all'evoluzione delle tecniche di cardiologia interventistica, portando l'innovazione direttamente al letto del paziente.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about-section">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-7">
+                        <span class="section-tag">Impegno Istituzionale</span>
+                        <h2 class="section-title">Oltre la clinica: le istituzioni</h2>
+                        <div class="red-divider"></div>
+                        <p>Il ruolo di Past President GISE e il coordinamento presso AGENAS testimoniano un impegno che va oltre le mura ospedaliere. Il Prof. Musumeci lavora attivamente con le istituzioni per migliorare l'accesso alle cure cardio-interventistiche su scala nazionale, promuovendo standard di qualità uniformi e sostenibili.</p>
+                        <p>Attraverso la direzione di eventi come <strong>Change 2026</strong>, favorisce il dialogo tra esperti globali, trasformando le sfide del sistema sanitario in opportunità di crescita collettiva.</p>
+                        <a href="incarichi.html" class="btn btn-medical mt-4">SCOPRI GLI INCARICHI</a>
+                    </div>
+                    <div class="col-lg-5">
+                        <img src="https://placehold.co/600x800/d90429/white?text=Istituzioni+e+Rete" alt="Attività Istituzionale" class="about-img" style="box-shadow: -20px 20px 0px var(--tech-black);">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-5">
+                    <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
+                    <p class="opacity-75">© 2026 MD Giuseppe Musumeci. Tutti i diritti riservati.</p>
+                </div>
+                <div class="col-lg-7 text-md-end">
+                    <a href="/privacy" class="text-white text-decoration-none opacity-50 small">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button id="cookie-settings-trigger" onclick="toggleCookieBanner()" title="Impostazioni Cookie">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.35 19.43,11.03L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.97 19.05,5.05L16.56,6.05C16.04,5.65 15.44,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.56,5.32 7.96,5.65 7.44,6.05L4.95,5.05C4.73,4.97 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11.03C4.53,11.35 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.95C7.96,18.35 8.56,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.44,18.68 16.04,18.35 16.56,17.95L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" /></svg>
+    </button>
+
+    <div id="cookie-overlay" class="cookie-overlay">
+        <div class="cookie-card">
+            <h3>Consenso ai Cookie</h3>
+            <p>Utilizziamo i cookie per analizzare la tua esperienza sul sito.</p>
+            <div class="cookie-actions d-flex gap-2">
+                <button onclick="updateConsent('granted')" class="btn btn-danger flex-fill fw-bold">Accetta Tutti</button>
+                <button onclick="updateConsent('denied')" class="btn btn-secondary flex-fill fw-bold">Solo Necessari</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <script>
+        // FIREBASE AUTH LOGIC
+        const firebaseConfig = {
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
+            projectId: "giuseppe-4c318",
+            storageBucket: "giuseppe-4c318.firebasestorage.app",
+            messagingSenderId: "658885311131",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        auth.onAuthStateChanged((user) => {
+            const btnLogin = document.getElementById('btn-login-nav');
+            const userInfo = document.getElementById('user-info');
+            const userName = document.getElementById('user-name');
+            if (user) {
+                if(btnLogin) btnLogin.style.display = 'none';
+                if(userInfo) userInfo.style.display = 'flex';
+                if(userName) userName.innerText = user.displayName || user.email.split('@')[0];
+            }
+        });
+
+        function logout() { auth.signOut().then(() => window.location.reload()); }
+
+        // COOKIE LOGIC
+        function updateConsent(status) {
+            localStorage.setItem('ae_cookie_consent', status);
+            gtag('consent', 'update', { 'analytics_storage': status, 'ad_storage': status });
+            document.getElementById('cookie-overlay').style.display = 'none';
+        }
+
+        function toggleCookieBanner() {
+            const overlay = document.getElementById('cookie-overlay');
+            overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        if (!localStorage.getItem('ae_cookie_consent')) {
+            document.getElementById('cookie-overlay').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
