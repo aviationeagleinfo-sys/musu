@@ -273,7 +273,7 @@ function toggleCookieBanner() {
     const db = firebase.firestore();
     const auth = firebase.auth();
 
-    const ADMINS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com'];
+    const ADMINS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com', 'drgiuseppemusumeci@gmail.com'];
 
     auth.onAuthStateChanged(user => {
         if (user && ADMINS.includes(user.email.toLowerCase())) {
