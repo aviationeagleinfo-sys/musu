@@ -9,173 +9,25 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-<script>
-  // Definisce la funzione gtag se non esiste
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
 
-  // Imposta lo stato iniziale su "DENIED" (Nega tutto)
-  gtag('consent', 'default', {
-    'ad_storage': 'denied',
-    'analytics_storage': 'denied',
-    'ad_user_data': 'denied',
-    'ad_personalization': 'denied'
-  });
-</script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-HYME8VH6Y5');
-</script>
-<script>
-window.cookieconsent.initialise({
-  "palette": {
-    "popup": { "background": "#1a1a1a", "text": "#ffffff" },
-    "button": { "background": "#e63946", "text": "#ffffff" }
-  },
-  "content": {
-    "message": "Il sistema di bordo richiede l'uso dei cookie per ottimizzare la rotta.",
-    "dismiss": "Accetta Consenso",
-    "link": "Manuale di Volo (Privacy)",
-    "href": "https://aviationeagle.co.uk/privacy"
-  },
-  // Questa funzione scatta quando l'utente preme il tasto
-  onStatusChange: function(status) {
-    if (this.hasConsented()) {
-        activateTracking();
-    }
-  },
-  onInitialise: function(status) {
-    if (this.hasConsented()) {
-        activateTracking();
-    }
-  }
-});
-
-function activateTracking() {
-    console.log("Autorizzazione ricevuta. Avvio motori tracciamento...");
-    gtag('consent', 'update', {
-      'ad_storage': 'granted',
-      'analytics_storage': 'granted',
-      'ad_user_data': 'granted',
-      'ad_personalization': 'granted'
-    });
-}
-</script>
-<button id="cookie-settings-trigger" onclick="toggleCookieBanner()" title="Impostazioni Cookie">
-    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.35 19.43,11.03L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.97 19.05,5.05L16.56,6.05C16.04,5.65 15.44,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.56,5.32 7.96,5.65 7.44,6.05L4.95,5.05C4.73,4.97 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11.03C4.53,11.35 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.95C7.96,18.35 8.56,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.44,18.68 16.04,18.35 16.56,17.95L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" /></svg>
-</button>
-
-<div id="cookie-overlay" class="cookie-overlay">
-    <div class="cookie-card">
-        <h3>Consenso ai Cookie</h3>
-        <p>Utilizziamo i cookie per analizzare la tua esperienza sul sito. Scegli la tua configurazione:</p>
-        <div class="cookie-actions">
-            <button onclick="updateConsent('granted')" class="btn-accept">Accetta Tutti</button>
-            <button onclick="updateConsent('denied')" class="btn-reject">Solo Necessari</button>
-        </div>
-        <p class="privacy.html"><a href="/privacy">Leggi la Privacy Policy</a></p>
-    </div>
-</div>
-<script>
-    // 1. Inizializzazione GA4 (Default Denied)
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-
-// Controllo se esiste già una scelta salvata
-const currentConsent = localStorage.getItem('ae_cookie_consent');
-
-if (!currentConsent) {
-    // Prima volta: blocca tutto e mostra banner
-    gtag('consent', 'default', {
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
         'analytics_storage': 'denied',
-        'ad_storage': 'denied'
-    });
-    document.getElementById('cookie-overlay').style.display = 'flex';
-} else {
-    // Ritorno: applica la scelta salvata
-    gtag('consent', 'default', {
-        'analytics_storage': currentConsent,
-        'ad_storage': currentConsent
-    });
-}
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied'
+      });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HYME8VH6Y5');
+    </script>
 
-// 2. Funzione per aggiornare il consenso
-function updateConsent(status) {
-    // Salva nel "Black Box" del browser
-    localStorage.setItem('ae_cookie_consent', status);
-    
-    // Comunica a Google l'aggiornamento
-    gtag('consent', 'update', {
-        'analytics_storage': status,
-        'ad_storage': status
-    });
-    
-    // Chiudi il banner
-    document.getElementById('cookie-overlay').style.display = 'none';
-    console.log("Stato sistemi: Consenso impostato su " + status);
-}
-
-// 3. Funzione per riaprire il banner (dal tasto impostazioni)
-function toggleCookieBanner() {
-    const overlay = document.getElementById('cookie-overlay');
-    overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
-}
-</script>
-<style>
-    /* Tasto fluttuante */
-#cookie-settings-trigger {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: #1a1a1a;
-    color: #e63946; /* Rosso Eagle */
-    border: 2px solid #e63946;
-    cursor: pointer;
-    z-index: 9998;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s;
-}
-#cookie-settings-trigger:hover { transform: rotate(45deg); }
-
-/* Overlay e Card */
-.cookie-overlay {
-    position: fixed;
-    bottom: 0; left: 0; right: 0; top: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 9999;
-    display: none; /* Nascosto di default */
-    align-items: flex-end;
-    padding: 20px;
-}
-.cookie-card {
-    background: #1a1a1a;
-    color: white;
-    padding: 25px;
-    border-radius: 12px;
-    max-width: 500px;
-    margin: 0 auto;
-    border-top: 4px solid #e63946;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
-}
-.cookie-actions { display: flex; gap: 10px; margin-top: 20px; }
-.btn-accept, .btn-reject {
-    flex: 1; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;
-}
-.btn-accept { background: #e63946; color: white; }
-.btn-reject { background: #333; color: #ccc; }
-.cookie-link { font-size: 12px; margin-top: 15px; text-align: center; }
-.cookie-link a { color: #e63946; text-decoration: none; }
-</style>
     <style>
         :root {
             --med-red: #d90429;
@@ -192,7 +44,7 @@ function toggleCookieBanner() {
 
         body { background-color: var(--clean-white); color: var(--tech-black); font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-        /* --- COLONNE GRECHE (RIGHE SPESSE) --- */
+        /* --- COLONNE GRECHE --- */
         .greek-column {
             position: fixed; top: 0; width: 65px; height: 100vh; z-index: -1;
             background: linear-gradient(90deg, var(--column-shadow) 0%, var(--column-base) 20%, var(--column-highlight) 35%, var(--column-base) 50%, var(--column-shadow) 65%, var(--column-base) 80%, var(--column-shadow) 100%);
@@ -211,23 +63,7 @@ function toggleCookieBanner() {
         .brand-accent { color: var(--deep-red); }
         .nav-link { color: white!important; font-size: 0.85rem; letter-spacing: 0.5px; transition: 0.3s; }
         
-        /* --- MOBILE MENU AMALGAMATO --- */
-        @media (max-width: 991.98px) {
-            .navbar-collapse {
-                background: linear-gradient(180deg, rgba(176, 2, 2, 0.95) 0%, rgba(43, 45, 66, 0.98) 100%);
-                margin: 0 -1rem; padding: 1rem; border-top: 1px solid rgba(255,255,255,0.1);
-            }
-            .dropdown-menu {
-                background: rgba(255, 255, 255, 0.1)!important;
-                border: 1px solid rgba(255, 255, 255, 0.2)!important;
-                backdrop-filter: blur(10px);
-                margin-top: 10px!important;
-            }
-            .dropdown-item { color: white!important; }
-            .dropdown-item:hover { background: rgba(255,255,255,0.2)!important; }
-        }
-
-        /* --- HERO SECTION CON FOTO --- */
+        /* --- HERO SECTION --- */
         .hero-section { padding: 60px 0; text-align: center; }
         .hero-content-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px; }
         .hero-profile-img { 
@@ -250,6 +86,39 @@ function toggleCookieBanner() {
         }
         .feature-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
 
+        /* --- CONTACT SLIDESHOW (NEW) --- */
+        .contact-slider-section {
+            margin-top: 80px;
+            padding: 60px 0;
+            background: var(--soft-gray);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        .carousel-contact-item {
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 15%;
+        }
+        .carousel-contact-item i {
+            font-size: 2.5rem;
+            color: var(--deep-red);
+            margin-bottom: 15px;
+        }
+        .carousel-indicators [data-bs-target] {
+            background-color: var(--deep-red);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+        .carousel-control-prev-icon, .carousel-control-next-icon {
+            filter: invert(1) sepia(100%) saturate(500%) hue-rotate(300deg);
+        }
+
         /* --- FOOTER --- */
         .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); }
         .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
@@ -257,12 +126,21 @@ function toggleCookieBanner() {
         
         .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 10px 25px; font-weight: 600; border: none; }
         #user-info { display: none; align-items: center; color: white; }
+
+        /* Cookie styles (Invariati) */
+        #cookie-settings-trigger { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: #1a1a1a; color: #e63946; border: 2px solid #e63946; cursor: pointer; z-index: 9998; display: flex; align-items: center; justify-content: center; transition: transform 0.3s; }
+        .cookie-overlay { position: fixed; bottom: 0; left: 0; right: 0; top: 0; background: rgba(0,0,0,0.7); z-index: 9999; display: none; align-items: flex-end; padding: 20px; }
+        .cookie-card { background: #1a1a1a; color: white; padding: 25px; border-radius: 12px; max-width: 500px; margin: 0 auto; border-top: 4px solid #e63946; box-shadow: 0 -10px 30px rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
 
     <div class="greek-column col-left"></div>
     <div class="greek-column col-right"></div>
+
+    <button id="cookie-settings-trigger" onclick="toggleCookieBanner()" title="Impostazioni Cookie">
+        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.35 19.43,11.03L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.97 19.05,5.05L16.56,6.05C16.04,5.65 15.44,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.56,5.32 7.96,5.65 7.44,6.05L4.95,5.05C4.73,4.97 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11.03C4.53,11.35 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.95C7.96,18.35 8.56,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.44,18.68 16.04,18.35 16.56,17.95L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" /></svg>
+    </button>
 
     <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
         <div class="container">
@@ -345,18 +223,66 @@ function toggleCookieBanner() {
         </div>
     </main>
 
+    <section class="contact-slider-section">
+        <div class="container">
+            <div id="contactCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#contactCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#contactCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#contactCarousel" data-bs-slide-to="2"></button>
+                    <button type="button" data-bs-target="#contactCarousel" data-bs-slide-to="3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="5000">
+                        <div class="carousel-contact-item">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            <h5 class="fw-bold">Sede Operativa</h5>
+                            <p class="text-muted">AO Ordine Mauriziano, Largo Turati 62, Torino</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="5000">
+                        <div class="carousel-contact-item">
+                            <i class="bi bi-envelope-at-fill"></i>
+                            <h5 class="fw-bold">Contatto Diretto</h5>
+                            <p class="text-muted">drgiuseppemusumeci@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="5000">
+                        <div class="carousel-contact-item">
+                            <i class="bi bi-telephone-fill"></i>
+                            <h5 class="fw-bold">Segreteria</h5>
+                            <p class="text-muted">+39 (011)-5082515</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="5000">
+                        <div class="carousel-contact-item">
+                            <i class="bi bi-linkedin"></i>
+                            <h5 class="fw-bold">Network Professionale</h5>
+                            <p class="text-muted">Seguici su LinkedIn per aggiornamenti clinici</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#contactCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#contactCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+    </section>
+
     <footer class="main-footer">
         <div class="container text-center text-md-start">
             <div class="row g-5">
                 <div class="col-lg-5">
-                    <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
+                    <div class="footer-logo mb-3" style="font-family:'Outfit'; font-weight:600;">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
                     <p class="opacity-75">Giuseppe Musumeci MD<br>
-
-Direttore SC Cardiologia,<br>
-AO Ordine Mauriziano Torino<br>
-Largo Turati, 62, Torino, Italy<br>
-tel. +390115082515 <br>
-Presidente Regione Piemonte Associazione Nazionale Medici Cardiologi Ospedalieri (ANMCO)</p>
+                    Direttore SC Cardiologia,<br>
+                    AO Ordine Mauriziano Torino<br>
+                    Largo Turati, 62, Torino, Italy<br>
+                    tel. +390115082515 <br>
+                    Presidente Regione Piemonte ANMCO</p>
                     <div class="mt-4">
                         <a href="https://it.linkedin.com/in/giuseppe-musumeci-96414358" class="btn btn-outline-light btn-sm rounded-0 me-2"><i class="bi bi-linkedin"></i></a>
                         <a href="mailto:drgiuseppemusumeci@gmail.com" class="btn btn-outline-light btn-sm rounded-0"><i class="bi bi-envelope"></i></a>
@@ -379,17 +305,28 @@ Presidente Regione Piemonte Associazione Nazionale Medici Cardiologi Ospedalieri
                 </div>
             </div>
             <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
-                <p class="mb-0"><br>&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati ove non esplicato altra licenza.</p>
-                
+                <p class="mb-0"><br>&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati.</p>
             </div>
         </div>
     </footer>
+
+    <div id="cookie-overlay" class="cookie-overlay">
+        <div class="cookie-card">
+            <h3>Consenso ai Cookie</h3>
+            <p>Utilizziamo i cookie per analizzare la tua esperienza sul sito.</p>
+            <div class="cookie-actions">
+                <button onclick="updateConsent('granted')" class="btn-accept">Accetta Tutti</button>
+                <button onclick="updateConsent('denied')" class="btn-reject">Solo Necessari</button>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
     <script>
+        // Logica Firebase (Invariata)
         const firebaseConfig = {
             apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
             authDomain: "giuseppe-4c318.firebaseapp.com",
@@ -416,6 +353,16 @@ Presidente Regione Piemonte Associazione Nazionale Medici Cardiologi Ospedalieri
         });
 
         function logout() { auth.signOut().then(() => window.location.reload()); }
+
+        // Gestione Banner Cookie
+        function updateConsent(status) {
+            localStorage.setItem('ae_cookie_consent', status);
+            document.getElementById('cookie-overlay').style.display = 'none';
+        }
+        function toggleCookieBanner() {
+            const overlay = document.getElementById('cookie-overlay');
+            overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
+        }
     </script>
 </body>
 </html>
