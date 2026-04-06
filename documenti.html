@@ -1,1 +1,346 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documenti & Articoli - Dr. Giuseppe Musumeci</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
+    <style>
+        :root {
+            --med-red: #d90429;
+            --deep-red: #b00202;
+            --soft-red-white: #f5d7d7;
+            --tech-black: #2b2d42;
+            --clean-white: #ffffff;
+            --soft-gray: #f8f9fa;
+            --footer-bg: #1a1b29;
+            --column-base: rgba(210, 210, 215, 0.6); 
+            --column-highlight: rgba(255, 255, 255, 0.8);
+            --column-shadow: rgba(0, 0, 0, 0.2);
+        }
+
+        body { background-color: var(--clean-white); color: var(--tech-black); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+        /* --- COLONNE GRECHE --- */
+        .greek-column {
+            position: fixed; top: 0; width: 65px; height: 100vh; z-index: -1;
+            background: linear-gradient(90deg, var(--column-shadow) 0%, var(--column-base) 20%, var(--column-highlight) 35%, var(--column-base) 50%, var(--column-shadow) 65%, var(--column-base) 80%, var(--column-shadow) 100%);
+            background-size: 32px 100%; border-left: 2px solid rgba(0,0,0,0.1); border-right: 2px solid rgba(0,0,0,0.1);
+            box-shadow: 5px 0 15px rgba(0,0,0,0.05), -5px 0 15px rgba(0,0,0,0.05);
+        }
+        .col-left { left: 5px; } .col-right { right: 5px; }
+
+        /* --- NAVBAR --- */
+        .navbar { 
+            background: linear-gradient(90deg, var(--soft-red-white) 0%, var(--deep-red) 100%); 
+            border-bottom: 3px solid var(--deep-red); 
+            padding: 0.8rem 0; 
+        }
+        .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--tech-black)!important; }
+        .brand-accent { color: var(--deep-red); }
+        .nav-link { color: white!important; font-size: 0.85rem; letter-spacing: 0.5px; transition: 0.3s; }
+        
+        /* --- HERO --- */
+        .hero-section { padding: 60px 0; text-align: center; }
+        .hero-content-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px; }
+        .hero-profile-img { 
+            width: 180px; height: auto; border-radius: 23%; object-fit: cover; 
+            margin-bottom: 20px; border: 5px solid white; box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
+        }
+        h1 { font-family: 'Outfit', sans-serif; font-size: 3.5rem; margin-bottom: 0; letter-spacing: -1px; line-height: 1.1; }
+        .red-line { width: 80px; height: 5px; background: var(--deep-red); margin: 25px auto; }
+
+        /* --- GESTIONALE --- */
+        #admin-zone { display: none; background: var(--soft-gray); border: 2px dashed var(--deep-red); padding: 30px; margin-bottom: 40px; border-radius: 15px; }
+        .doc-card { 
+            background: white; border-left: 5px solid var(--deep-red); 
+            padding: 20px; margin-bottom: 15px; transition: 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .doc-card:hover { transform: translateX(10px); }
+        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 10px 25px; font-weight: 600; border: none; }
+        
+        /* --- FOOTER --- */
+        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); }
+        .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
+        .footer-link:hover { color: var(--deep-red); padding-left: 5px; }
+    </style>
+</head>
+<body>
+
+    <div class="greek-column col-left"></div>
+    <div class="greek-column col-right"></div>
+
+    <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="https://www.drgiuseppemusumeci.com/favicon.png" alt="Logo" width="55" class="me-2">
+                <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
+            </a>
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <i class="bi bi-list fs-1"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Chi Sono</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="giuseppe-musumeci.html">Giuseppe Musumeci</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="formazione.html">Formazione</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="carriera.html">Carriera</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Cosa faccio</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="direttore.html">Direttore</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="interventistica.html">Interventistica Strutturale</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="cardiologia.html">Cardiologia Clinica</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="patologie.html">Patologie Cardiovascolari</a></li>
+                             <li><a class="dropdown-item py-2 fw-semibold" href="incarichi.html">Incarichi Istituzionali</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Info</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="documenti.html">Documenti&Articoli</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="consigli.html">Consigli</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="eventi.html">News&Eventi</a></li>
+                    <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="https://www.change.drgiuseppemusumeci.com/">Change</a></li>
+                    <li class="nav-item">
+                        <a href="login.html" onclick="window.location.href='login.html?redirect=' + encodeURIComponent(window.location.href); return false;" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+                        <div id="user-info">
+                            <span id="user-name" class="me-3 small fw-bold text-uppercase opacity-75"></span>
+                            <button onclick="logout()" class="btn btn-outline-light btn-sm rounded-0 fw-bold">LOGOUT</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="container">
+        <section class="hero-section">
+            
+            <div class="hero-content-wrapper">
+                
+                <div>
+                    <h1>Documenti &<br>Pubblicazioni</h1>
+                </div>
+            </div>
+            <div class="red-line"></div>
+            <p class="lead text-muted fw-light">Archivio scientifico e materiale informativo.</p>
+        </section>
+    </header>
+
+    <main class="container">
+        <div id="admin-trigger-container" class="text-center mb-5" style="display:none;">
+            <button onclick="openGestionale()" class="btn btn-medical">
+                <i class="bi bi-gear-fill me-2"></i>ACCEDI AL GESTIONALE
+            </button>
+        </div>
+
+        <section id="admin-zone">
+            <h3 class="fw-bold mb-4">Nuova Pubblicazione</h3>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <input type="text" id="doc-title" class="form-control" placeholder="Titolo del documento...">
+                </div>
+                <div class="col-md-4">
+                    <input type="file" id="doc-file" class="form-control">
+                </div>
+                <div class="col-md-2">
+                    <button onclick="uploadDocument()" id="upload-btn" class="btn btn-danger w-100 fw-bold">CARICA</button>
+                </div>
+            </div>
+            <div class="progress mt-3" style="display:none;" id="upload-progress-container">
+                <div id="upload-progress" class="progress-bar bg-success" role="progressbar" style="width: 0%"></div>
+            </div>
+        </section>
+
+        <section id="documents-list">
+            <div class="text-center py-5" id="loader">
+                <div class="spinner-border text-danger" role="status"></div>
+                <p class="mt-2">Caricamento documenti...</p>
+            </div>
+            <div id="docs-container"></div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container text-center text-md-start">
+            <div class="row g-5">
+                <div class="col-lg-5">
+                    <div class="footer-logo mb-3" style="font-family:'Outfit'; font-weight:600;">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
+                    <p class="opacity-75">Giuseppe Musumeci MD<br>
+                    Direttore SC Cardiologia,<br>
+                    AO Ordine Mauriziano Torino<br>
+                    Largo Turati, 62, Torino, Italy<br>
+                    tel. +390115082515 <br>
+                    Presidente Regione Piemonte ANMCO</p>
+                    <div class="mt-4">
+                        <a href="https://it.linkedin.com/in/giuseppe-musumeci-96414358" class="btn btn-outline-light btn-sm rounded-0 me-2"><i class="bi bi-linkedin"></i></a>
+                        <a href="mailto:drgiuseppemusumeci@gmail.com" class="btn btn-outline-light btn-sm rounded-0"><i class="bi bi-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <h6 class="fw-bold mb-4 text-uppercase small">Navigazione</h6>
+                    <nav>
+                        <a href="index.html" class="footer-link">Home</a>
+                        <a href="login.html" class="footer-link">Accesso</a>
+                        <a href="news.html" class="footer-link">Aggiornamenti</a>
+                    </nav>
+                </div>
+                <div class="col-6 col-lg-4">
+                    <h6 class="fw-bold mb-4 text-uppercase small">Sicurezza</h6>
+                    <nav>
+                        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                        <span class="footer-link text-white-50 mt-3 small">Status: <span class="text-success">● Operativo</span></span>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <p class="mb-0"><br>&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
+            projectId: "giuseppe-4c318",
+            storageBucket: "giuseppe-4c318.firebasestorage.app",
+            messagingSenderId: "658885311131",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const storage = firebase.storage();
+
+        const admins = [
+            'giuseppe.musumeci@gmail.com',
+            'drgiuseppemusumeci@gmail.com',
+            'aviationeagle.info@gmail.com'
+        ];
+
+        // 1. Gestione Accesso e Visibilità Pulsante Admin
+        auth.onAuthStateChanged((user) => {
+            const adminBtn = document.getElementById('admin-trigger-container');
+            const userInfo = document.getElementById('user-info');
+            const btnLoginNav = document.getElementById('btn-login-nav');
+            const userName = document.getElementById('user-name');
+
+            if (user) {
+                userInfo.style.display = 'flex';
+                btnLoginNav.style.display = 'none';
+                userName.innerText = user.email;
+                
+                // Se l'email è nella lista admin, mostra il tasto gestionale
+                if (admins.includes(user.email.toLowerCase())) {
+                    adminBtn.style.display = 'block';
+                }
+            } else {
+                userInfo.style.display = 'none';
+                btnLoginNav.style.display = 'block';
+                adminBtn.style.display = 'none';
+            }
+        });
+
+        // 2. Controllo Password Gestionale
+        function openGestionale() {
+            const pass = prompt("Inserire Password di Sicurezza:");
+            const secret = "Turati62?!"; // Password richiesta
+            
+            if (pass === secret) {
+                document.getElementById('admin-zone').style.display = 'block';
+                window.scrollTo({ top: document.getElementById('admin-zone').offsetTop - 100, behavior: 'smooth' });
+            } else {
+                alert("Accesso Negato: Password Errata.");
+            }
+        }
+
+        // 3. Caricamento Documento
+        async function uploadDocument() {
+            const title = document.getElementById('doc-title').value;
+            const file = document.getElementById('doc-file').files[0];
+            const btn = document.getElementById('upload-btn');
+
+            if (!title || !file) return alert("Inserisci titolo e seleziona un file");
+
+            btn.disabled = true;
+            document.getElementById('upload-progress-container').style.display = 'block';
+
+            const storageRef = storage.ref(`documenti/${Date.now()}_${file.name}`);
+            const uploadTask = storageRef.put(file);
+
+            uploadTask.on('state_changed', 
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    document.getElementById('upload-progress').style.width = progress + '%';
+                }, 
+                (error) => { alert("Errore caricamento: " + error.message); }, 
+                () => {
+                    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                        db.collection("documenti").add({
+                            titolo: title,
+                            url: downloadURL,
+                            fileName: file.name,
+                            data: firebase.firestore.FieldValue.serverTimestamp()
+                        }).then(() => {
+                            alert("Documento pubblicato!");
+                            location.reload();
+                        });
+                    });
+                }
+            );
+        }
+
+        // 4. Download / Rendering Real-time
+        db.collection("documenti").orderBy("data", "desc").onSnapshot((snapshot) => {
+            const container = document.getElementById('docs-container');
+            const loader = document.getElementById('loader');
+            loader.style.display = 'none';
+            container.innerHTML = "";
+
+            if (snapshot.empty) {
+                container.innerHTML = "<p class='text-center text-muted'>Nessun documento disponibile al momento.</p>";
+                return;
+            }
+
+            snapshot.forEach((doc) => {
+                const data = doc.data();
+                const html = `
+                    <div class="doc-card d-flex justify-content-between align-items-center animate__animated animate__fadeInUp">
+                        <div>
+                            <h5 class="fw-bold mb-1">${data.titolo}</h5>
+                            <p class="small text-muted mb-0"><i class="bi bi-file-earmark-pdf me-1"></i> ${data.fileName || 'Documento PDF'}</p>
+                        </div>
+                        <a href="${data.url}" target="_blank" class="btn btn-outline-danger rounded-0 fw-bold">
+                            <i class="bi bi-download me-2"></i>SCARICA
+                        </a>
+                    </div>
+                `;
+                container.innerHTML += html;
+            });
+        });
+
+        function logout() { auth.signOut().then(() => location.reload()); }
+    </script>
+</body>
+</html>
