@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documenti & Articoli - Dr. Giuseppe Musumeci</title>
+    <title>Documenti & Pubblicazioni - Dr. Giuseppe Musumeci</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -234,6 +234,8 @@
             'aviationeagle.info@gmail.com'
         ];
 
+        let isCurrentUserAdmin = false; // Variabile globale per tracciare lo stato di amministratore
+
         // 1. Stato Autenticazione
         auth.onAuthStateChanged((user) => {
             const adminTrigger = document.getElementById('admin-trigger-container');
@@ -247,12 +249,18 @@
                 userName.innerText = user.email;
                 if (admins.includes(user.email.toLowerCase())) {
                     adminTrigger.style.display = 'block';
+                    isCurrentUserAdmin = true;
+                } else {
+                    isCurrentUserAdmin = false;
                 }
             } else {
                 userInfo.style.display = 'none';
                 btnLoginNav.style.display = 'block';
                 adminTrigger.style.display = 'none';
+                isCurrentUserAdmin = false;
             }
+            // Forza il re-render della lista documenti quando cambia lo stato auth
+            loadDocuments();
         });
 
         // 2. Toggle Gestionale (Apri/Chiudi)
@@ -290,8 +298,8 @@
             progressContainer.style.display = 'block';
 
             try {
-                // Riferimento allo Storage (cartella documenti)
-                const storageRef = storage.ref(`documenti/${Date.now()}_${file.name}`);
+                const storagePath = `documenti/${Date.now()}_${file.name}`;
+                const storageRef = storage.ref(storagePath);
                 const uploadTask = storageRef.put(file);
 
                 uploadTask.on('state_changed', 
@@ -311,47 +319,112 @@
                             titolo: title,
                             url: downloadURL,
                             fileName: file.name,
+                            storagePath: storagePath, // Salva il percorso per permettere l'eliminazione futura
                             data: firebase.firestore.FieldValue.serverTimestamp()
                         });
 
-                        alert("Documento pubblicato!");
-                        location.reload();
+                        alert("Documento pubblicato con successo!");
+                        document.getElementById('doc-title').value = '';
+                        document.getElementById('doc-file').value = '';
+                        btn.disabled = false;
+                        btn.innerText = "CARICA";
+                        progressContainer.style.display = 'none';
+                        progressBar.style.width = '0%';
                     }
                 );
             } catch (err) {
                 console.error(err);
                 alert("Errore durante il caricamento.");
                 btn.disabled = false;
+                btn.innerText = "CARICA";
             }
         }
 
         // 4. Rendering Lista Documenti
-        db.collection("documenti").orderBy("data", "desc").onSnapshot((snapshot) => {
-            const container = document.getElementById('docs-container');
-            document.getElementById('loader').style.display = 'none';
-            container.innerHTML = "";
+        function loadDocuments() {
+            db.collection("documenti").orderBy("data", "desc").onSnapshot((snapshot) => {
+                const container = document.getElementById('docs-container');
+                document.getElementById('loader').style.display = 'none';
+                container.innerHTML = "";
 
-            if (snapshot.empty) {
-                container.innerHTML = "<p class='text-center text-muted'>Nessun documento disponibile.</p>";
-                return;
-            }
+                if (snapshot.empty) {
+                    container.innerHTML = "<p class='text-center text-muted'>Nessun documento disponibile.</p>";
+                    return;
+                }
 
-            snapshot.forEach((doc) => {
-                const data = doc.data();
-                const html = `
-                    <div class="doc-card d-flex justify-content-between align-items-center">
-                        <div>
-                            <h5 class="fw-bold mb-1">${data.titolo}</h5>
-                            <p class="small text-muted mb-0"><i class="bi bi-file-earmark-pdf me-1"></i> ${data.fileName}</p>
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const docId = doc.id;
+                    const safeTitle = data.titolo ? data.titolo.replace(/'/g, "\\'") : "Documento";
+                    
+                    let adminActions = "";
+                    if (isCurrentUserAdmin) {
+                        adminActions = `
+                            <div class="mt-3">
+                                <button onclick="editDocument('${docId}', '${safeTitle}')" class="btn btn-sm btn-outline-secondary me-2">
+                                    <i class="bi bi-pencil me-1"></i> Modifica Titolo
+                                </button>
+                                <button onclick="deleteDocument('${docId}', '${data.storagePath || ''}')" class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-trash me-1"></i> Elimina
+                                </button>
+                            </div>
+                        `;
+                    }
+
+                    const html = `
+                        <div class="doc-card d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+                            <div class="mb-3 mb-md-0">
+                                <h5 class="fw-bold mb-1">${data.titolo}</h5>
+                                <p class="small text-muted mb-0"><i class="bi bi-file-earmark-pdf me-1"></i> ${data.fileName}</p>
+                                ${adminActions}
+                            </div>
+                            <a href="${data.url}" target="_blank" class="btn btn-outline-danger rounded-0 fw-bold px-4 py-2">
+                                <i class="bi bi-download me-2"></i>SCARICA
+                            </a>
                         </div>
-                        <a href="${data.url}" target="_blank" class="btn btn-outline-danger rounded-0 fw-bold">
-                            <i class="bi bi-download me-2"></i>SCARICA
-                        </a>
-                    </div>
-                `;
-                container.innerHTML += html;
+                    `;
+                    container.innerHTML += html;
+                });
             });
-        });
+        }
+
+        // 5. Funzione Elimina Documento
+        async function deleteDocument(docId, storagePath) {
+            const confirmDelete = confirm("Sei sicuro di voler eliminare definitivamente questo documento?");
+            if (!confirmDelete) return;
+
+            try {
+                // 1. Elimina il record dal Database (Firestore)
+                await db.collection("documenti").doc(docId).delete();
+
+                // 2. Elimina il file dallo Storage (se il percorso è disponibile)
+                if (storagePath) {
+                    await storage.ref(storagePath).delete();
+                }
+                
+                // Nessun alert di successo necessario, il listener onSnapshot aggiornerà la lista automaticamente
+            } catch (error) {
+                console.error("Errore durante l'eliminazione:", error);
+                alert("Si è verificato un errore durante l'eliminazione del documento.");
+            }
+        }
+
+        // 6. Funzione Modifica Documento (Cambio Titolo)
+        async function editDocument(docId, currentTitle) {
+            const newTitle = prompt("Inserisci il nuovo titolo per il documento:", currentTitle);
+            
+            // Controlla che l'utente non abbia annullato e che il titolo sia cambiato
+            if (newTitle !== null && newTitle.trim() !== "" && newTitle.trim() !== currentTitle) {
+                try {
+                    await db.collection("documenti").doc(docId).update({
+                        titolo: newTitle.trim()
+                    });
+                } catch (error) {
+                    console.error("Errore durante l'aggiornamento:", error);
+                    alert("Si è verificato un errore durante la modifica del titolo.");
+                }
+            }
+        }
 
         function logout() { auth.signOut().then(() => location.reload()); }
     </script>
