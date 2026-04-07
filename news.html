@@ -155,7 +155,6 @@
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/otpauth/9.1.2/otpauth.umd.min.js"></script>
-
 <script>
     const firebaseConfig = {
         apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
@@ -165,56 +164,68 @@
         messagingSenderId: "658885311131",
         appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
     };
+    
+    // Inizializzazione Firebase
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
     const auth = firebase.auth();
 
+    // Variabili di Stato Globali
     const ADMINS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com', 'drgiuseppemusumeci@gmail.com'];
-    // --- SEZIONE CONFIGURAZIONE AGGIORNATA ---
-const OBFUSCATED_PASS = "VHVyYXRpNjIhPw=="; 
-const TOTP_SECRET = "4S67MLT7N67EXK7U";    // Nuova Secret Key generata
-// -----------------------------------------
+    const OBFUSCATED_PASS = "VHVyYXRpNjI="; // Corretta per "Turati62"
+    const TOTP_SECRET = "4S67MLT7N67EXK7U";
+    
+    let isSecurityCleared = false;
+    let loginStep = 1;
 
-// Il resto della funzione handleSecurityFlow rimane invariato
-window.handleSecurityFlow = () => {
-    if (loginStep === 1) {
-        const pass = document.getElementById("system-password").value;
-        if (btoa(pass) === OBFUSCATED_PASS) {
-            loginStep = 2;
-            document.getElementById('step-pass').style.display = 'none';
-            document.getElementById('step-otp').style.display = 'block';
-            document.getElementById('btn-unlock-action').innerText = "VERIFICA CODICE";
-        } else { 
-            alert("Password Errata"); 
+    // Monitoraggio Autenticazione e Caricamento Iniziale
+    auth.onAuthStateChanged(user => {
+        if (user && ADMINS.includes(user.email.toLowerCase())) {
+            if(!isSecurityCleared) {
+                document.getElementById('password-overlay').style.display = 'flex';
+            }
+            document.getElementById('userStatus').innerHTML = `<span class="badge bg-success">Admin: ${user.email}</span>`;
         }
-    } else if (loginStep === 2) {
-        const code = document.getElementById("otp-code").value.trim();
-        let totp = new OTPAuth.TOTP({
-            issuer: "MusumeciDigital",
-            label: "Admin",
-            algorithm: "SHA1",
-            digits: 6,
-            period: 30,
-            secret: TOTP_SECRET
-        });
+        // Carica sempre le news, indipendentemente dal login
+        loadNews();
+    });
 
-        if (totp.validate({ token: code, window: 1 }) !== null) {
-            isSecurityCleared = true;
-            document.getElementById('password-overlay').style.display = 'none';
-            // Mostra l'area admin (Toolbar o AdminBox a seconda della pagina)
-            const adminArea = document.getElementById('adminArea') || document.getElementById('admin-toolbar');
-            if(adminArea) adminArea.style.display = 'flex';
-            if(typeof loadNews === 'function') loadNews(); 
-            if(typeof loadRealtimeData === 'function') loadRealtimeData();
-        } else { 
-            alert("Codice errato o scaduto."); 
+    // Gestione Sicurezza (Password + OTP)
+    window.handleSecurityFlow = () => {
+        if (loginStep === 1) {
+            const inputPass = document.getElementById("system-password").value;
+            if (btoa(inputPass) === OBFUSCATED_PASS) {
+                loginStep = 2;
+                document.getElementById('step-pass').style.display = 'none';
+                document.getElementById('step-otp').style.display = 'block';
+                document.getElementById('btn-unlock-action').innerText = "CONFERMA CODICE";
+            } else { 
+                alert("Password Errata."); 
+            }
+        } else if (loginStep === 2) {
+            const code = document.getElementById("otp-code").value.trim();
+            let totp = new OTPAuth.TOTP({
+                secret: OTPAuth.Secret.fromBase32(TOTP_SECRET),
+                digits: 6,
+                period: 30
+            });
+
+            if (totp.validate({ token: code, window: 1 }) !== null) {
+                isSecurityCleared = true;
+                document.getElementById('password-overlay').style.display = 'none';
+                document.getElementById('adminArea').style.display = 'block';
+                loadNews(); // Ricarica per mostrare i tasti delete
+            } else { 
+                alert("Codice errato o scaduto."); 
+            }
         }
-    }
-};
+    };
 
-    window.closeSecurity = () => document.getElementById('password-overlay').style.display = 'none';
+    window.closeSecurity = () => {
+        document.getElementById('password-overlay').style.display = 'none';
+    };
 
-    // Funzioni News (Invariate nel funzionamento)
+    // Pubblicazione News
     document.getElementById('btnPublish').onclick = async () => {
         const title = document.getElementById('newsTitle').value;
         const content = document.getElementById('newsContent').value;
@@ -222,32 +233,41 @@ window.handleSecurityFlow = () => {
         const color = document.getElementById('newsColor').value;
         const link = document.getElementById('newsLink').value;
 
-        if(!title || !content) return alert("Compila i campi obbligatori!");
+        if(!title || !content) return alert("Titolo e Contenuto sono obbligatori!");
 
         try {
             await db.collection('news').add({
-                titolo: title, testo: content, categoria: category, colore: color, link: link,
+                titolo: title, 
+                testo: content, 
+                categoria: category, 
+                colore: color, 
+                link: link,
                 data: firebase.firestore.FieldValue.serverTimestamp()
             });
-            alert("Aggiornamento inviato!");
+            alert("Pubblicato!");
             document.getElementById('newsTitle').value = "";
             document.getElementById('newsContent').value = "";
             document.getElementById('newsLink').value = "";
         } catch (e) { alert("Errore: " + e.message); }
     };
 
+    // Caricamento News in Realtime
     function loadNews() {
         db.collection('news').orderBy('data', 'desc').onSnapshot(snap => {
             const feed = document.getElementById('newsFeed');
-            feed.innerHTML = snap.empty ? '<p class="text-center">Nessuna comunicazione presente.</p>' : '';
+            if (snap.empty) {
+                feed.innerHTML = '<div class="col-12 text-center p-5"><p class="text-muted">Nessun aggiornamento presente.</p></div>';
+                return;
+            }
+            
+            feed.innerHTML = '';
             snap.forEach(doc => {
                 const n = doc.data();
-                const date = n.data ? n.data.toDate().toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' }) : 'Inviando...';
-                const showDelete = isSecurityCleared;
+                const date = n.data ? n.data.toDate().toLocaleDateString('it-IT', { day: '2-digit', month: 'short', year: 'numeric' }) : '...';
                 const badgeColor = n.colore || 'dark';
 
                 feed.innerHTML += `
-                    <div class="col-md-8">
+                    <div class="col-md-8 mb-4">
                         <article class="news-card p-4 border-${badgeColor}">
                             <div class="d-flex justify-content-between align-items-start mb-2">
                                 <span class="date-tag"><i class="bi bi-calendar3 me-1"></i> ${date}</span>
@@ -257,28 +277,38 @@ window.handleSecurityFlow = () => {
                             <p class="text-secondary" style="white-space: pre-wrap;">${n.testo}</p>
                             <div class="d-flex justify-content-between align-items-center mt-4">
                                 ${n.link ? `<a href="${n.link}" target="_blank" class="btn btn-sm btn-outline-${badgeColor}">Dettagli <i class="bi bi-box-arrow-up-right"></i></a>` : '<span></span>'}
-                                ${showDelete ? `<button onclick="deleteNews('${doc.id}')" class="btn btn-link text-danger p-0"><i class="bi bi-trash"></i></button>` : ''}
+                                ${isSecurityCleared ? `<button onclick="deleteNews('${doc.id}')" class="btn btn-link text-danger p-0"><i class="bi bi-trash"></i></button>` : ''}
                             </div>
                         </article>
                     </div>`;
             });
+        }, error => {
+            console.error("Errore Firestore:", error);
+            document.getElementById('newsFeed').innerHTML = '<p class="text-center text-danger">Errore nel caricamento dei dati.</p>';
         });
     }
 
     window.deleteNews = async (id) => {
-        if(confirm("Eliminare definitivamente?")) await db.collection('news').doc(id).delete();
+        if(confirm("Eliminare definitivamente questo post?")) {
+            try {
+                await db.collection('news').doc(id).delete();
+            } catch (e) { alert("Errore eliminazione: " + e.message); }
+        }
     };
 
-    // Logica Cookie Consent
-    function updateConsent(status) {
+    // Cookie Logic
+    window.updateConsent = (status) => {
         localStorage.setItem('ae_cookie_consent', status);
-        gtag('consent', 'update', { 'analytics_storage': status, 'ad_storage': status });
+        if(typeof gtag === 'function') {
+            gtag('consent', 'update', { 'analytics_storage': status, 'ad_storage': status });
+        }
         document.getElementById('cookie-overlay').style.display = 'none';
-    }
-    function toggleCookieBanner() {
+    };
+
+    window.toggleCookieBanner = () => {
         const o = document.getElementById('cookie-overlay');
         o.style.display = (o.style.display === 'flex') ? 'none' : 'flex';
-    }
+    };
 </script>
 
 </body>
