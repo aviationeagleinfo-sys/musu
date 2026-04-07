@@ -1,145 +1,3 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News & Aggiornamenti | Dr. Giuseppe Musumeci</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('consent', 'default', {
-        'ad_storage': 'denied',
-        'analytics_storage': 'denied',
-        'ad_user_data': 'denied',
-        'ad_personalization': 'denied'
-      });
-    </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-HYME8VH6Y5');
-    </script>
-
-    <style>
-        :root { --eagle-red: #d90429; --eagle-dark: #2b2d42; }
-        body { background: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
-        
-        /* Overlay Sicurezza */
-        #password-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 20000;
-            display: none; align-items: center; justify-content: center; padding: 20px;
-        }
-
-        .news-card { border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; transition: 0.3s; background: white; border-left: 5px solid transparent; }
-        .news-card:hover { transform: translateY(-3px); }
-        .admin-box { background: var(--eagle-dark); color: white; border-radius: 12px; padding: 25px; display: none; margin-bottom: 40px; border-top: 4px solid var(--eagle-red); }
-        .btn-eagle { background: var(--eagle-red); color: white; border: none; font-weight: 600; }
-        .btn-eagle:hover { background: #b30422; color: white; }
-        .date-tag { font-size: 0.8rem; color: #8d99ae; font-weight: 600; text-transform: uppercase; }
-        
-        /* Bordi dinamici */
-        .border-primary { border-left-color: #0d6efd !important; }
-        .border-success { border-left-color: #198754 !important; }
-        .border-danger { border-left-color: #dc3545 !important; }
-        .border-warning { border-left-color: #ffc107 !important; }
-        .border-info { border-left-color: #0dcaf0 !important; }
-        .border-dark { border-left-color: #212529 !important; }
-        .border-notice { border-left-color: #f59e42 !important; }
-
-        /* Cookie Button */
-        #cookie-settings-trigger { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: #1a1a1a; color: #e63946; border: 2px solid #e63946; cursor: pointer; z-index: 9998; display: flex; align-items: center; justify-content: center; }
-        .cookie-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 9999; display: none; align-items: flex-end; padding: 20px; }
-        .cookie-card { background: #1a1a1a; color: white; padding: 25px; border-radius: 12px; max-width: 500px; margin: 0 auto; border-top: 4px solid #e63946; }
-    </style>
-</head>
-<body>
-
-<div id="password-overlay">
-    <div class="login-box text-center bg-dark p-4 p-md-5 rounded-4 border border-danger shadow-lg w-100" style="max-width: 400px;">
-        <h4 class="mb-4 text-danger"><i class="bi bi-shield-lock"></i> Admin Access</h4>
-        
-        <div id="step-pass">
-            <input type="password" id="system-password" class="form-control mb-3 text-center" placeholder="Password di sistema...">
-        </div>
-
-        <div id="step-otp" style="display:none;">
-            <p class="text-white-50 small mb-2">Codice Authenticator (30s)</p>
-            <input type="text" id="otp-code" class="form-control mb-3 text-center fs-4" placeholder="000000" maxlength="6" style="letter-spacing: 5px;">
-        </div>
-
-        <button id="btn-unlock-action" onclick="handleSecurityFlow()" class="btn btn-danger w-100 fw-bold mb-2">VERIFICA</button>
-        <button onclick="closeSecurity()" class="btn btn-link text-white btn-sm">Annulla</button>
-    </div>
-</div>
-
-<div class="container py-5">
-    <header class="text-center mb-5">
-        <h1 class="fw-bold text-dark">NEWS <span class="text-danger">&</span> AGGIORNAMENTI</h1>
-        <p class="text-muted">Hub Operativo - Comunicazioni Ufficiali</p>
-        <div id="userStatus" class="small mt-2"></div>
-    </header>
-
-    <section id="adminArea" class="admin-box">
-        <h4 class="mb-4"><i class="bi bi-pencil-square me-2"></i>Nuovo Post</h4>
-        <div class="row g-3">
-            <div class="col-md-4">
-                <label class="form-label small">Titolo</label>
-                <input type="text" id="newsTitle" class="form-control" placeholder="Titolo">
-            </div>
-            <div class="col-md-4">
-                <label class="form-label small">Categoria</label>
-                <select id="newsCategory" class="form-select">
-                    <option value="Generale">Generale</option>
-                    <option value="Tecnico">Tecnico</option>
-                    <option value="Importante">Importante ⚠️</option>
-                    <option value="News">News</option>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label small">Evidenziatore</label>
-                <select id="newsColor" class="form-select">
-                    <option value="dark">Grigio</option>
-                    <option value="primary">Blu</option>
-                    <option value="success">Verde</option>
-                    <option value="danger">Rosso</option>
-                    <option value="warning">Giallo</option>
-                </select>
-            </div>
-            <div class="col-12">
-                <label class="form-label small">Contenuto</label>
-                <textarea id="newsContent" class="form-control" rows="4"></textarea>
-            </div>
-            <div class="col-12 text-end mt-3">
-                <button class="btn btn-eagle px-5 py-2" id="btnPublish">PUBBLICA</button>
-            </div>
-        </div>
-    </section>
-
-    <div id="newsFeed" class="row justify-content-center">
-        <div class="text-center p-5">
-            <div class="spinner-border text-danger"></div>
-        </div>
-    </div>
-</div>
-
-<button id="cookie-settings-trigger" onclick="toggleCookieBanner()"><i class="bi bi-gear-fill"></i></button>
-<div id="cookie-overlay" class="cookie-overlay">
-    <div class="cookie-card text-center">
-        <h3>Cookie Policy</h3>
-        <p>Gestisci il tuo consenso per il tracciamento.</p>
-        <div class="d-flex gap-2 mt-3">
-            <button onclick="updateConsent('granted')" class="btn btn-danger flex-grow-1">Accetta</button>
-            <button onclick="updateConsent('denied')" class="btn btn-secondary flex-grow-1">Rifiuta</button>
-        </div>
-    </div>
-</div>
-
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
@@ -160,8 +18,8 @@
 
     const ADMINS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com', 'drgiuseppemusumeci@gmail.com'];
     
-    // Password: Turati62
-    const OBFUSCATED_PASS = "VHVyYXRpNjI="; 
+    // Password: Turati62?!
+    const OBFUSCATED_PASS = "VHVyYXRpNjIhPw=="; 
     // Secret per Authenticator: 4S67MLT7N67EXK7U
     const TOTP_SECRET = "4S67MLT7N67EXK7U";  
 
@@ -180,8 +38,8 @@
         if (loginStep === 1) {
             const inputPass = document.getElementById("system-password").value;
             
-            // Confronto Base64 semplice (senza caratteri speciali non serve encodeURIComponent complesso)
-            if (btoa(inputPass) === OBFUSCATED_PASS) {
+            // Validazione robusta per caratteri speciali
+            if (btoa(unescape(encodeURIComponent(inputPass))) === OBFUSCATED_PASS) {
                 loginStep = 2;
                 document.getElementById('step-pass').style.display = 'none';
                 document.getElementById('step-otp').style.display = 'block';
@@ -192,6 +50,7 @@
         } else if (loginStep === 2) {
             const code = document.getElementById("otp-code").value.trim();
             
+            // Configurazione specifica per interpretare il segreto come Base32
             let totp = new OTPAuth.TOTP({
                 secret: OTPAuth.Secret.fromBase32(TOTP_SECRET),
                 digits: 6,
@@ -206,7 +65,7 @@
                 document.getElementById('adminArea').style.display = 'block';
                 loadNews(); 
             } else { 
-                alert("Codice errato o scaduto."); 
+                alert("Codice errato o scaduto. Verifica l'ora del telefono."); 
             }
         }
     };
@@ -275,5 +134,3 @@
         o.style.display = (o.style.display === 'flex') ? 'none' : 'flex';
     }
 </script>
-</body>
-</html>
