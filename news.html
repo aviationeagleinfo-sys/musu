@@ -7,184 +7,43 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
     <script>
-  // Definisce la funzione gtag se non esiste
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-
-  // Imposta lo stato iniziale su "DENIED" (Nega tutto)
-  gtag('consent', 'default', {
-    'ad_storage': 'denied',
-    'analytics_storage': 'denied',
-    'ad_user_data': 'denied',
-    'ad_personalization': 'denied'
-  });
-</script>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-HYME8VH6Y5');
-</script>
-<script>
-window.cookieconsent.initialise({
-  "palette": {
-    "popup": { "background": "#1a1a1a", "text": "#ffffff" },
-    "button": { "background": "#e63946", "text": "#ffffff" }
-  },
-  "content": {
-    "message": "Il sistema di bordo richiede l'uso dei cookie per ottimizzare la rotta.",
-    "dismiss": "Accetta Consenso",
-    "link": "Manuale di Volo (Privacy)",
-    "href": "https://aviationeagle.co.uk/privacy"
-  },
-  // Questa funzione scatta quando l'utente preme il tasto
-  onStatusChange: function(status) {
-    if (this.hasConsented()) {
-        activateTracking();
-    }
-  },
-  onInitialise: function(status) {
-    if (this.hasConsented()) {
-        activateTracking();
-    }
-  }
-});
-
-function activateTracking() {
-    console.log("Autorizzazione ricevuta. Avvio motori tracciamento...");
-    gtag('consent', 'update', {
-      'ad_storage': 'granted',
-      'analytics_storage': 'granted',
-      'ad_user_data': 'granted',
-      'ad_personalization': 'granted'
-    });
-}
-</script>
-<button id="cookie-settings-trigger" onclick="toggleCookieBanner()" title="Impostazioni Cookie">
-    <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.35 19.43,11.03L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.97 19.05,5.05L16.56,6.05C16.04,5.65 15.44,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.56,5.32 7.96,5.65 7.44,6.05L4.95,5.05C4.73,4.97 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11.03C4.53,11.35 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.95C7.96,18.35 8.56,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.44,18.68 16.04,18.35 16.56,17.95L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" /></svg>
-</button>
-
-<div id="cookie-overlay" class="cookie-overlay">
-    <div class="cookie-card">
-        <h3>Consenso ai Cookie</h3>
-        <p>Utilizziamo i cookie per analizzare la tua esperienza sul sito. Scegli la tua configurazione:</p>
-        <div class="cookie-actions">
-            <button onclick="updateConsent('granted')" class="btn-accept">Accetta Tutti</button>
-            <button onclick="updateConsent('denied')" class="btn-reject">Solo Necessari</button>
-        </div>
-        <p class="privacy.html"><a href="/privacy">Leggi la Privacy Policy</a></p>
-    </div>
-</div>
-<script>
-    // 1. Inizializzazione GA4 (Default Denied)
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-
-// Controllo se esiste già una scelta salvata
-const currentConsent = localStorage.getItem('ae_cookie_consent');
-
-if (!currentConsent) {
-    // Prima volta: blocca tutto e mostra banner
-    gtag('consent', 'default', {
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'ad_storage': 'denied',
         'analytics_storage': 'denied',
-        'ad_storage': 'denied'
-    });
-    document.getElementById('cookie-overlay').style.display = 'flex';
-} else {
-    // Ritorno: applica la scelta salvata
-    gtag('consent', 'default', {
-        'analytics_storage': currentConsent,
-        'ad_storage': currentConsent
-    });
-}
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied'
+      });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HYME8VH6Y5');
+    </script>
 
-// 2. Funzione per aggiornare il consenso
-function updateConsent(status) {
-    // Salva nel "Black Box" del browser
-    localStorage.setItem('ae_cookie_consent', status);
-    
-    // Comunica a Google l'aggiornamento
-    gtag('consent', 'update', {
-        'analytics_storage': status,
-        'ad_storage': status
-    });
-    
-    // Chiudi il banner
-    document.getElementById('cookie-overlay').style.display = 'none';
-    console.log("Stato sistemi: Consenso impostato su " + status);
-}
-
-// 3. Funzione per riaprire il banner (dal tasto impostazioni)
-function toggleCookieBanner() {
-    const overlay = document.getElementById('cookie-overlay');
-    overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
-}
-</script>
-<style>
-    /* Tasto fluttuante */
-#cookie-settings-trigger {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: #1a1a1a;
-    color: #e63946; /* Rosso Eagle */
-    border: 2px solid #e63946;
-    cursor: pointer;
-    z-index: 9998;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s;
-}
-#cookie-settings-trigger:hover { transform: rotate(45deg); }
-
-/* Overlay e Card */
-.cookie-overlay {
-    position: fixed;
-    bottom: 0; left: 0; right: 0; top: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 9999;
-    display: none; /* Nascosto di default */
-    align-items: flex-end;
-    padding: 20px;
-}
-.cookie-card {
-    background: #1a1a1a;
-    color: white;
-    padding: 25px;
-    border-radius: 12px;
-    max-width: 500px;
-    margin: 0 auto;
-    border-top: 4px solid #e63946;
-    box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
-}
-.cookie-actions { display: flex; gap: 10px; margin-top: 20px; }
-.btn-accept, .btn-reject {
-    flex: 1; padding: 12px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;
-}
-.btn-accept { background: #e63946; color: white; }
-.btn-reject { background: #333; color: #ccc; }
-.cookie-link { font-size: 12px; margin-top: 15px; text-align: center; }
-.cookie-link a { color: #e63946; text-decoration: none; }
-</style>
     <style>
         :root { --eagle-red: #d90429; --eagle-dark: #2b2d42; }
         body { background: #f4f7f6; font-family: 'Segoe UI', sans-serif; }
+        
+        /* Overlay Sicurezza */
+        #password-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 20000;
+            display: none; align-items: center; justify-content: center; padding: 20px;
+        }
+
         .news-card { border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; transition: 0.3s; background: white; border-left: 5px solid transparent; }
         .news-card:hover { transform: translateY(-3px); }
-        .admin-box { background: var(--eagle-dark); color: white; border-radius: 12px; padding: 25px; display: none; margin-bottom: 40px; }
+        .admin-box { background: var(--eagle-dark); color: white; border-radius: 12px; padding: 25px; display: none; margin-bottom: 40px; border-top: 4px solid var(--eagle-red); }
         .btn-eagle { background: var(--eagle-red); color: white; border: none; font-weight: 600; }
         .btn-eagle:hover { background: #b30422; color: white; }
         .date-tag { font-size: 0.8rem; color: #8d99ae; font-weight: 600; text-transform: uppercase; }
         
-        /* Classi dinamiche per i colori delle card */
+        /* Bordi dinamici */
         .border-primary { border-left-color: #0d6efd !important; }
         .border-success { border-left-color: #198754 !important; }
         .border-danger { border-left-color: #dc3545 !important; }
@@ -192,66 +51,91 @@ function toggleCookieBanner() {
         .border-info { border-left-color: #0dcaf0 !important; }
         .border-dark { border-left-color: #212529 !important; }
         .border-notice { border-left-color: #f59e42 !important; }
+
+        /* Cookie Button */
+        #cookie-settings-trigger { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: #1a1a1a; color: #e63946; border: 2px solid #e63946; cursor: pointer; z-index: 9998; display: flex; align-items: center; justify-content: center; }
+        .cookie-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 9999; display: none; align-items: flex-end; padding: 20px; }
+        .cookie-card { background: #1a1a1a; color: white; padding: 25px; border-radius: 12px; max-width: 500px; margin: 0 auto; border-top: 4px solid #e63946; }
     </style>
 </head>
 <body>
 
+<div id="password-overlay">
+    <div class="login-box text-center bg-dark p-4 p-md-5 rounded-4 border border-danger shadow-lg w-100" style="max-width: 400px;">
+        <h4 class="mb-4 text-danger"><i class="bi bi-shield-lock"></i> Admin Access</h4>
+        
+        <div id="step-pass">
+            <input type="password" id="system-password" class="form-control mb-3 text-center" placeholder="Password di sistema...">
+        </div>
+
+        <div id="step-otp" style="display:none;">
+            <p class="text-white-50 small mb-2">Codice Authenticator (30s)</p>
+            <input type="text" id="otp-code" class="form-control mb-3 text-center fs-4" placeholder="000000" maxlength="6" style="letter-spacing: 5px;">
+        </div>
+
+        <button id="btn-unlock-action" onclick="handleSecurityFlow()" class="btn btn-danger w-100 fw-bold mb-2">VERIFICA</button>
+        <button onclick="closeSecurity()" class="btn btn-link text-white btn-sm">Annulla</button>
+    </div>
+</div>
+
 <div class="container py-5">
     <header class="text-center mb-5">
         <h1 class="fw-bold text-dark">NEWS <span class="text-danger">&</span> AGGIORNAMENTI</h1>
-        <p class="text-muted">Comunicazioni ufficiali e aggiornamenti tecnici</p>
+        <p class="text-muted">Hub Operativo - Comunicazioni Ufficiali</p>
         <div id="userStatus" class="small mt-2"></div>
     </header>
 
     <section id="adminArea" class="admin-box">
-        <h4 class="mb-4"><i class="bi bi-pencil-square me-2"></i>Pubblica Nuovo Aggiornamento</h4>
+        <h4 class="mb-4"><i class="bi bi-pencil-square me-2"></i>Nuovo Post</h4>
         <div class="row g-3">
             <div class="col-md-4">
                 <label class="form-label small">Titolo</label>
-                <input type="text" id="newsTitle" class="form-control" placeholder="Titolo dell'articolo">
+                <input type="text" id="newsTitle" class="form-control" placeholder="Titolo">
             </div>
             <div class="col-md-4">
-                <label class="form-label small">Etichetta</label>
+                <label class="form-label small">Categoria</label>
                 <select id="newsCategory" class="form-select">
                     <option value="Generale">Generale</option>
                     <option value="Tecnico">Tecnico</option>
                     <option value="Importante">Importante ⚠️</option>
-                    <option value="Sicurezza">Sicurezza</option>
-                    <option value="Manutenzione">Manutenzione</option>
                     <option value="News">News</option>
-                    <option value="Evento">Evento</option>
                 </select>
             </div>
             <div class="col-md-4">
-                <label class="form-label small">Colore Evidenziatore</label>
+                <label class="form-label small">Evidenziatore</label>
                 <select id="newsColor" class="form-select">
-                    <option value="dark">Grigio Scuro (Default)</option>
-                    <option value="primary">Blu (Info)</option>
-                    <option value="success">Verde (Ok/Risolto)</option>
-                    <option value="danger">Rosso (Allarme)</option>
-                    <option value="warning">Giallo (Attenzione)</option>
-                    <option value="info">Azzurro (News)</option>
-                    <option value="notice">Arancione (Avviso)</option>
+                    <option value="dark">Grigio</option>
+                    <option value="primary">Blu</option>
+                    <option value="success">Verde</option>
+                    <option value="danger">Rosso</option>
+                    <option value="warning">Giallo</option>
                 </select>
             </div>
             <div class="col-12">
-                <label class="form-label small">Link Esterno (Opzionale)</label>
-                <input type="text" id="newsLink" class="form-control" placeholder="https://...">
-            </div>
-            <div class="col-12">
                 <label class="form-label small">Contenuto</label>
-                <textarea id="newsContent" class="form-control" rows="4" placeholder="Scrivi qui il contenuto..."></textarea>
+                <textarea id="newsContent" class="form-control" rows="4"></textarea>
             </div>
             <div class="col-12 text-end mt-3">
-                <button class="btn btn-eagle px-5 py-2" id="btnPublish">Pubblica Messaggio</button>
+                <button class="btn btn-eagle px-5 py-2" id="btnPublish">PUBBLICA</button>
             </div>
         </div>
     </section>
 
     <div id="newsFeed" class="row justify-content-center">
         <div class="text-center p-5">
-            <div class="spinner-border text-danger" role="status"></div>
-            <p class="mt-2">Sincronizzazione notizie...</p>
+            <div class="spinner-border text-danger"></div>
+        </div>
+    </div>
+</div>
+
+<button id="cookie-settings-trigger" onclick="toggleCookieBanner()"><i class="bi bi-gear-fill"></i></button>
+<div id="cookie-overlay" class="cookie-overlay">
+    <div class="cookie-card text-center">
+        <h3>Cookie Policy</h3>
+        <p>Gestisci il tuo consenso per il tracciamento.</p>
+        <div class="d-flex gap-2 mt-3">
+            <button onclick="updateConsent('granted')" class="btn btn-danger flex-grow-1">Accetta</button>
+            <button onclick="updateConsent('denied')" class="btn btn-secondary flex-grow-1">Rifiuta</button>
         </div>
     </div>
 </div>
@@ -259,11 +143,12 @@ function toggleCookieBanner() {
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/otpauth/9.1.2/otpauth.umd.min.js"></script>
 
 <script>
     const firebaseConfig = {
         apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
-        authDomain: "giuseppe-4c318.firebaseapp.com/",
+        authDomain: "giuseppe-4c318.firebaseapp.com",
         projectId: "giuseppe-4c318",
         storageBucket: "giuseppe-4c318.firebasestorage.app",
         messagingSenderId: "658885311131",
@@ -274,81 +159,97 @@ function toggleCookieBanner() {
     const auth = firebase.auth();
 
     const ADMINS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com', 'drgiuseppemusumeci@gmail.com'];
+    const OBFUSCATED_PASS = "VHVyYXRpNjIhPw=="; // Turati62?!
+    const TOTP_SECRET = "4S67MLT7N67EXK7U";    // Nuova Secret Key
+
+    let isSecurityCleared = false;
+    let loginStep = 1;
 
     auth.onAuthStateChanged(user => {
         if (user && ADMINS.includes(user.email.toLowerCase())) {
-            document.getElementById('adminArea').style.display = 'block';
-            document.getElementById('userStatus').innerHTML = `<span class="badge bg-success">Admin: ${user.email}</span>`;
+            if(!isSecurityCleared) document.getElementById('password-overlay').style.display = 'flex';
+            document.getElementById('userStatus').innerHTML = `<span class="badge bg-success">Admin Mode: ${user.email}</span>`;
         }
         loadNews();
     });
+
+    window.handleSecurityFlow = () => {
+        if (loginStep === 1) {
+            const pass = document.getElementById("system-password").value;
+            if (btoa(pass) === OBFUSCATED_PASS) {
+                loginStep = 2;
+                document.getElementById('step-pass').style.display = 'none';
+                document.getElementById('step-otp').style.display = 'block';
+            } else { alert("Password Errata"); }
+        } else if (loginStep === 2) {
+            const code = document.getElementById("otp-code").value.trim();
+            let totp = new OTPAuth.TOTP({ secret: TOTP_SECRET });
+            if (totp.validate({ token: code, window: 1 }) !== null) {
+                isSecurityCleared = true;
+                document.getElementById('password-overlay').style.display = 'none';
+                document.getElementById('adminArea').style.display = 'block';
+                loadNews(); // Ricarica per mostrare i tasti delete
+            } else { alert("Codice errato o scaduto."); }
+        }
+    };
+
+    window.closeSecurity = () => document.getElementById('password-overlay').style.display = 'none';
 
     document.getElementById('btnPublish').onclick = async () => {
         const title = document.getElementById('newsTitle').value;
         const content = document.getElementById('newsContent').value;
         const category = document.getElementById('newsCategory').value;
         const color = document.getElementById('newsColor').value;
-        const link = document.getElementById('newsLink').value;
 
-        if(!title || !content) return alert("Compila i campi obbligatori!");
+        if(!title || !content) return alert("Inserire titolo e testo!");
 
         try {
             await db.collection('news').add({
-                titolo: title,
-                testo: content,
-                categoria: category,
-                colore: color,
-                link: link,
+                titolo: title, testo: content, categoria: category, colore: color,
                 data: firebase.firestore.FieldValue.serverTimestamp()
             });
-            alert("Aggiornamento inviato!");
-            document.getElementById('newsTitle').value = "";
-            document.getElementById('newsContent').value = "";
-            document.getElementById('newsLink').value = "";
-        } catch (e) {
-            alert("Errore: " + e.message);
-        }
+            alert("Pubblicato!");
+            location.reload();
+        } catch (e) { alert("Errore: " + e.message); }
     };
 
     function loadNews() {
         db.collection('news').orderBy('data', 'desc').onSnapshot(snap => {
             const feed = document.getElementById('newsFeed');
-            feed.innerHTML = snap.empty ? '<p class="text-center">Nessuna comunicazione presente.</p>' : '';
-
+            feed.innerHTML = snap.empty ? '<p class="text-center">Nessuna news presente.</p>' : '';
             snap.forEach(doc => {
                 const n = doc.data();
-                const date = n.data ? n.data.toDate().toLocaleDateString('it-IT', { day: '2-digit', month: 'long', year: 'numeric' }) : 'Inviando...';
-                const isAdmin = auth.currentUser && ADMINS.includes(auth.currentUser.email.toLowerCase());
-                
-                // Mappa dei colori per le etichette
-                const badgeColor = n.colore || 'dark';
-
+                const date = n.data ? n.data.toDate().toLocaleDateString('it-IT') : '...';
+                const color = n.colore || 'dark';
                 feed.innerHTML += `
                     <div class="col-md-8">
-                        <article class="news-card p-4 border-${badgeColor}">
-                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                <span class="date-tag"><i class="bi bi-calendar3 me-1"></i> ${date}</span>
-                                <span class="badge bg-${badgeColor}">${n.categoria}</span>
+                        <article class="news-card p-4 border-${color}">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="date-tag">${date}</span>
+                                <span class="badge bg-${color}">${n.categoria}</span>
                             </div>
-                            <h3 class="fw-bold mb-3">${n.titolo}</h3>
-                            <p class="text-secondary" style="white-space: pre-wrap;">${n.testo}</p>
-                            <div class="d-flex justify-content-between align-items-center mt-4">
-                                ${n.link ? `<a href="${n.link}" target="_blank" class="btn btn-sm btn-outline-${badgeColor}">Vedi Dettagli <i class="bi bi-box-arrow-up-right ms-1"></i></a>` : '<span></span>'}
-                                ${isAdmin ? `<button onclick="deleteNews('${doc.id}')" class="btn btn-link text-danger p-0 opacity-50"><i class="bi bi-trash"></i></button>` : ''}
-                            </div>
+                            <h3>${n.titolo}</h3>
+                            <p style="white-space: pre-wrap;">${n.testo}</p>
+                            ${isSecurityCleared ? `<div class="text-end"><button onclick="deleteNews('${doc.id}')" class="btn btn-link text-danger"><i class="bi bi-trash"></i></button></div>` : ''}
                         </article>
-                    </div>
-                `;
+                    </div>`;
             });
         });
     }
 
     window.deleteNews = async (id) => {
-        if(confirm("Eliminare definitivamente questo aggiornamento?")) {
-            await db.collection('news').doc(id).delete();
-        }
+        if(confirm("Eliminare definitivamente?")) await db.collection('news').doc(id).delete();
     };
-</script>
 
+    function updateConsent(status) {
+        localStorage.setItem('ae_cookie_consent', status);
+        gtag('consent', 'update', { 'analytics_storage': status, 'ad_storage': status });
+        document.getElementById('cookie-overlay').style.display = 'none';
+    }
+    function toggleCookieBanner() {
+        const o = document.getElementById('cookie-overlay');
+        o.style.display = (o.style.display === 'flex') ? 'none' : 'flex';
+    }
+</script>
 </body>
 </html>
