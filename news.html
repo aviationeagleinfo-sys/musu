@@ -160,8 +160,8 @@
 
     const ADMINS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com', 'drgiuseppemusumeci@gmail.com'];
     
-    // Password: Turati62?!
-    const OBFUSCATED_PASS = "VHVyYXRpNjIhPw=="; 
+    // Password: Turati62
+    const OBFUSCATED_PASS = "VHVyYXRpNjI="; 
     // Secret per Authenticator: 4S67MLT7N67EXK7U
     const TOTP_SECRET = "4S67MLT7N67EXK7U";  
 
@@ -180,8 +180,8 @@
         if (loginStep === 1) {
             const inputPass = document.getElementById("system-password").value;
             
-            // Validazione robusta per caratteri speciali
-            if (btoa(unescape(encodeURIComponent(inputPass))) === OBFUSCATED_PASS) {
+            // Confronto Base64 semplice (senza caratteri speciali non serve encodeURIComponent complesso)
+            if (btoa(inputPass) === OBFUSCATED_PASS) {
                 loginStep = 2;
                 document.getElementById('step-pass').style.display = 'none';
                 document.getElementById('step-otp').style.display = 'block';
@@ -192,7 +192,6 @@
         } else if (loginStep === 2) {
             const code = document.getElementById("otp-code").value.trim();
             
-            // Configurazione specifica per interpretare il segreto come Base32
             let totp = new OTPAuth.TOTP({
                 secret: OTPAuth.Secret.fromBase32(TOTP_SECRET),
                 digits: 6,
@@ -207,7 +206,7 @@
                 document.getElementById('adminArea').style.display = 'block';
                 loadNews(); 
             } else { 
-                alert("Codice errato o scaduto. Verifica l'ora del telefono."); 
+                alert("Codice errato o scaduto."); 
             }
         }
     };
