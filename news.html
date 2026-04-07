@@ -159,8 +159,12 @@
     const auth = firebase.auth();
 
     const ADMINS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com', 'drgiuseppemusumeci@gmail.com'];
+    
+    // Password: Turati62?!
     const OBFUSCATED_PASS = "VHVyYXRpNjIhPw=="; 
+    // Secret per Authenticator: 4S67MLT7N67EXK7U
     const TOTP_SECRET = "4S67MLT7N67EXK7U";  
+
     let isSecurityCleared = false;
     let loginStep = 1;
 
@@ -174,25 +178,43 @@
 
     window.handleSecurityFlow = () => {
         if (loginStep === 1) {
-            const pass = document.getElementById("system-password").value;
-            if (btoa(pass) === OBFUSCATED_PASS) {
+            const inputPass = document.getElementById("system-password").value;
+            
+            // Validazione robusta per caratteri speciali
+            if (btoa(unescape(encodeURIComponent(inputPass))) === OBFUSCATED_PASS) {
                 loginStep = 2;
                 document.getElementById('step-pass').style.display = 'none';
                 document.getElementById('step-otp').style.display = 'block';
-            } else { alert("Password Errata"); }
+                document.getElementById('btn-unlock-action').innerText = "CONFERMA CODICE";
+            } else { 
+                alert("Password Errata."); 
+            }
         } else if (loginStep === 2) {
             const code = document.getElementById("otp-code").value.trim();
-            let totp = new OTPAuth.TOTP({ secret: TOTP_SECRET });
-            if (totp.validate({ token: code, window: 1 }) !== null) {
+            
+            // Configurazione specifica per interpretare il segreto come Base32
+            let totp = new OTPAuth.TOTP({
+                secret: OTPAuth.Secret.fromBase32(TOTP_SECRET),
+                digits: 6,
+                period: 30
+            });
+
+            let delta = totp.validate({ token: code, window: 1 });
+
+            if (delta !== null) {
                 isSecurityCleared = true;
                 document.getElementById('password-overlay').style.display = 'none';
                 document.getElementById('adminArea').style.display = 'block';
-                loadNews(); // Ricarica per mostrare i tasti delete
-            } else { alert("Codice errato o scaduto."); }
+                loadNews(); 
+            } else { 
+                alert("Codice errato o scaduto. Verifica l'ora del telefono."); 
+            }
         }
     };
 
-    window.closeSecurity = () => document.getElementById('password-overlay').style.display = 'none';
+    window.closeSecurity = () => {
+        document.getElementById('password-overlay').style.display = 'none';
+    };
 
     document.getElementById('btnPublish').onclick = async () => {
         const title = document.getElementById('newsTitle').value;
@@ -207,8 +229,9 @@
                 titolo: title, testo: content, categoria: category, colore: color,
                 data: firebase.firestore.FieldValue.serverTimestamp()
             });
-            alert("Pubblicato!");
-            location.reload();
+            alert("Pubblicato con successo!");
+            document.getElementById('newsTitle').value = "";
+            document.getElementById('newsContent').value = "";
         } catch (e) { alert("Errore: " + e.message); }
     };
 
@@ -229,7 +252,7 @@
                             </div>
                             <h3>${n.titolo}</h3>
                             <p style="white-space: pre-wrap;">${n.testo}</p>
-                            ${isSecurityCleared ? `<div class="text-end"><button onclick="deleteNews('${doc.id}')" class="btn btn-link text-danger"><i class="bi bi-trash"></i></button></div>` : ''}
+                            ${isSecurityCleared ? `<div class="text-end"><button onclick="deleteNews('${doc.id}')" class="btn btn-link text-danger p-0"><i class="bi bi-trash"></i> Rimuovi</button></div>` : ''}
                         </article>
                     </div>`;
             });
@@ -237,7 +260,9 @@
     }
 
     window.deleteNews = async (id) => {
-        if(confirm("Eliminare definitivamente?")) await db.collection('news').doc(id).delete();
+        if(confirm("Eliminare definitivamente questo post?")) {
+            await db.collection('news').doc(id).delete();
+        }
     };
 
     function updateConsent(status) {
@@ -245,6 +270,7 @@
         gtag('consent', 'update', { 'analytics_storage': status, 'ad_storage': status });
         document.getElementById('cookie-overlay').style.display = 'none';
     }
+
     function toggleCookieBanner() {
         const o = document.getElementById('cookie-overlay');
         o.style.display = (o.style.display === 'flex') ? 'none' : 'flex';
