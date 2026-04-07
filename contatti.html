@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatti - Dr. Giuseppe Musumeci</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --med-red: #d90429;
+            --deep-red: #b00202;
+            --soft-red-white: #f5d7d7;
+            --tech-black: #2b2d42;
+            --clean-white: #ffffff;
+            --soft-gray: #f8f9fa;
+            --footer-bg: #1a1b29;
+            --column-base: rgba(210, 210, 215, 0.6); 
+            --column-highlight: rgba(255, 255, 255, 0.8);
+            --column-shadow: rgba(0, 0, 0, 0.2);
+        }
+
+        body { background-color: var(--clean-white); color: var(--tech-black); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+        /* --- COLONNE GRECHE --- */
+        .greek-column {
+            position: fixed; top: 0; width: 65px; height: 100vh; z-index: -1;
+            background: linear-gradient(90deg, var(--column-shadow) 0%, var(--column-base) 20%, var(--column-highlight) 35%, var(--column-base) 50%, var(--column-shadow) 65%, var(--column-base) 80%, var(--column-shadow) 100%);
+            background-size: 32px 100%; border-left: 2px solid rgba(0,0,0,0.1); border-right: 2px solid rgba(0,0,0,0.1);
+        }
+        .col-left { left: 5px; } .col-right { right: 5px; }
+
+        /* --- NAVBAR --- */
+        .navbar { 
+            background: linear-gradient(90deg, var(--soft-red-white) 0%, var(--deep-red) 100%); 
+            border-bottom: 3px solid var(--deep-red); 
+            padding: 0.8rem 0; 
+        }
+        .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--tech-black)!important; }
+        .brand-accent { color: var(--deep-red); }
+        .nav-link { color: white!important; font-size: 0.85rem; letter-spacing: 0.5px; transition: 0.3s; }
+        
+        /* --- HERO SECTION --- */
+        .contact-hero { padding: 60px 0 20px 0; }
+        h1 { font-family: 'Outfit', sans-serif; font-size: 3.5rem; margin-bottom: 0; letter-spacing: -1px; }
+        .red-line { width: 80px; height: 5px; background: var(--deep-red); margin: 25px 0; }
+
+        /* --- CARDS & FORM --- */
+        .info-card {
+            background: var(--soft-gray);
+            padding: 30px;
+            border-left: 5px solid var(--deep-red);
+            height: 100%;
+        }
+        .form-container {
+            background: white;
+            padding: 40px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+        }
+        .form-control, .form-select {
+            border-radius: 0;
+            padding: 12px;
+            border: 2px solid #eee;
+            font-size: 0.9rem;
+        }
+        .form-control:focus { border-color: var(--med-red); box-shadow: none; }
+        
+        .btn-medical { 
+            background-color: var(--tech-black); 
+            color: white; 
+            border-radius: 0; 
+            padding: 15px 30px; 
+            font-weight: 700; 
+            border: none; 
+            transition: 0.4s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .btn-medical:hover { background-color: var(--deep-red); transform: translateY(-3px); }
+
+        /* --- FOOTER --- */
+        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); }
+        .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
+        .footer-link:hover { color: var(--deep-red); padding-left: 5px; }
+
+        #user-info { display: none; align-items: center; color: white; }
+    </style>
+</head>
+<body>
+
+    <div class="greek-column col-left"></div>
+    <div class="greek-column col-right"></div>
+
+    <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="https://www.drgiuseppemusumeci.com/favicon.png" alt="Logo" width="55" class="me-2">
+                <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
+            </a>
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <i class="bi bi-list fs-1"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Chi Sono</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="giuseppe-musumeci.html">Giuseppe Musumeci</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="formazione.html">Formazione</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="carriera.html">Carriera</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Cosa faccio</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="direttore.html">Direttore</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="interventistica.html">Interventistica Strutturale</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="cardiologia.html">Cardiologia Clinica</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="patologie.html">Patologie Cardiovascolari</a></li>
+                             <li><a class="dropdown-item py-2 fw-semibold" href="incarichi.html">Incarichi Istituzionali</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Info</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="contatti.html">Contatti</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="documenti.html">Documenti&Articoli</a></li>
+                            
+                        </ul>
+                    </li>
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="eventi.html">News&Eventi</a></li>
+                    <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="https://www.change.drgiuseppemusumeci.com/">Change</a></li>
+                    <li class="nav-item">
+                        <a href="login.html" onclick="window.location.href='login.html?redirect=' + encodeURIComponent(window.location.href); return false;" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+                        <div id="user-info">
+                            <span id="user-name" class="me-3 small fw-bold text-uppercase opacity-75"></span>
+                            <button onclick="logout()" class="btn btn-outline-light btn-sm rounded-0 fw-bold">LOGOUT</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <main class="container">
+        <section class="contact-hero">
+            <h1>Contatti</h1>
+            <div class="red-line"></div>
+            <p class="lead text-muted fw-light">Siamo a disposizione per consulenze, informazioni cliniche e collaborazioni scientifiche.</p>
+        </section>
+
+        <div class="row g-5 mt-2">
+            <div class="col-lg-5">
+                <div class="info-card mb-4">
+                    <h5 class="fw-bold mb-4 text-uppercase">Recapiti Ufficiali</h5>
+                    
+                    <div class="d-flex mb-4">
+                        <i class="bi bi-geo-alt-fill text-danger fs-3 me-3"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Sede Operativa</h6>
+                            <p class="text-muted small mb-0">AO Ordine Mauriziano, Largo Turati 62, 10128 Torino (TO)</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex mb-4">
+                        <i class="bi bi-telephone-fill text-danger fs-3 me-3"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Segreteria</h6>
+                            <p class="text-muted small mb-0">+39 011 5082515</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex mb-0">
+                        <i class="bi bi-envelope-paper-fill text-danger fs-3 me-3"></i>
+                        <div>
+                            <h6 class="fw-bold mb-1">Email Personale</h6>
+                            <p class="text-muted small mb-0">drgiuseppemusumeci@gmail.com</p>
+                        </div>
+                  </div>
+<br>
+                <div class="p-4 bg-dark text-white">
+                    <h6 class="fw-bold mb-2"><i class="bi bi-linkedin me-2 text-danger"></i>LinkedIn</h6>
+                    <p class="small opacity-75 mb-3">Segui il profilo professionale per aggiornamenti su pubblicazioni e congressi.</p>
+                    <a href="https://it.linkedin.com/in/giuseppe-musumeci-96414358" class="btn btn-outline-light btn-sm rounded-0">Vedi Profilo</a>
+                </div>
+            </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="form-container">
+                    <h4 class="fw-bold mb-4">Invia un Messaggio Diretto</h4>
+                    <form id="mailForm" onsubmit="handleMailSubmit(event)">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-uppercase">Il tuo Nome</label>
+                                <input type="text" id="senderName" class="form-control" placeholder="Esempio: Mario Rossi" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="small fw-bold text-uppercase">Email di riferimento</label>
+                                <input type="email" id="senderEmail" class="form-control" placeholder="nome@esempio.it" required>
+                            </div>
+                            <div class="col-12">
+                                <label class="small fw-bold text-uppercase">Oggetto della richiesta</label>
+                                <select id="mailSubject" class="form-select">
+                                    <option>Richiesta Informazioni Generali</option>
+                                    <option>Consulenza Professionale</option>
+                                    <option>Contatto per Pazienti</option>
+                                    <option>Collaborazione Scientifica</option>
+                                </select>
+                            </div>
+                            <div class="col-12">
+                                <label class="small fw-bold text-uppercase">Messaggio</label>
+                                <textarea id="mailBody" class="form-control" rows="6" placeholder="Scrivi qui il tuo messaggio..." required></textarea>
+                            </div>
+                            <div class="col-12">
+                                <p class="small text-muted mb-3">Cliccando su invia, si aprirà il tuo programma di posta elettronica per confermare la spedizione dell'email.</p>
+                                <button type="submit" class="btn btn-medical w-100">Invia Messaggio</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+     <footer class="main-footer">
+        <div class="container text-center text-md-start">
+            <div class="row g-5">
+                <div class="col-lg-5">
+                    <div class="footer-logo mb-3" style="font-family:'Outfit'; font-weight:600;">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
+                    <p class="opacity-75">Giuseppe Musumeci MD<br>
+                    Direttore SC Cardiologia,<br>
+                    AO Ordine Mauriziano Torino<br>
+                    Largo Turati, 62, Torino, Italy<br>
+                    tel. +390115082515 <br>
+                    Presidente Regione Piemonte ANMCO</p>
+                    <div class="mt-4">
+                        <a href="https://it.linkedin.com/in/giuseppe-musumeci-96414358" class="btn btn-outline-light btn-sm rounded-0 me-2"><i class="bi bi-linkedin"></i></a>
+                        <a href="mailto:drgiuseppemusumeci@gmail.com" class="btn btn-outline-light btn-sm rounded-0"><i class="bi bi-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <h6 class="fw-bold mb-4 text-uppercase small">Navigazione</h6>
+                    <nav>
+                        <a href="index.html" class="footer-link">Home</a>
+                        <a href="login.html" class="footer-link">Accesso</a>
+                        <a href="news.html" class="footer-link">Aggiornamenti</a>
+                    </nav>
+                </div>
+                <div class="col-6 col-lg-4">
+                    <h6 class="fw-bold mb-4 text-uppercase small">Sicurezza</h6>
+                    <nav>
+                        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                        <span class="footer-link text-white-50 mt-3 small">Status: <span class="text-success">● Operativo</span></span>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <p class="mb-0"><br>&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function handleMailSubmit(event) {
+            event.preventDefault();
+
+            // Raccolta dati
+            const nome = document.getElementById('senderName').value;
+            const emailPaziente = document.getElementById('senderEmail').value;
+            const oggetto = document.getElementById('mailSubject').value;
+            const messaggio = document.getElementById('mailBody').value;
+            
+            const destinatario = "drgiuseppemusumeci@gmail.com";
+            
+            // Formattazione corpo email
+            const bodyEmail = `Mittente: ${nome}%0D%0AEmail: ${emailPaziente}%0D%0A%0D%0AMessaggio:%0D%0A${messaggio}`;
+            
+            // Creazione URL Mailto
+            const mailtoUrl = `mailto:${destinatario}?subject=${encodeURIComponent(oggetto)}&body=${encodeURIComponent(bodyEmail)}`;
+            
+            // Apertura client di posta
+            window.location.href = mailtoUrl;
+        }
+
+        // Script Firebase base per gestione login navbar
+        const firebaseConfig = {
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
+            projectId: "giuseppe-4c318",
+            storageBucket: "giuseppe-4c318.firebasestorage.app",
+            messagingSenderId: "658885311131",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+        };
+        // Assicurati che Firebase sia caricato prima (Firebase App & Auth compat SDK)
+        // Se non caricato qui, usa i link nel tag script se necessario.
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
