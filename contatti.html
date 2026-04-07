@@ -49,38 +49,38 @@
         h1 { font-family: 'Outfit', sans-serif; font-size: 3.5rem; margin-bottom: 0; letter-spacing: -1px; }
         .red-line { width: 80px; height: 5px; background: var(--deep-red); margin: 25px 0; }
 
-        /* --- CARDS & FORM --- */
+        /* --- INFO CARDS --- */
         .info-card {
             background: var(--soft-gray);
-            padding: 30px;
+            padding: 40px;
             border-left: 5px solid var(--deep-red);
             height: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
-        .form-container {
-            background: white;
-            padding: 40px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+
+        .alert-instruction {
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+            padding: 25px;
+            margin-bottom: 25px;
         }
-        .form-control, .form-select {
-            border-radius: 0;
-            padding: 12px;
-            border: 2px solid #eee;
-            font-size: 0.9rem;
-        }
-        .form-control:focus { border-color: var(--med-red); box-shadow: none; }
-        
+
         .btn-medical { 
             background-color: var(--tech-black); 
             color: white; 
             border-radius: 0; 
-            padding: 15px 30px; 
+            padding: 18px 30px; 
             font-weight: 700; 
             border: none; 
             transition: 0.4s;
             text-transform: uppercase;
             letter-spacing: 1px;
+            display: inline-block;
+            text-decoration: none;
+            width: 100%;
+            text-align: center;
         }
-        .btn-medical:hover { background-color: var(--deep-red); transform: translateY(-3px); }
+        .btn-medical:hover { background-color: var(--deep-red); color: white; transform: translateY(-3px); }
 
         /* --- FOOTER --- */
         .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); }
@@ -147,89 +147,69 @@
         </div>
     </nav>
 
-
     <main class="container">
-        <section class="contact-hero">
+        <section class="contact-hero text-center">
             <h1>Contatti</h1>
-            <div class="red-line"></div>
-            <p class="lead text-muted fw-light">Siamo a disposizione per consulenze, informazioni cliniche e collaborazioni scientifiche.</p>
+            <div class="red-line mx-auto"></div>
+            <p class="lead text-muted fw-light">Sede istituzionale e recapiti professionali del Dr. Giuseppe Musumeci.</p>
         </section>
 
-        <div class="row g-5 mt-2">
+        <div class="row g-5 justify-content-center">
             <div class="col-lg-5">
-                <div class="info-card mb-4">
+                <div class="info-card">
                     <h5 class="fw-bold mb-4 text-uppercase">Recapiti Ufficiali</h5>
                     
                     <div class="d-flex mb-4">
                         <i class="bi bi-geo-alt-fill text-danger fs-3 me-3"></i>
                         <div>
                             <h6 class="fw-bold mb-1">Sede Operativa</h6>
-                            <p class="text-muted small mb-0">AO Ordine Mauriziano, Largo Turati 62, 10128 Torino (TO)</p>
+                            <p class="text-muted small mb-0">AO Ordine Mauriziano,<br>Largo Turati 62, 10128 Torino (TO)</p>
                         </div>
                     </div>
 
                     <div class="d-flex mb-4">
                         <i class="bi bi-telephone-fill text-danger fs-3 me-3"></i>
                         <div>
-                            <h6 class="fw-bold mb-1">Segreteria</h6>
+                            <h6 class="fw-bold mb-1">Segreteria Direzione</h6>
                             <p class="text-muted small mb-0">+39 011 5082515</p>
                         </div>
                     </div>
 
-                    <div class="d-flex mb-0">
-                        <i class="bi bi-envelope-paper-fill text-danger fs-3 me-3"></i>
+                    <div class="d-flex mb-4">
+                        <i class="bi bi-envelope-at-fill text-danger fs-3 me-3"></i>
                         <div>
-                            <h6 class="fw-bold mb-1">Email Personale</h6>
+                            <h6 class="fw-bold mb-1">Email Diretta</h6>
                             <p class="text-muted small mb-0">drgiuseppemusumeci@gmail.com</p>
                         </div>
-                  </div>
-<br>
-                <div class="p-4 bg-dark text-white">
-                    <h6 class="fw-bold mb-2"><i class="bi bi-linkedin me-2 text-danger"></i>LinkedIn</h6>
-                    <p class="small opacity-75 mb-3">Segui il profilo professionale per aggiornamenti su pubblicazioni e congressi.</p>
-                    <a href="https://it.linkedin.com/in/giuseppe-musumeci-96414358" class="btn btn-outline-light btn-sm rounded-0">Vedi Profilo</a>
+                    </div>
                 </div>
             </div>
-            </div>
 
-            <div class="col-lg-7">
-                <div class="form-container">
-                    <h4 class="fw-bold mb-4">Invia un Messaggio Diretto</h4>
-                    <form id="mailForm" onsubmit="handleMailSubmit(event)">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <label class="small fw-bold text-uppercase">Il tuo Nome</label>
-                                <input type="text" id="senderName" class="form-control" placeholder="Esempio: Mario Rossi" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="small fw-bold text-uppercase">Email di riferimento</label>
-                                <input type="email" id="senderEmail" class="form-control" placeholder="nome@esempio.it" required>
-                            </div>
-                            <div class="col-12">
-                                <label class="small fw-bold text-uppercase">Oggetto della richiesta</label>
-                                <select id="mailSubject" class="form-select">
-                                    <option>Richiesta Informazioni Generali</option>
-                                    <option>Consulenza Professionale</option>
-                                    <option>Contatto per Pazienti</option>
-                                    <option>Collaborazione Scientifica</option>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <label class="small fw-bold text-uppercase">Messaggio</label>
-                                <textarea id="mailBody" class="form-control" rows="6" placeholder="Scrivi qui il tuo messaggio..." required></textarea>
-                            </div>
-                            <div class="col-12">
-                                <p class="small text-muted mb-3">Cliccando su invia, si aprirà il tuo programma di posta elettronica per confermare la spedizione dell'email.</p>
-                                <button type="submit" class="btn btn-medical w-100">Invia Messaggio</button>
-                            </div>
-                        </div>
-                    </form>
+            <div class="col-lg-6">
+                <div class="info-card h-100">
+                    <h5 class="fw-bold mb-4 text-uppercase text-center">Inviaci un messaggio</h5>
+                    
+                    <div class="alert-instruction">
+                        <h6 class="fw-bold text-danger mb-3"><i class="bi bi-exclamation-triangle-fill me-2"></i>VERIFICA CHE TU SIA ABILITATO</h6>
+                        <p class="small text-muted mb-2">
+                            Il pulsante sottostante utilizza il protocollo <strong>mailto</strong>. Affinché il comando funzioni correttamente, assicurati che:
+                        </p>
+                        <ul class="small text-muted ps-3">
+                            <li><strong>Su Desktop:</strong> Hai un'app di posta (Outlook, Mail) impostata come predefinita.</li>
+                            <li><strong>Su Gmail:</strong> Hai cliccato sui rombi nella barra degli indirizzi per autorizzare i link.</li>
+                            <li><strong>Su Smartphone:</strong> È sufficiente avere l'app Gmail o Mail installata.</li>
+                        </ul>
+                    </div>
+
+                    <a href="mailto:drgiuseppemusumeci@gmail.com?subject=Richiesta%20Informazioni" class="btn btn-medical">
+                        <i class="bi bi-envelope-fill me-2"></i> Invia Email Diretta
+                    </a>
                 </div>
             </div>
         </div>
     </main>
 
-     <footer class="main-footer">
+    <footer class="main-footer">
         <div class="container text-center text-md-start">
             <div class="row g-5">
                 <div class="col-lg-5">
