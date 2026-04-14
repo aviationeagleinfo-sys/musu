@@ -131,12 +131,32 @@
         #cookie-settings-trigger { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: #1a1a1a; color: #e63946; border: 2px solid #e63946; cursor: pointer; z-index: 9998; display: flex; align-items: center; justify-content: center; transition: transform 0.3s; }
         .cookie-overlay { position: fixed; bottom: 0; left: 0; right: 0; top: 0; background: rgba(0,0,0,0.7); z-index: 9999; display: none; align-items: flex-end; padding: 20px; }
         .cookie-card { background: #1a1a1a; color: white; padding: 25px; border-radius: 12px; max-width: 500px; margin: 0 auto; border-top: 4px solid #e63946; box-shadow: 0 -10px 30px rgba(0,0,0,0.5); }
+
+        /* --- NEWSLETTER POPUP STYLES --- */
+        .news-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10001; display: none; align-items: center; justify-content: center; }
+        .news-card { background: white; padding: 40px; border-radius: 0; max-width: 450px; width: 90%; text-align: center; border-top: 8px solid var(--deep-red); position: relative; }
+        .news-card input { border-radius: 0; margin: 20px 0; padding: 12px; }
+        .close-news { position: absolute; top: 10px; right: 15px; cursor: pointer; font-size: 1.5rem; color: #ccc; }
     </style>
 </head>
 <body>
 
     <div class="greek-column col-left"></div>
     <div class="greek-column col-right"></div>
+
+    <div id="news-popup" class="news-overlay">
+        <div class="news-card shadow-lg">
+            <span class="close-news" onclick="toggleNews(false)">&times;</span>
+            <i class="bi bi-envelope-paper-heart fs-1 text-danger"></i>
+            <h3 class="fw-bold mt-3" style="font-family:'Outfit';">Newsletter Medica</h3>
+            <p class="text-muted small">Ricevi gli ultimi aggiornamenti clinici e scientifici direttamente nella tua casella email.</p>
+            <input type="email" id="news-email-input" class="form-control" placeholder="Inserisci la tua email">
+            <button onclick="handleNewsAction('subscribe')" id="news-btn" class="btn btn-medical w-100 mb-2">ISCRIVITI ORA</button>
+            <hr>
+            <p class="x-small text-muted mb-2" style="font-size: 0.7rem;">Vuoi annullare l'iscrizione?</p>
+            <button onclick="handleNewsAction('unsubscribe')" class="btn btn-outline-secondary btn-sm w-100">DISISCRIVITI</button>
+        </div>
+    </div>
 
     <button id="cookie-settings-trigger" onclick="toggleCookieBanner()" title="Impostazioni Cookie">
         <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.35 19.43,11.03L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.97 19.05,5.05L16.56,6.05C16.04,5.65 15.44,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.56,5.32 7.96,5.65 7.44,6.05L4.95,5.05C4.73,4.97 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11.03C4.53,11.35 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.95C7.96,18.35 8.56,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.44,18.68 16.04,18.35 16.56,17.95L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" /></svg>
@@ -346,6 +366,9 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
+        // --- LOGICA NEWSLETTER AGGIUNTA ---
+        const NEWS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx8G37BwoA4ItwRFoaCrMK9HU6sN2qhkhLyLbyifCjA8ifqkfdM3XdHB_ML-8Z67y_yrA/exec";
+
         auth.onAuthStateChanged((user) => {
             const btnLoginNav = document.getElementById('btn-login-nav');
             const userInfo = document.getElementById('user-info');
@@ -354,11 +377,53 @@
                 if(btnLoginNav) btnLoginNav.style.display = 'none';
                 if(userInfo) userInfo.style.display = 'flex';
                 if(userName) userName.innerText = user.displayName || user.email;
+
+                // Mostra popup solo se loggato e una volta per sessione
+                if (!sessionStorage.getItem('news_shown')) {
+                    setTimeout(() => {
+                        document.getElementById('news-email-input').value = user.email;
+                        toggleNews(true);
+                        sessionStorage.setItem('news_shown', 'true');
+                    }, 2000);
+                }
             } else {
                 if(btnLoginNav) btnLoginNav.style.display = 'inline-block';
                 if(userInfo) userInfo.style.display = 'none';
             }
         });
+
+        function toggleNews(show) {
+            document.getElementById('news-popup').style.display = show ? 'flex' : 'none';
+        }
+
+        async function handleNewsAction(action) {
+            const email = document.getElementById('news-email-input').value;
+            if (!email || !email.includes('@')) return alert("Inserisci una mail valida");
+
+            const btn = document.getElementById('news-btn');
+            const originalText = btn.innerText;
+            btn.innerText = "ATTENDI...";
+            btn.disabled = true;
+
+            try {
+                await fetch(NEWS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    cache: 'no-cache',
+                    body: JSON.stringify({ email: email, action: action }),
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                alert(action === 'subscribe' ? "BOOM! Iscrizione completata." : "Richiesta di rimozione inviata.");
+                toggleNews(false);
+            } catch (e) {
+                alert("Errore di connessione. Riprova.");
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        }
+        // --- FINE LOGICA NEWSLETTER ---
 
         function logout() { auth.signOut().then(() => window.location.reload()); }
 
