@@ -82,7 +82,7 @@
     <div class="greek-column col-left"></div>
     <div class="greek-column col-right"></div>
 
-    <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
+<nav class="navbar navbar-expand-lg sticky-top shadow-lg">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
                 <img src="https://www.drgiuseppemusumeci.com/favicon.png" alt="Logo" width="55" class="me-2">
@@ -91,6 +91,7 @@
             <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                 <i class="bi bi-list fs-1"></i>
             </button>
+
             <div class="collapse navbar-collapse" id="mainNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item dropdown px-lg-2">
@@ -109,20 +110,23 @@
                             <li><a class="dropdown-item py-2 fw-semibold" href="cardiologia.html">Cardiologia Clinica</a></li>
                             <li><a class="dropdown-item py-2 fw-semibold" href="patologie.html">Patologie Cardiovascolari</a></li>
                              <li><a class="dropdown-item py-2 fw-semibold" href="incarichi.html">Incarichi Istituzionali</a></li>
+                             <li><a class="dropdown-item py-2 fw-semibold" href="media.html">Comunicazione e Media</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown px-lg-2">
                         <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Info</a>
                         <ul class="dropdown-menu shadow">
                             <li><a class="dropdown-item py-2 fw-semibold" href="contatti.html">Contatti</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="libera-professione.html">Libera Professione</a></li>
                             <li><a class="dropdown-item py-2 fw-semibold" href="documenti.html">Documenti&Articoli</a></li>
                             
                         </ul>
                     </li>
                     <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="eventi.html">News&Eventi</a></li>
-                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="https://change.drgiuseppemusumeci.com">Change</a></li>
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="media.html#video">Video</a></li>
+                    <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="https://change.drgiuseppemusumeci.com/">Change</a></li>
                     <li class="nav-item">
-                        <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+                        <a href="login.html" onclick="window.location.href='login.html?redirect=' + encodeURIComponent(window.location.href); return false;" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
                         <div id="user-info">
                             <span id="user-name" class="me-3 small fw-bold text-uppercase opacity-75"></span>
                             <button onclick="logout()" class="btn btn-outline-light btn-sm rounded-0 fw-bold">LOGOUT</button>
