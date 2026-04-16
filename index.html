@@ -86,37 +86,53 @@
         }
         .feature-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
 
-        /* --- CONTACT SLIDESHOW (NEW) --- */
+        /* --- CONTACT SLIDESHOW FIX --- */
         .contact-slider-section {
             margin-top: 80px;
-            padding: 60px 0;
+            padding: 60px 0 80px 0;
             background: var(--soft-gray);
             border-top: 1px solid rgba(0,0,0,0.05);
             border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: relative;
         }
         .carousel-contact-item {
-            min-height: 200px;
+            min-height: 180px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 0 15%;
+            padding: 0 10%;
         }
         .carousel-contact-item i {
             font-size: 2.5rem;
             color: var(--deep-red);
             margin-bottom: 15px;
         }
-        .carousel-indicators [data-bs-target] {
-            background-color: var(--deep-red);
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin: 0 5px;
+        .carousel-contact-item a {
+            color: var(--tech-black);
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
         }
+        .carousel-contact-item a:hover { color: var(--deep-red); }
+
+        .carousel-indicators { bottom: -45px; }
+        .carousel-indicators [data-bs-target] {
+            background-color: var(--tech-black);
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin: 0 6px;
+        }
+        .carousel-indicators .active { background-color: var(--deep-red); }
+        
         .carousel-control-prev-icon, .carousel-control-next-icon {
             filter: invert(1) sepia(100%) saturate(500%) hue-rotate(300deg);
+        }
+
+        @media (max-width: 768px) {
+            .carousel-contact-item { padding: 0 5%; min-height: 220px; }
         }
 
         /* --- FOOTER --- */
@@ -127,12 +143,12 @@
         .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 10px 25px; font-weight: 600; border: none; }
         #user-info { display: none; align-items: center; color: white; }
 
-        /* Cookie styles (Invariati) */
+        /* Cookie styles */
         #cookie-settings-trigger { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: #1a1a1a; color: #e63946; border: 2px solid #e63946; cursor: pointer; z-index: 9998; display: flex; align-items: center; justify-content: center; transition: transform 0.3s; }
         .cookie-overlay { position: fixed; bottom: 0; left: 0; right: 0; top: 0; background: rgba(0,0,0,0.7); z-index: 9999; display: none; align-items: flex-end; padding: 20px; }
         .cookie-card { background: #1a1a1a; color: white; padding: 25px; border-radius: 12px; max-width: 500px; margin: 0 auto; border-top: 4px solid #e63946; box-shadow: 0 -10px 30px rgba(0,0,0,0.5); }
 
-        /* --- NEWSLETTER POPUP STYLES --- */
+        /* Newsletter popup */
         .news-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10001; display: none; align-items: center; justify-content: center; }
         .news-card { background: white; padding: 40px; border-radius: 0; max-width: 450px; width: 90%; text-align: center; border-top: 8px solid var(--deep-red); position: relative; }
         .news-card input { border-radius: 0; margin: 20px 0; padding: 12px; }
@@ -199,7 +215,6 @@
                             <li><a class="dropdown-item py-2 fw-semibold" href="contatti.html">Contatti</a></li>
                             <li><a class="dropdown-item py-2 fw-semibold" href="libera-professione.html">Libera Professione</a></li>
                             <li><a class="dropdown-item py-2 fw-semibold" href="documenti.html">Documenti&Articoli</a></li>
-                            
                         </ul>
                     </li>
                     <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="eventi.html">News&Eventi</a></li>
@@ -255,72 +270,72 @@
     </main>
 
     <section class="contact-slider-section">
-    <div class="container">
-        <div id="contactCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#contactCarousel" data-bs-slide-to="0" class="active"></button>
-                <button type="button" data-bs-target="#contactCarousel" data-bs-slide-to="1"></button>
-                <button type="button" data-bs-target="#contactCarousel" data-bs-slide-to="2"></button>
-                <button type="button" data-bs-target="#contactCarousel" data-bs-slide-to="3"></button>
-                <button type="button" data-bs-target="#contactCarousel" data-bs-slide-to="4"></button>
+        <div class="container">
+            <div id="contactCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#contactCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#contactCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#contactCarousel" data-bs-slide-to="2"></button>
+                    <button type="button" data-bs-target="#contactCarousel" data-bs-slide-to="3"></button>
+                    <button type="button" data-bs-target="#contactCarousel" data-bs-slide-to="4"></button>
+                </div>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="5000">
+                        <div class="carousel-contact-item">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            <h5 class="fw-bold">Sede Operativa</h5>
+                            <p class="mb-0">
+                                <a href="https://www.mauriziano.it" target="_blank">AO Ordine Mauriziano, Largo Turati 62, Torino</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item" data-bs-interval="5000">
+                        <div class="carousel-contact-item">
+                            <i class="bi bi-envelope-at-fill"></i>
+                            <h5 class="fw-bold">Contatto Diretto</h5>
+                            <p class="mb-0"><a href="mailto:info@drgiuseppemusumeci.com">info@drgiuseppemusumeci.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item" data-bs-interval="5000">
+                        <div class="carousel-contact-item">
+                            <i class="bi bi-telephone-fill"></i>
+                            <h5 class="fw-bold">Segreteria</h5>
+                            <p class="mb-0"><a href="tel:+390115082515">+39 011 5082515</a></p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item" data-bs-interval="5000">
+                        <div class="carousel-contact-item">
+                            <i class="bi bi-linkedin"></i>
+                            <h5 class="fw-bold">Network Professionale</h5>
+                            <p class="mb-0">
+                                <a href="https://it.linkedin.com/in/giuseppe-musumeci-96414358" target="_blank">Seguici su LinkedIn per aggiornamenti clinici</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item" data-bs-interval="5000">
+                        <div class="carousel-contact-item">
+                            <i class="bi bi-person-badge-fill"></i>
+                            <h5 class="fw-bold">Libera Professione</h5>
+                            <p class="text-muted small">Consulta sedi e orari delle visite specialistiche</p>
+                            <a href="libera-professione.html" class="btn btn-outline-danger btn-sm rounded-0">Dettagli Visite</a>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#contactCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#contactCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
             </div>
-
-            <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="5000">
-                    <div class="carousel-contact-item">
-                        <i class="bi bi-geo-alt-fill"></i>
-                        <h5 class="fw-bold">Sede Operativa</h5>
-                        <p class="text-muted">
-                            <a href="https://www.mauriziano.it" target="_blank" class="text-decoration-none text-muted">AO Ordine Mauriziano, Largo Turati 62, Torino</a>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="carousel-item" data-bs-interval="5000">
-                    <div class="carousel-contact-item">
-                        <i class="bi bi-envelope-at-fill"></i>
-                        <h5 class="fw-bold">Contatto Diretto</h5>
-                        <p class="text-muted">info@drgiuseppemusumeci.com</p>
-                    </div>
-                </div>
-
-                <div class="carousel-item" data-bs-interval="5000">
-                    <div class="carousel-contact-item">
-                        <i class="bi bi-telephone-fill"></i>
-                        <h5 class="fw-bold">Segreteria</h5>
-                        <p class="text-muted">+39 (011)-5082515</p>
-                    </div>
-                </div>
-
-                <div class="carousel-item" data-bs-interval="5000">
-                    <div class="carousel-contact-item">
-                        <i class="bi bi-linkedin"></i>
-                        <h5 class="fw-bold">Network Professionale</h5>
-                        <p class="text-muted">
-                            <a href="https://it.linkedin.com/in/giuseppe-musumeci-96414358" target="_blank" class="text-decoration-none text-muted">Seguici su LinkedIn per aggiornamenti clinici</a>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="carousel-item" data-bs-interval="5000">
-                    <div class="carousel-contact-item">
-                        <i class="bi bi-person-badge-fill"></i>
-                        <h5 class="fw-bold">Libera Professione</h5>
-                        <p class="text-muted">Consulta sedi e orari delle visite specialistiche</p>
-                        <a href="libera-professione.html" class="btn btn-outline-danger btn-sm">Dettagli Visite</a>
-                    </div>
-                </div>
-            </div>
-
-            <button class="carousel-control-prev" type="button" data-bs-target="#contactCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#contactCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </button>
         </div>
-    </div>
-</section>
+    </section>
 
     <footer class="main-footer">
         <div class="container text-center text-md-start">
@@ -364,9 +379,9 @@
         <div class="cookie-card">
             <h3>Consenso ai Cookie</h3>
             <p>Utilizziamo i cookie per analizzare la tua esperienza sul sito.</p>
-            <div class="cookie-actions">
-                <button onclick="updateConsent('granted')" class="btn-accept">Accetta Tutti</button>
-                <button onclick="updateConsent('denied')" class="btn-reject">Solo Necessari</button>
+            <div class="cookie-actions d-flex gap-2">
+                <button onclick="updateConsent('granted')" class="btn btn-danger w-100 rounded-0">Accetta Tutti</button>
+                <button onclick="updateConsent('denied')" class="btn btn-outline-light w-100 rounded-0">Solo Necessari</button>
             </div>
         </div>
     </div>
@@ -376,7 +391,6 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 
     <script>
-        // Logica Firebase (Invariata)
         const firebaseConfig = {
             apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
             authDomain: "giuseppe-4c318.firebaseapp.com",
@@ -388,7 +402,6 @@
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
-        // --- LOGICA NEWSLETTER AGGIUNTA ---
         const NEWS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwYDc110GajWVWwZ6tLMi8FO_YFoZHPoRnNRsUVe6y-wQz4wDPSuAtBzPVMNAZbH6MDNg/exec";
 
         auth.onAuthStateChanged((user) => {
@@ -400,7 +413,6 @@
                 if(userInfo) userInfo.style.display = 'flex';
                 if(userName) userName.innerText = user.displayName || user.email;
 
-                // Mostra popup solo se loggato e una volta per sessione
                 if (!sessionStorage.getItem('news_shown')) {
                     setTimeout(() => {
                         document.getElementById('news-email-input').value = user.email;
@@ -445,11 +457,9 @@
                 btn.disabled = false;
             }
         }
-        // --- FINE LOGICA NEWSLETTER ---
 
         function logout() { auth.signOut().then(() => window.location.reload()); }
 
-        // Gestione Banner Cookie
         function updateConsent(status) {
             localStorage.setItem('ae_cookie_consent', status);
             document.getElementById('cookie-overlay').style.display = 'none';
