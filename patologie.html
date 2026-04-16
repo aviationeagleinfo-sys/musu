@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patologie Cardiovascolari | Dr. Giuseppe Musumeci</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --med-red: #d90429;
+            --deep-red: #b00202;
+            --soft-red-white: #f5d7d7;
+            --tech-black: #2b2d42;
+            --clean-white: #ffffff;
+            --soft-gray: #f8f9fa;
+            --footer-bg: #1a1b29;
+            --column-base: rgba(210, 210, 215, 0.6); 
+            --column-highlight: rgba(255, 255, 255, 0.8);
+            --column-shadow: rgba(0, 0, 0, 0.2);
+            --neon-blue: #00d4ff;
+        }
+
+        body { background-color: var(--clean-white); color: var(--tech-black); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+        /* --- COLONNE --- */
+        .greek-column {
+            position: fixed; top: 0; width: 65px; height: 100vh; z-index: -1;
+            background: linear-gradient(90deg, var(--column-shadow) 0%, var(--column-base) 20%, var(--column-highlight) 35%, var(--column-base) 50%, var(--column-shadow) 65%, var(--column-base) 80%, var(--column-shadow) 100%);
+            background-size: 32px 100%; border-left: 2px solid rgba(0,0,0,0.1); border-right: 2px solid rgba(0,0,0,0.1);
+        }
+        .col-left { left: 5px; } .col-right { right: 5px; }
+
+        /* --- NAVBAR --- */
+        .navbar { background: linear-gradient(90deg, var(--soft-red-white) 0%, var(--deep-red) 100%); border-bottom: 3px solid var(--deep-red); padding: 0.8rem 0; }
+        .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--tech-black)!important; }
+        .brand-accent { color: var(--deep-red); }
+        .nav-link { color: white!important; font-size: 0.85rem; letter-spacing: 0.5px; }
+
+        /* --- SEZIONE 1: VALVOLE --- */
+        .page-header { padding: 80px 0 40px; text-align: center; }
+        .section-title { font-family: 'Outfit', sans-serif; font-size: 3rem; color: var(--tech-black); }
+        .red-line { width: 80px; height: 5px; background: var(--deep-red); margin: 25px auto; }
+        
+        .valve-box {
+            background: white;
+            border-left: 6px solid var(--deep-red);
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            border-radius: 0 15px 15px 0;
+        }
+
+        .heart-team-box {
+            background: var(--soft-red-white);
+            border: 2px dashed var(--deep-red);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 40px 0;
+        }
+
+        /* --- SEZIONE 2: CORONARICA (Dark Style) --- */
+        .coronary-section {
+            background: linear-gradient(135deg, var(--tech-black) 0%, #0d0d14 100%);
+            color: white;
+            padding: 100px 0;
+            margin: 80px 0;
+            position: relative;
+        }
+        .stent-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 25px;
+            transition: 0.3s;
+        }
+        .stent-card:hover { background: rgba(255,255,255,0.15); border-color: var(--med-red); }
+
+        /* --- SEZIONE 3: TECH --- */
+        .tech-grid-card {
+            background: white;
+            border-top: 4px solid var(--neon-blue);
+            padding: 30px;
+            height: 100%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        .tech-grid-card:hover { transform: scale(1.03); }
+
+        /* --- UI ELEMENTS --- */
+        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 12px 30px; font-weight: 600; border: none; transition: 0.3s; }
+        .btn-medical:hover { background-color: var(--deep-red); color: white; }
+        #user-info { display: none; align-items: center; color: white; }
+
+        /* --- FOOTER --- */
+        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); }
+        .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
+        .footer-link:hover { color: var(--deep-red); }
+    </style>
+</head>
+<body>
+
+    <div class="greek-column col-left"></div>
+    <div class="greek-column col-right"></div>
+
+    <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="https://www.drgiuseppemusumeci.com/favicon.png" alt="Logo" width="55" class="me-2">
+                <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
+            </a>
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <i class="bi bi-list fs-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Chi Sono</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="giuseppe-musumeci.html">Giuseppe Musumeci</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="formazione.html">Formazione</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="carriera.html">Carriera</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Cosa faccio</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="direttore.html">Direttore</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="interventistica.html">Interventistica Strutturale</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="cardiologia.html">Cardiologia Clinica</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="patologie.html">Patologie Cardiovascolari</a></li>
+                             <li><a class="dropdown-item py-2 fw-semibold" href="incarichi.html">Incarichi Istituzionali</a></li>
+                             <li><a class="dropdown-item py-2 fw-semibold" href="media.html">Comunicazione e Media</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Info</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="contatti.html">Contatti</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="libera-professione.html">Libera Professione</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="documenti.html">Documenti&Articoli</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="eventi.html">News&Eventi</a></li>
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="media.html#video">Video</a></li>
+                    <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="https://change.drgiuseppemusumeci.com/">Change</a></li>
+                    <li class="nav-item">
+                        <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+                        <div id="user-info">
+                            <span id="user-name" class="me-3 small fw-bold text-uppercase opacity-75"></span>
+                            <button onclick="logout()" class="btn btn-outline-light btn-sm rounded-0 fw-bold">LOGOUT</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header class="page-header">
+            <h1 class="section-title">Patologie Cardiovascolari</h1>
+            <p class="lead text-muted max-width-700 mx-auto">Comprendere il cuore per curarlo al meglio. Dalle ostruzioni meccaniche delle valvole alle frontiere molecolari della medicina preventiva.</p>
+            <div class="red-line"></div>
+        </header>
+
+        <section class="mb-5">
+            <h2 class="h3 fw-bold mb-4" style="font-family:'Outfit';">1. Malattie Valvolari: La Meccanica del Sangue</h2>
+            
+            <div class="valve-box">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <h3 class="h4 fw-bold text-danger">Stenosi Aortica</h3>
+                        <p>La valvola aortica è il "cancello principale" del cuore. Quando diventa rigida (calcifica), il passaggio si restringe. Il cuore deve faticare sempre di più, le sue pareti si ispessiscono e col tempo il motore inizia a cedere.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="bi bi-check2-circle text-danger me-2"></i><strong>TAVI:</strong> Oggi risolviamo il problema senza aprire il torace. Attraverso l'arteria femorale, inseriamo una nuova valvola che si espande all'interno di quella vecchia.</li>
+                            <li><i class="bi bi-check2-circle text-danger me-2"></i><strong>Recupero:</strong> Il paziente spesso cammina già il giorno dopo l'intervento.</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 text-center">
+                        <div class="p-4 bg-light rounded-circle shadow-sm d-inline-block">
+                            <i class="bi bi-gear-wide-connected fs-1 text-danger"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="valve-box">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <h3 class="h4 fw-bold text-danger">Insufficienza Mitralica</h3>
+                        <p>In questo caso, la valvola non "tiene" più. Parte del sangue torna indietro nel polmone anziché andare in circolo. Questo causa edema polmonare e stanchezza cronica.</p>
+                        <p><strong>La Soluzione MitraClip:</strong> Una vera e propria "molletta" miniaturizzata che viene agganciata ai lembi della valvola per stabilizzarli e ridurre il rigurgito. Una tecnica mininvasiva salvavita per chi non può affrontare la chirurgia tradizionale.</p>
+                    </div>
+                    <div class="col-lg-4 text-center order-first order-lg-last">
+                        <i class="bi bi-heart-half fs-1 text-danger"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="valve-box" style="border-left-color: #ff9f1c;">
+                <h3 class="h4 fw-bold" style="color:#ff9f1c;">Insufficienza Tricuspidale: La Nuova Frontiera</h3>
+                <p>Spesso ignorata in passato, la tricuspide è oggi al centro dell'innovazione. Quando non chiude, fegato e reni ne soffrono. Dr. Musumeci utilizza le tecnologie più avanzate al mondo:</p>
+                <div class="row g-3 mt-2">
+                    <div class="col-md-6">
+                        <div class="p-3 border rounded shadow-sm">
+                            <h6 class="fw-bold"><i class="bi bi-patch-check-fill text-warning me-2"></i>TriClip</h6>
+                            <p class="small mb-0">Ricalca il successo della MitraClip, adattandosi alla complessa anatomia della valvola destra.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="p-3 border rounded shadow-sm">
+                            <h6 class="fw-bold"><i class="bi bi-rocket-takeoff-fill text-warning me-2"></i>EVOQUE System</h6>
+                            <p class="small mb-0">La prima terapia al mondo di sostituzione valvolare tricuspidale per via percutanea. Una rivoluzione totale.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="heart-team-box">
+                <div class="row align-items-center text-center text-lg-start">
+                    <div class="col-lg-2">
+                        <i class="bi bi-people-fill fs-1 text-danger"></i>
+                    </div>
+                    <div class="col-lg-10">
+                        <h4 class="fw-bold">Il concetto di Heart Team</h4>
+                        <p class="mb-0">Nessuna decisione viene presa da soli. Cardiologo clinico, interventista e cardiochirurgo analizzano ogni singolo caso per scegliere la terapia più sicura ed efficace: è la medicina "sartoriale" cucita sul paziente.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="coronary-section mx-n3 px-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h2 class="display-5 fw-bold mb-4" style="font-family:'Outfit';">Cardiopatia Ischemica</h2>
+                        <p class="lead">Le coronarie sono le autostrade del cuore. Se il traffico è bloccato da placche di colesterolo e calcio, il cuore va in sofferenza (Angina) o muore (Infarto).</p>
+                        
+                        <div class="mt-5">
+                            <h4 class="text-danger fw-bold">Angioplastica (PCI) in dettaglio:</h4>
+                            <p>Non è solo "mettere uno stent". È una procedura di precisione millimetrica che prevede:</p>
+                            <div class="d-flex mb-3">
+                                <div class="me-3"><i class="bi bi-1-circle fs-3 text-danger"></i></div>
+                                <div><strong>Imaging Intravascolare:</strong> Usiamo minuscole telecamere (IVUS/OCT) per vedere dentro l'arteria e capire la natura del blocco.</div>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <div class="me-3"><i class="bi bi-2-circle fs-3 text-danger"></i></div>
+                                <div><strong>Drug-Eluting Stents (DES):</strong> Gli stent moderni rilasciano farmaci che impediscono all'arteria di richiudersi.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <div class="stent-card rounded-3">
+                                    <h5 class="fw-bold text-danger">CTO: Occlusioni Croniche</h5>
+                                    <p class="small">Dr. Musumeci è specializzato nella riapertura di arterie chiuse da mesi o anni, un tempo considerate impossibili da curare se non con il bypass.</p>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center py-4">
+                                
+
+[Image of coronary artery stent procedure]
+
+                            </div>
+                            <div class="col-12">
+                                <div class="p-4 bg-white text-dark rounded-3 shadow">
+                                    <h5 class="fw-bold"><i class="bi bi-shield-exclamation text-danger me-2"></i>Attenzione ai segnali</h5>
+                                    <p class="small mb-0">Un peso al petto, dolore che si irradia al braccio sinistro o alla mandibola, sudorazione fredda. Ogni minuto conta: **Time is Muscle** (Il tempo è muscolo cardiaco).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-5 pt-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold" style="font-family:'Outfit';">Medicina Cardiometabolica & Tech</h2>
+                <div class="red-line"></div>
+                <p class="text-muted">La cardiologia del 2026 non è solo intervento, è prevenzione molecolare intelligente.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="tech-grid-card">
+                        <h4 class="fw-bold h5">Dislipidemie (Colesterolo)</h4>
+                        <p class="small text-muted">Oltre le statine. Oggi utilizziamo gli <strong>inibitori di PCSK9</strong>: anticorpi monoclonali che, con una semplice iniezione ogni due settimane o sei mesi (Inclisiran), abbattono il colesterolo LDL anche dell'80%.</p>
+                        <i class="bi bi-droplet text-info fs-1 opacity-25 float-end"></i>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="tech-grid-card">
+                        <h4 class="fw-bold h5">Diabete & Scompenso</h4>
+                        <p class="small text-muted">Le <strong>Gliflozine (SGLT2-i)</strong>: farmaci nati per il diabete che si sono rivelati la più grande scoperta per lo scompenso cardiaco, proteggendo rene e cuore simultaneamente.</p>
+                        <i class="bi bi-capsule-pill text-info fs-1 opacity-25 float-end"></i>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="tech-grid-card">
+                        <h4 class="fw-bold h5">Obesità Cardiaca</h4>
+                        <p class="small text-muted">Utilizzo clinico dei <strong>GLP-1 RA</strong>. Ridurre il peso non è più solo estetica, ma una terapia fondamentale per ridurre l'infiammazione del cuore e il rischio di infarto.</p>
+                        <i class="bi bi-graph-down-arrow text-info fs-1 opacity-25 float-end"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 p-5 bg-light rounded-4 border">
+                <h3 class="fw-bold mb-4">Domande Frequenti</h3>
+                <div class="accordion accordion-flush" id="faqHeart">
+                    <div class="accordion-item bg-transparent">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-transparent fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#f1">
+                                Lo stent dura per sempre?
+                            </button>
+                        </h2>
+                        <div id="f1" class="accordion-collapse collapse" data-bs-parent="#faqHeart">
+                            <div class="accordion-body small text-muted">Sì, lo stent è progettato per rimanere permanentemente nell'arteria. Tuttavia, è fondamentale la terapia farmacologica per evitare che si formino nuovi coaguli all'interno.</div>
+                        </div>
+                    </div>
+                    <div class="accordion-item bg-transparent">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-transparent fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#f2">
+                                La TAVI è rischiosa quanto un intervento a cuore aperto?
+                            </button>
+                        </h2>
+                        <div id="f2" class="accordion-collapse collapse" data-bs-parent="#faqHeart">
+                            <div class="accordion-body small text-muted">No, al contrario. La TAVI è nata proprio per i pazienti troppo fragili per la chirurgia. È molto meno invasiva e permette un recupero rapidissimo.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container text-center text-md-start">
+            <div class="row g-5">
+                <div class="col-lg-5">
+                    <div class="footer-logo mb-3" style="font-family:'Outfit'; font-weight:600;">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
+                    <p class="opacity-75">Giuseppe Musumeci MD<br>
+                    Direttore SC Cardiologia,<br>
+                    AO Ordine Mauriziano Torino<br>
+                    Presidente Regione Piemonte ANMCO</p>
+                    <div class="mt-4">
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-0 me-2"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-0"><i class="bi bi-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <h6 class="fw-bold mb-4 text-uppercase small">Navigazione</h6>
+                    <nav>
+                        <a href="index.html" class="footer-link">Home</a>
+                        <a href="libera-professione.html" class="footer-link">Libera Professione</a>
+                        <a href="contatti.html" class="footer-link">Contatti</a>
+                    </nav>
+                </div>
+                <div class="col-6 col-lg-4">
+                    <h6 class="fw-bold mb-4 text-uppercase small">Sicurezza</h6>
+                    <nav>
+                        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                        <span class="footer-link text-white-50 mt-3 small">Status: <span class="text-success">● Operativo</span></span>
+                    </nav>
+                </div>
+            </div>
+            <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <p class="mb-0"><br>&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
+            projectId: "giuseppe-4c318",
+            storageBucket: "giuseppe-4c318.firebasestorage.app",
+            messagingSenderId: "658885311131",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        auth.onAuthStateChanged((user) => {
+            const btnLoginNav = document.getElementById('btn-login-nav');
+            const userInfo = document.getElementById('user-info');
+            const userName = document.getElementById('user-name');
+            if (user) {
+                if(btnLoginNav) btnLoginNav.style.display = 'none';
+                if(userInfo) userInfo.style.display = 'flex';
+                if(userName) userName.innerText = user.displayName || user.email;
+            } else {
+                if(btnLoginNav) btnLoginNav.style.display = 'inline-block';
+                if(userInfo) userInfo.style.display = 'none';
+            }
+        });
+
+        function logout() { auth.signOut().then(() => window.location.reload()); }
+    </script>
+</body>
+</html>
