@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardiologia Clinica | Dr. Giuseppe Musumeci</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --med-red: #d90429;
+            --deep-red: #b00202;
+            --soft-red-white: #f5d7d7;
+            --tech-black: #2b2d42;
+            --clean-white: #ffffff;
+            --soft-gray: #f8f9fa;
+            --footer-bg: #1a1b29;
+            --column-base: rgba(210, 210, 215, 0.6); 
+            --column-highlight: rgba(255, 255, 255, 0.8);
+            --column-shadow: rgba(0, 0, 0, 0.2);
+            --tech-blue: #00d4ff;
+        }
+
+        body { background-color: var(--clean-white); color: var(--tech-black); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+
+        /* --- COLONNE GRECHE --- */
+        .greek-column {
+            position: fixed; top: 0; width: 65px; height: 100vh; z-index: -1;
+            background: linear-gradient(90deg, var(--column-shadow) 0%, var(--column-base) 20%, var(--column-highlight) 35%, var(--column-base) 50%, var(--column-shadow) 65%, var(--column-base) 80%, var(--column-shadow) 100%);
+            background-size: 32px 100%; border-left: 2px solid rgba(0,0,0,0.1); border-right: 2px solid rgba(0,0,0,0.1);
+        }
+        .col-left { left: 5px; } .col-right { right: 5px; }
+/* --- TESTI 2 --- */
+.text-white {
+    color: #fff;
+}
+        /* --- NAVBAR --- */
+        .navbar { background: linear-gradient(90deg, var(--soft-red-white) 0%, var(--deep-red) 100%); border-bottom: 3px solid var(--deep-red); padding: 0.8rem 0; }
+        .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--tech-black)!important; }
+        .brand-accent { color: var(--deep-red); }
+        .nav-link { color: white!important; font-size: 0.85rem; letter-spacing: 0.5px; }
+
+        /* --- HEADER --- */
+        .page-header { padding: 80px 0 40px; text-align: center; }
+        .section-title { font-family: 'Outfit', sans-serif; font-size: 3rem; color: var(--tech-black); }
+        .red-line { width: 80px; height: 5px; background: var(--deep-red); margin: 25px auto; }
+
+        /* --- SEZIONE 1: CLINICA (Dislipidemie, Diabete, Scompenso) --- */
+        .clinical-card {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 15px;
+            padding: 30px;
+            height: 100%;
+            transition: 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .clinical-card:hover { border-color: var(--med-red); transform: translateY(-5px); }
+        .icon-circle {
+            width: 60px; height: 60px; background: var(--soft-red-white);
+            color: var(--deep-red); display: flex; align-items: center;
+            justify-content: center; border-radius: 50%; margin-bottom: 20px; font-size: 1.5rem;
+        }
+
+        /* --- SEZIONE 2: LIBERO ARBITRIO (Obesità, Cardiomiopatie) --- */
+        .lifestyle-section {
+            background: var(--soft-gray);
+            padding: 80px 0;
+            margin: 60px 0;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+        .modern-split {
+            background: white;
+            display: flex;
+            flex-wrap: wrap;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .split-image {
+            flex: 1 1 400px;
+            background: linear-gradient(45deg, var(--tech-black), var(--deep-red));
+            display: flex; align-items: center; justify-content: center;
+            color: white; min-height: 300px;
+        }
+        .split-content { flex: 1 1 400px; padding: 50px; }
+
+        /* --- SEZIONE 3: TECH ELEGANCE (Fibrillazione, Aritmie) --- */
+        .tech-elegant-section {
+            background: linear-gradient(135deg, #0f1016 0%, #1a1b29 100%);
+            color: white;
+            padding: 100px 0;
+            border-radius: 40px;
+            margin-bottom: 80px;
+        }
+        .tech-card {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            height: 100%;
+            position: relative;
+        }
+        .tech-card::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, transparent, var(--tech-blue), transparent);
+        }
+        .tech-accent-text { color: var(--tech-blue); font-weight: 700; font-family: 'Outfit'; }
+
+        /* --- UI ELEMENTS --- */
+        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 12px 30px; font-weight: 600; border: none; transition: 0.3s; }
+        .btn-medical:hover { background-color: var(--deep-red); color: white; }
+        #user-info { display: none; align-items: center; color: white; }
+
+        /* --- FOOTER --- */
+        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); }
+        .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
+        .footer-link:hover { color: var(--deep-red); }
+    </style>
+</head>
+<body>
+
+    <div class="greek-column col-left"></div>
+    <div class="greek-column col-right"></div>
+
+    <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="https://www.drgiuseppemusumeci.com/favicon.png" alt="Logo" width="55" class="me-2">
+                <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
+            </a>
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <i class="bi bi-list fs-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" role="button" data-bs-toggle="dropdown">Chi Sono</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="giuseppe-musumeci.html">Giuseppe Musumeci</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="formazione.html">Formazione</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="carriera.html">Carriera</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase active" href="#" role="button" data-bs-toggle="dropdown">Cosa faccio</a>
+                        <ul class="dropdown-menu shadow">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="cardiologia-clinica.html">Cardiologia Clinica</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="interventistica.html">Interventistica Strutturale</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="patologie.html">Patologie Cardiovascolari</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="contatti.html">Contatti</a></li>
+                    <li class="nav-item">
+                        <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+                        <div id="user-info">
+                            <span id="user-name" class="me-3 small fw-bold text-uppercase opacity-75"></span>
+                            <button onclick="logout()" class="btn btn-outline-light btn-sm rounded-0 fw-bold">LOGOUT</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <header class="page-header">
+            <h1 class="section-title">Cardiologia Clinica</h1>
+            <p class="lead text-muted">Gestione integrata delle patologie croniche e prevenzione avanzata.</p>
+            <div class="red-line"></div>
+        </header>
+
+        <section class="row g-4 mb-5">
+            <div class="col-lg-4">
+                <div class="clinical-card">
+                    <div class="icon-circle"><i class="bi bi-droplet-fill"></i></div>
+                    <h3 class="h4 fw-bold">Dislipidemie</h3>
+                    <p class="small">Controllo avanzato del colesterolo LDL attraverso terapie di ultima generazione come gli inibitori di PCSK9 e l'RNA-interferenza (Inclisiran), mirate alla massima protezione endoteliale.</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="clinical-card">
+                    <div class="icon-circle"><i class="bi bi-capsule-pill"></i></div>
+                    <h3 class="h4 fw-bold">Diabete Cardiorenale</h3>
+                    <p class="small">Approccio multidisciplinare che utilizza SGLT2i e GLP1-RA non solo per il controllo glicemico, ma come pilastri per la protezione del muscolo cardiaco e della funzione renale.</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="clinical-card">
+                    <div class="icon-circle"><i class="bi bi-heart-pulse-fill"></i></div>
+                    <h3 class="h4 fw-bold">Scompenso Cardiaco</h3>
+                    <p class="small">Gestione della cronicità basata sui "4 pilastri" della terapia medica ottimizzata, monitoraggio remoto e prevenzione delle riacutizzazioni mediante imaging avanzato.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="lifestyle-section">
+            <div class="container">
+                <div class="modern-split mb-5">
+                    <div class="split-image">
+                        <div class="text-center p-4">
+                            <i class="bi bi-graph-down-arrow display-1"></i>
+                            <h2 class="mt-3 fw-bold">OBESITÀ</h2>
+                            <p class="opacity-75">Rischio Cardiometabolico</p>
+                        </div>
+                    </div>
+                    <div class="split-content">
+                        <h3 class="fw-bold mb-4">Il Cuore nel Paziente con Obesità</h3>
+                        <p>L'eccesso di tessuto adiposo non è solo un peso meccanico, ma un organo endocrino che produce infiammazione. Il Dr. Musumeci integra i nuovi protocolli farmacologici per la riduzione ponderale con la protezione coronarica.</p>
+                        <ul class="list-unstyled mt-3">
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-danger me-2"></i> Valutazione dell'infiammazione sistemica</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-danger me-2"></i> Gestione della sindrome metabolica</li>
+                            <li class="mb-2"><i class="bi bi-check-circle-fill text-danger me-2"></i> Screening dell'apnea notturna (OSAS)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="modern-split flex-row-reverse">
+                    <div class="split-image" style="background: var(--tech-black);">
+                        <div class="text-center p-4">
+                            <i class="bi bi-diagram-3 display-1"></i>
+                            <h2 class="mt-3 fw-bold">CARDIOMIOPATIE</h2>
+                            <p class="opacity-75">Genetica e Struttura</p>
+                        </div>
+                    </div>
+                    <div class="split-content">
+                        <h3 class="fw-bold mb-4">Morfologia e Funzione</h3>
+                        <p>Dalle forme ipertrofiche alle dilatative, lo studio delle cardiomiopatie richiede precisione diagnostica. Ci avvaliamo di percorsi dedicati per la diagnosi precoce, inclusi test genetici e risonanza magnetica cardiaca.</p>
+                        <div class="p-3 bg-light border-start border-danger border-4 mt-3">
+                            <p class="mb-0 small italic">"Identificare la causa strutturale permette di prevenire la morte cardiaca improvvisa e personalizzare il follow-up."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tech-elegant-section">
+            <div class="container">
+                <div class="row mb-5 text-center">
+                    <div class="col-12">
+                        <h2 class="display-5 fw-bold" style="font-family:'Outfit';">Elettrofisiologia & Innovazione</h2>
+                        <p class="text-white">Il ritmo del cuore nell'era del monitoraggio digitale.</p>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="tech-card">
+                            <h3 class="tech-accent-text mb-3">Fibrillazione Atriale</h3>
+                            <p>Gestione moderna dell'aritmia più comune. Dalla prevenzione dell'ictus mediante l'anticoagulazione intelligente alla valutazione per l'ablazione transcatetere o la chiusura dell'auricola sinistra.</p>
+                            <div class="mt-4 pt-3 border-top border-secondary">
+                                <span class="badge bg-danger rounded-pill px-3 py-2">Stroke Prevention</span>
+                                <span class="badge bg-info text-dark rounded-pill px-3 py-2 ms-2">Early Rhythm Control</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="tech-card">
+                            <h3 class="tech-accent-text mb-3">Aritmie & Wearables</h3>
+                            <p>Integrazione dei dati provenienti da smartwatch e sensori patch per la diagnosi di extrasistolia, tachicardie parossistiche e bradicardie. Analisi dei segnali ECG per la stratificazione del rischio.</p>
+                            <i class="bi bi-cpu fs-1 opacity-25 position-absolute end-0 bottom-0 m-4"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container text-center text-md-start">
+            <div class="row g-5">
+                <div class="col-lg-5">
+                    <div class="footer-logo mb-3" style="font-family:'Outfit'; font-weight:600;">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
+                    <p class="opacity-75">Giuseppe Musumeci MD<br>Direttore SC Cardiologia,<br>AO Ordine Mauriziano Torino</p>
+                    <div class="mt-4">
+                        <a href="https://it.linkedin.com/in/giuseppe-musumeci-96414358" class="btn btn-outline-light btn-sm rounded-0 me-2"><i class="bi bi-linkedin"></i></a>
+                        <a href="mailto:info@drgiuseppemusumeci.com" class="btn btn-outline-light btn-sm rounded-0"><i class="bi bi-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <h6 class="fw-bold mb-4 text-uppercase small">Link Rapidi</h6>
+                    <nav>
+                        <a href="index.html" class="footer-link">Home</a>
+                        <a href="libera-professione.html" class="footer-link">Libera Professione</a>
+                        <a href="contatti.html" class="footer-link">Contatti</a>
+                    </nav>
+                </div>
+                <div class="col-6 col-lg-4">
+                    <h6 class="fw-bold mb-4 text-uppercase small">Sicurezza</h6>
+                    <nav>
+                        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                        <span class="footer-link text-white-50 mt-3 small">Status: <span class="text-success">● Operativo</span></span>
+                    </nav>
+                </div>
+            </div>
+            <div class="mt-5 border-top border-secondary pt-4 text-center">
+                <p class="small mb-0">&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
+            projectId: "giuseppe-4c318",
+            storageBucket: "giuseppe-4c318.firebasestorage.app",
+            messagingSenderId: "658885311131",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        auth.onAuthStateChanged((user) => {
+            const btnLoginNav = document.getElementById('btn-login-nav');
+            const userInfo = document.getElementById('user-info');
+            const userName = document.getElementById('user-name');
+            if (user) {
+                if(btnLoginNav) btnLoginNav.style.display = 'none';
+                if(userInfo) userInfo.style.display = 'flex';
+                if(userName) userName.innerText = user.displayName || user.email;
+            } else {
+                if(btnLoginNav) btnLoginNav.style.display = 'inline-block';
+                if(userInfo) userInfo.style.display = 'none';
+            }
+        });
+
+        function logout() { auth.signOut().then(() => window.location.reload()); }
+    </script>
+</body>
+</html>
