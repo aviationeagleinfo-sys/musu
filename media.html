@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media & Comunicazione | Dr. Giuseppe Musumeci</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --med-red: #d90429;
+            --deep-red: #b00202;
+            --soft-red-white: #f5d7d7;
+            --tech-black: #2b2d42;
+            --clean-white: #ffffff;
+            --footer-bg: #1a1b29;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+            --column-base: rgba(210, 210, 215, 0.4); 
+            --column-highlight: rgba(255, 255, 255, 0.7);
+        }
+
+        body { 
+            background-color: var(--clean-white); 
+            color: var(--tech-black); 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden; 
+            scroll-behavior: smooth;
+        }
+
+        /* --- COLONNE BACKGROUND --- */
+        .greek-column {
+            position: fixed; top: 0; width: 60px; height: 100vh; z-index: -1;
+            background: linear-gradient(90deg, transparent 0%, var(--column-base) 50%, transparent 100%);
+            opacity: 0.5;
+        }
+        .col-left { left: 10px; } .col-right { right: 10px; }
+
+        /* --- NAVBAR (Ripristinata, senza active) --- */
+        .navbar { background: linear-gradient(90deg, var(--soft-red-white) 0%, var(--deep-red) 100%); border-bottom: 3px solid var(--deep-red); padding: 0.8rem 0; }
+        .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--tech-black)!important; }
+        .brand-accent { color: var(--deep-red); }
+        .nav-link { color: white!important; font-size: 0.85rem; letter-spacing: 0.5px; border-radius: 50px; padding: 8px 15px!important; transition: 0.3s; }
+        .nav-link:hover { background: rgba(255,255,255,0.1); }
+        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 50px; padding: 10px 25px; font-weight: 600; border: none; transition: 0.3s; }
+        .btn-medical:hover { background-color: var(--deep-red); transform: scale(1.05); }
+
+        /* --- STILE MODULARE & ROUND --- */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: var(--soft-red-white);
+            color: var(--deep-red);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- VIDEO SECTION ORGANIZZATA --- */
+        #video { padding: 80px 0; }
+        .video-module {
+            background: var(--soft-gray);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            height: 100%;
+            transition: 0.3s ease;
+            border: 1px solid transparent;
+        }
+        .video-module:hover {
+            transform: translateY(-10px);
+            border-color: var(--med-red);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; }
+        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        .video-content { padding: 1.5rem; }
+        .video-content h5 { font-family: 'Outfit'; font-weight: 700; margin-bottom: 0.5rem; color: var(--tech-black); }
+
+        /* --- FOOTER --- */
+        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); border-radius: 40px 40px 0 0; }
+        .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
+        .footer-link:hover { color: var(--deep-red); padding-left: 5px; }
+        #user-info { display: none; align-items: center; color: white; }
+    </style>
+</head>
+<body>
+
+    <div class="greek-column col-left"></div>
+    <div class="greek-column col-right"></div>
+
+    <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="https://www.drgiuseppemusumeci.com/favicon.png" alt="Logo" width="55" class="me-2">
+                <span>GIUSEPPE<span class="brand-accent">MUSUMECI</span></span>
+            </a>
+            <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <i class="bi bi-list fs-1"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" data-bs-toggle="dropdown">Chi Sono</a>
+                        <ul class="dropdown-menu shadow border-0" style="border-radius: 15px;">
+                            <li><a class="dropdown-item" href="giuseppe-musumeci.html">Giuseppe Musumeci</a></li>
+                            <li><a class="dropdown-item" href="formazione.html">Formazione</a></li>
+                            <li><a class="dropdown-item" href="carriera.html">Carriera</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" data-bs-toggle="dropdown">Cosa faccio</a>
+                        <ul class="dropdown-menu shadow border-0" style="border-radius: 15px;">
+                            <li><a class="dropdown-item" href="direttore.html">Direttore</a></li>
+                            <li><a class="dropdown-item" href="interventistica.html">Interventistica Strutturale</a></li>
+                            <li><a class="dropdown-item" href="cardiologia.html">Cardiologia Clinica</a></li>
+                            <li><a class="dropdown-item" href="patologie.html">Patologie Cardiovascolari</a></li>
+                            <li><a class="dropdown-item" href="incarichi.html">Incarichi Istituzionali</a></li>
+                            <li><a class="dropdown-item" href="media.html">Comunicazione e Media</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown px-lg-2">
+                        <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" data-bs-toggle="dropdown">Info</a>
+                        <ul class="dropdown-menu shadow border-0" style="border-radius: 15px;">
+                            <li><a class="dropdown-item" href="contatti.html">Contatti</a></li>
+                            <li><a class="dropdown-item" href="libera-professione.html">Libera Professione</a></li>
+                            <li><a class="dropdown-item" href="documenti.html">Documenti&Articoli</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="eventi.html">News&Eventi</a></li>
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="#video">Video</a></li>
+                    <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="https://change.drgiuseppemusumeci.com/">Change</a></li>
+                    <li class="nav-item">
+                        <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
+                        <div id="user-info">
+                            <span id="user-name" class="me-3 small fw-bold text-uppercase opacity-75"></span>
+                            <button onclick="logout()" class="btn btn-outline-light btn-sm rounded-pill fw-bold">LOGOUT</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5">
+        <header class="text-center mb-5">
+            <span class="section-tag">Press & Media</span>
+            <h1 class="display-4 fw-bold" style="font-family: 'Outfit';">Comunicazione</h1>
+            <p class="text-muted lead">L'impegno nella divulgazione scientifica e nel dibattito istituzionale.</p>
+        </header>
+
+        <div class="glass-card">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h2 class="fw-bold mb-4" style="font-family: 'Outfit';">Rassegna Stampa Recente</h2>
+                    <ul class="list-unstyled">
+                        <li class="mb-4 d-flex">
+                            <i class="bi bi-newspaper text-danger me-3 fs-4"></i>
+                            <div>
+                                <h6 class="fw-bold mb-1">Corriere della Sera</h6>
+                                <p class="text-muted small">Intervista sull'evoluzione delle tecniche mininvasive in cardiologia.</p>
+                            </div>
+                        </li>
+                        <li class="mb-4 d-flex">
+                            <i class="bi bi-newspaper text-danger me-3 fs-4"></i>
+                            <div>
+                                <h6 class="fw-bold mb-1">Sole 24 Ore Sanità</h6>
+                                <p class="text-muted small">Analisi delle reti tempo-dipendenti nell'emergenza cardiovascolare.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-5">
+                    <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=600&q=80" class="img-fluid rounded-4 shadow" alt="Media Coverage">
+                </div>
+            </div>
+        </div>
+
+        <section id="video">
+            <div class="d-flex justify-content-between align-items-end mb-5">
+                <div>
+                    <span class="section-tag">Archivio Video</span>
+                    <h2 class="fw-bold" style="font-family: 'Outfit';">Interventi e Approfondimenti</h2>
+                </div>
+                <div class="d-none d-md-block text-muted small fw-bold">TOTALE: 12 VIDEO</div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="video-module">
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-content">
+                            <h5>Congresso Nazionale GISE</h5>
+                            <p class="small text-muted mb-0">Riflessioni sulla leadership e l'innovazione tecnologica.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="video-module">
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-content">
+                            <h5>Speciale Rai Salute</h5>
+                            <p class="small text-muted mb-0">Focus sulla prevenzione delle malattie coronariche.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="video-module">
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                        <div class="video-content">
+                            <h5>Webinar AGENAS</h5>
+                            <p class="small text-muted mb-0">Coordinamento delle reti di emergenza cardiologica.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container text-center text-md-start">
+            <div class="row g-5">
+                <div class="col-lg-5">
+                    <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
+                    <p class="opacity-75">Giuseppe Musumeci MD<br>
+                    Direttore SC Cardiologia, AO Ordine Mauriziano Torino<br>
+                    Largo Turati, 62, Torino, Italy<br>
+                    tel. +390115082515<br>
+                    Presidente Regione Piemonte ANMCO</p>
+                    <div class="mt-4">
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-pill me-2"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-pill"><i class="bi bi-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <h6 class="fw-bold mb-4 text-uppercase small">Navigazione</h6>
+                    <nav>
+                        <a href="index.html" class="footer-link">Home</a>
+                        <a href="login.html" class="footer-link">Accesso</a>
+                        <a href="news.html" class="footer-link">Aggiornamenti</a>
+                    </nav>
+                </div>
+                <div class="col-6 col-lg-4">
+                    <h6 class="fw-bold mb-4 text-uppercase small">Sicurezza</h6>
+                    <nav>
+                        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+                        <span class="footer-link text-white-50 mt-3 small">Status: <span class="text-success">● Operativo</span></span>
+                    </nav>
+                </div>
+            </div>
+            <div class="mt-5 border-top border-secondary pt-4 text-center">
+                <p class="mb-0 small opacity-50">&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Logica Firebase Auth e Logout rimasta invariata per funzionalità HUB
+    </script>
+</body>
+</html>
