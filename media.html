@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Media & Comunicazione | Dr. Giuseppe Musumeci</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
@@ -20,7 +19,6 @@
             --soft-gray: #f8f9fa;
             --footer-bg: #1a1b29;
             --radius-lg: 24px;
-            --radius-md: 16px;
             --column-base: rgba(210, 210, 215, 0.4); 
         }
 
@@ -32,95 +30,50 @@
             scroll-behavior: smooth;
         }
 
-        /* --- COLONNE BACKGROUND --- */
-        .greek-column {
-            position: fixed; top: 0; width: 60px; height: 100vh; z-index: -1;
-            background: linear-gradient(90deg, transparent 0%, var(--column-base) 50%, transparent 100%);
-            opacity: 0.5;
-        }
+        /* --- BACKGROUND COLUMNS --- */
+        .greek-column { position: fixed; top: 0; width: 60px; height: 100vh; z-index: -1; background: linear-gradient(90deg, transparent 0%, var(--column-base) 50%, transparent 100%); opacity: 0.5; }
         .col-left { left: 10px; } .col-right { right: 10px; }
 
-        /* --- NAVBAR --- */
+        /* --- NAVBAR & DROPDOWNS --- */
         .navbar { background: linear-gradient(90deg, var(--soft-red-white) 0%, var(--deep-red) 100%); border-bottom: 3px solid var(--deep-red); padding: 0.8rem 0; }
         .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--tech-black)!important; }
         .brand-accent { color: var(--deep-red); }
+        
         .nav-link { color: white!important; font-size: 0.85rem; letter-spacing: 0.5px; border-radius: 50px; padding: 8px 15px!important; transition: 0.3s; }
-        .nav-link:hover { background: rgba(255,255,255,0.1); }
-        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 50px; padding: 10px 25px; font-weight: 600; border: none; transition: 0.3s; }
-        .btn-medical:hover { background-color: var(--deep-red); transform: scale(1.05); }
+        .nav-link:hover, .nav-link:focus { background: rgba(255,255,255,0.1); }
 
+        .dropdown-menu { border: none; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 10px; }
+        .dropdown-item { border-radius: 8px; font-size: 0.9rem; padding: 8px 15px; transition: 0.2s; }
+        .dropdown-item:hover { background-color: var(--soft-red-white); color: var(--deep-red); }
 
-        /* --- STILE MODULARE --- */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0,0,0,0.05);
-            border-radius: var(--radius-lg);
-            padding: 2.5rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
-        }
+        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 50px; padding: 8px 20px; font-weight: 600; border: none; transition: 0.3s; font-size: 0.8rem; }
+        .btn-medical:hover { background-color: var(--deep-red); transform: translateY(-2px); color: white; }
 
-        .section-tag {
-            display: inline-block;
-            background: var(--soft-red-white);
-            color: var(--deep-red);
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
+        /* --- LAYOUT COMPONENTS --- */
+        .glass-card { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border: 1px solid rgba(0,0,0,0.05); border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: 0 15px 35px rgba(0,0,0,0.05); margin-bottom: 2rem; }
+        .section-tag { display: inline-block; background: var(--soft-red-white); color: var(--deep-red); padding: 6px 16px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 1.5rem; }
 
-        /* --- VIDEO SECTION --- */
-        #video { padding: 80px 0; }
-        .video-module {
-            background: var(--soft-gray);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            height: 100%;
-            transition: 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-        .video-module:hover {
-            transform: translateY(-10px);
-            border-color: var(--med-red);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
+        .video-module { background: var(--soft-gray); border-radius: var(--radius-lg); overflow: hidden; height: 100%; transition: 0.3s ease; border: 1px solid rgba(0,0,0,0.05); }
+        .video-module:hover { transform: translateY(-10px); border-color: var(--med-red); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .video-content { padding: 1.5rem; }
-        .video-content h5 { font-family: 'Outfit'; font-weight: 700; margin-bottom: 0.5rem; color: var(--tech-black); }
+        
+        /* --- AUTH STATES --- */
+        #user-info { display: none; align-items: center; gap: 12px; }
+        @media (max-width: 991px) {
+            #user-info { padding: 15px 0; flex-direction: column; }
+            .dropdown-menu { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); }
+            .dropdown-item { color: white; }
+        }
 
-        /* --- FOOTER --- */
         .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); border-radius: 40px 40px 0 0; }
-        .footer-logo { font-family: 'Outfit'; font-weight: 700; font-size: 1.5rem; }
         .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
         .footer-link:hover { color: var(--deep-red); padding-left: 5px; }
-        #user-info {
-    display: none; /* Gestito dallo script */
-    align-items: center;
-    gap: 12px;
-}
-
-#btn-login-nav {
-    display: block; /* Stato iniziale */
-}
-
-@media (max-width: 991px) {
-    #user-info {
-        padding: 15px 0;
-        flex-direction: column;
-        text-align: center;
-    }
-    #user-name { margin: 0 0 10px 0 !important; }
-}
     </style>
 </head>
 <body>
 
-    <div class="greek-column col-left"></div>
+   <div class="greek-column col-left"></div>
     <div class="greek-column col-right"></div>
 
     <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
@@ -295,51 +248,44 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
-        authDomain: "giuseppe-4c318.firebaseapp.com",
-        databaseURL: "https://giuseppe-4c318-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "giuseppe-4c318",
-        storageBucket: "giuseppe-4c318.firebasestorage.app",
-        messagingSenderId: "658885311131",
-        appId: "1:658885311131:web:9bb26a19cec41dd331e43e",
-        measurementId: "G-T740SVWJ06"
-    };
+        const firebaseConfig = {
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
+            databaseURL: "https://giuseppe-4c318-default-rtdb.europe-west1.firebasedatabase.app",
+            projectId: "giuseppe-4c318",
+            storageBucket: "giuseppe-4c318.firebasestorage.app",
+            messagingSenderId: "658885311131",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e",
+            measurementId: "G-T740SVWJ06"
+        };
 
-    // Inizializzazione
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
 
-    const loginBtn = document.getElementById('btn-login-nav');
-    const userInfo = document.getElementById('user-info');
-    const userName = document.getElementById('user-name');
+        const loginBtn = document.getElementById('btn-login-nav');
+        const userInfo = document.getElementById('user-info');
+        const userName = document.getElementById('user-name');
 
-    // Monitoraggio stato Autenticazione
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            // Utente Loggato
-            if (loginBtn) loginBtn.style.setProperty('display', 'none', 'important');
-            if (userInfo) userInfo.style.setProperty('display', 'flex', 'important');
-            if (userName) userName.textContent = user.displayName || user.email.split('@')[0];
-        } else {
-            // Utente NON Loggato
-            if (loginBtn) loginBtn.style.setProperty('display', 'block', 'important');
-            if (userInfo) userInfo.style.setProperty('display', 'none', 'important');
-        }
-    });
-
-    // Funzione Logout globale
-    window.logout = function() {
-        signOut(auth).then(() => {
-            window.location.href = 'media.html';
-        }).catch((error) => {
-            console.error("Errore logout:", error);
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                if (loginBtn) loginBtn.style.setProperty('display', 'none', 'important');
+                if (userInfo) userInfo.style.setProperty('display', 'flex', 'important');
+                if (userName) userName.textContent = user.displayName || user.email.split('@')[0];
+            } else {
+                if (loginBtn) loginBtn.style.setProperty('display', 'block', 'important');
+                if (userInfo) userInfo.style.setProperty('display', 'none', 'important');
+            }
         });
-    };
-</script>
+
+        window.logout = function() {
+            signOut(auth).then(() => { window.location.href = 'media.html'; });
+        };
+    </script>
 </body>
 </html>
