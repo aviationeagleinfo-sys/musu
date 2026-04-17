@@ -17,11 +17,11 @@
             --soft-red-white: #f5d7d7;
             --tech-black: #2b2d42;
             --clean-white: #ffffff;
+            --soft-gray: #f8f9fa;
             --footer-bg: #1a1b29;
             --radius-lg: 24px;
             --radius-md: 16px;
             --column-base: rgba(210, 210, 215, 0.4); 
-            --column-highlight: rgba(255, 255, 255, 0.7);
         }
 
         body { 
@@ -40,7 +40,7 @@
         }
         .col-left { left: 10px; } .col-right { right: 10px; }
 
-        /* --- NAVBAR (Ripristinata, senza active) --- */
+        /* --- NAVBAR --- */
         .navbar { background: linear-gradient(90deg, var(--soft-red-white) 0%, var(--deep-red) 100%); border-bottom: 3px solid var(--deep-red); padding: 0.8rem 0; }
         .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--tech-black)!important; }
         .brand-accent { color: var(--deep-red); }
@@ -49,9 +49,9 @@
         .btn-medical { background-color: var(--tech-black); color: white; border-radius: 50px; padding: 10px 25px; font-weight: 600; border: none; transition: 0.3s; }
         .btn-medical:hover { background-color: var(--deep-red); transform: scale(1.05); }
 
-        /* --- STILE MODULARE & ROUND --- */
+        /* --- STILE MODULARE --- */
         .glass-card {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(0,0,0,0.05);
             border-radius: var(--radius-lg);
@@ -72,7 +72,7 @@
             margin-bottom: 1.5rem;
         }
 
-        /* --- VIDEO SECTION ORGANIZZATA --- */
+        /* --- VIDEO SECTION --- */
         #video { padding: 80px 0; }
         .video-module {
             background: var(--soft-gray);
@@ -80,20 +80,21 @@
             overflow: hidden;
             height: 100%;
             transition: 0.3s ease;
-            border: 1px solid transparent;
+            border: 1px solid rgba(0,0,0,0.05);
         }
         .video-module:hover {
             transform: translateY(-10px);
             border-color: var(--med-red);
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; }
+        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; background: #000; }
         .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
         .video-content { padding: 1.5rem; }
         .video-content h5 { font-family: 'Outfit'; font-weight: 700; margin-bottom: 0.5rem; color: var(--tech-black); }
 
         /* --- FOOTER --- */
         .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); border-radius: 40px 40px 0 0; }
+        .footer-logo { font-family: 'Outfit'; font-weight: 700; font-size: 1.5rem; }
         .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
         .footer-link:hover { color: var(--deep-red); padding-left: 5px; }
         #user-info { display: none; align-items: center; color: white; }
@@ -186,8 +187,8 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-lg-5">
-                    <img src="https://media.drgiuseppemusumeci.com/image/musumecichangfe26.webp" class="img-fluid rounded-4 shadow" alt="Media Coverage">
+                <div class="col-lg-5 text-center">
+                    <img src="https://media.drgiuseppemusumeci.com/image/musumecichangfe26.webp" class="img-fluid rounded-4 shadow" alt="Media Coverage" onerror="this.src='https://via.placeholder.com/500x300?text=Press+Coverage'">
                 </div>
             </div>
         </div>
@@ -198,40 +199,40 @@
                     <span class="section-tag">Archivio Video</span>
                     <h2 class="fw-bold" style="font-family: 'Outfit';">Interventi e Approfondimenti</h2>
                 </div>
-                <div class="d-none d-md-block text-muted small fw-bold">TOTALE: 2 VIDEO</div>
+                <div class="d-none d-md-block text-muted small fw-bold">TOTALE: 3 VIDEO</div>
             </div>
 
             <div class="row g-4">
                 <div class="col-md-6 col-lg-4">
                     <div class="video-module">
                         <div class="video-wrapper">
-                            <iframe src="https://www.youtube.com/embed/FFzotl0vbzc" title="Video" frameborder="0" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/FFzotl0vbzc" title="La Stampa" frameborder="0" allowfullscreen></iframe>
                         </div>
                         <div class="video-content">
                             <h5>La Stampa</h5>
-                            <p class="small text-muted mb-0">Intervista del Dottore a LA STAMPA</p>
+                            <p class="small text-muted mb-0">Intervista del Dottore a LA STAMPA sull'innovazione clinica.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
                     <div class="video-module">
                         <div class="video-wrapper">
-                            <iframe src="https://www.youtube.com/embed/GBoqFrP53UA" title="Video" frameborder="0" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/GBoqFrP53UA" title="Change In Cardiology" frameborder="0" allowfullscreen></iframe>
                         </div>
                         <div class="video-content">
                             <h5>Change In Cardiology</h5>
-                            <p class="small text-muted mb-0">Focus sul più grande congresso di cardiologia in Italia.</p>
+                            <p class="small text-muted mb-0">Focus sul principale congresso di cardiologia interventistica.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-4">
                     <div class="video-module">
                         <div class="video-wrapper">
-                            <iframe src="https://www.youtube.com/embed/" title="Video" frameborder="0" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Webinar AGENAS" frameborder="0" allowfullscreen></iframe>
                         </div>
                         <div class="video-content">
                             <h5>Webinar AGENAS</h5>
-                            <p class="small text-muted mb-0">Coordinamento delle reti di emergenza cardiologica.</p>
+                            <p class="small text-muted mb-0">Coordinamento e gestione delle reti di emergenza cardiologica.</p>
                         </div>
                     </div>
                 </div>
@@ -258,8 +259,8 @@
                     <h6 class="fw-bold mb-4 text-uppercase small">Navigazione</h6>
                     <nav>
                         <a href="index.html" class="footer-link">Home</a>
-                        <a href="login.html" class="footer-link">Accesso</a>
-                        <a href="news.html" class="footer-link">Aggiornamenti</a>
+                        <a href="login.html" class="footer-link">Accesso Hub</a>
+                        <a href="eventi.html" class="footer-link">Aggiornamenti</a>
                     </nav>
                 </div>
                 <div class="col-6 col-lg-4">
@@ -277,8 +278,5 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        // Logica Firebase Auth e Logout rimasta invariata per funzionalità HUB
-    </script>
 </body>
 </html>
