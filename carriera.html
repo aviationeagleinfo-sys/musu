@@ -3,12 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carriera | Dr. Giuseppe Musumeci</title>
+    <title>Formazione | Prof. Giuseppe Musumeci</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&family=Outfit:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', { 'ad_storage': 'denied', 'analytics_storage': 'denied' });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HYME8VH6Y5');
+    </script>
 
     <style>
         :root {
@@ -17,30 +30,53 @@
             --soft-red-white: #f5d7d7;
             --tech-black: #2b2d42;
             --clean-white: #ffffff;
+            --soft-gray: #f8f9fa;
+            --footer-bg: #1a1b29;
             --radius-lg: 30px;
             --radius-md: 20px;
-            --footer-bg: #1a1b29;
-            --column-base: rgba(210, 210, 215, 0.4); 
+            --column-base: rgba(210, 210, 215, 0.6); 
         }
 
-        body { background-color: var(--clean-white); color: var(--tech-black); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        body { background-color: var(--clean-white); color: var(--tech-black); font-family: 'Inter', sans-serif; overflow-x: hidden; line-height: 1.8; }
 
-        /* --- BACKGROUND ELEMENTS --- */
-        .greek-column {
-            position: fixed; top: 0; width: 60px; height: 100vh; z-index: -1;
-            background: linear-gradient(90deg, transparent 0%, var(--column-base) 50%, transparent 100%);
-            opacity: 0.4;
-        }
-        .col-left { left: 10px; } .col-right { right: 10px; }
+        /* --- COLONNE GRECHE --- */
+        .greek-column { position: fixed; top: 0; width: 65px; height: 100vh; z-index: -1; background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, var(--column-base) 50%, rgba(0,0,0,0.1) 100%); }
+        .col-left { left: 5px; } .col-right { right: 5px; }
 
         /* --- NAVBAR --- */
         .navbar { background: linear-gradient(90deg, var(--soft-red-white) 0%, var(--deep-red) 100%); border-bottom: 3px solid var(--deep-red); padding: 0.8rem 0; }
         .navbar-brand { font-family: 'Outfit', sans-serif; font-weight: 600; color: var(--tech-black)!important; }
         .brand-accent { color: var(--deep-red); }
-        .nav-link { color: white!important; font-size: 0.85rem; letter-spacing: 0.5px; border-radius: 50px; padding: 8px 15px!important; transition: 0.3s; }
-        .nav-link:hover { background: rgba(255,255,255,0.1); }
-        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 50px; padding: 10px 25px; font-weight: 600; border: none; transition: 0.3s; }
+        .nav-link { color: white!important; font-size: 0.85rem; letter-spacing: 0.5px; }
+        /* --- FOOTER --- */
+        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); }
+        .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
+        .footer-link:hover { color: var(--deep-red); padding-left: 5px; }
+        
+        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 10px 25px; font-weight: 600; border: none; }
+        #user-info { display: none; align-items: center; color: white; }
+        /* --- TIMELINE STYLES --- */
+        .profile-header { padding: 80px 0 40px; background: rgba(248, 249, 250, 0.8); border-bottom: 1px solid #eee; }
+        .red-divider { width: 60px; height: 4px; background: var(--deep-red); margin: 25px 0; }
+        
+        .year-display { font-family: 'Outfit', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--tech-black); position: relative; display: inline-block; }
+        .year-display::after { content: ''; position: absolute; bottom: 5px; left: 0; width: 100%; height: 8px; background: var(--soft-red-white); z-index: -1; }
+        
+        .timeline-content { border-left: 2px solid #eee; padding-left: 40px; position: relative; }
+        .timeline-content::before { content: ''; position: absolute; left: -7px; top: 15px; width: 12px; height: 12px; border-radius: 50%; background: var(--deep-red); }
+        
+        .news-tag { color: var(--deep-red); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-bottom: 5px; }
+        .highlight-box { border-left: 5px solid var(--deep-red); background: var(--soft-gray); padding: 30px; margin: 35px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
 
+        /* --- FOOTER & BUTTONS --- */
+        .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 10px 25px; font-weight: 600; border: none; }
+        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); }
+        #user-info { display: none; align-items: center; color: white; }
+
+        /* Cookie Trigger */
+        #cookie-settings-trigger { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: #1a1a1a; color: #e63946; border: 2px solid #e63946; cursor: pointer; z-index: 9998; display: flex; align-items: center; justify-content: center; }
+        .cookie-overlay { position: fixed; bottom: 0; left: 0; right: 0; top: 0; background: rgba(0,0,0,0.7); z-index: 9999; display: none; align-items: flex-end; padding: 20px; }
+        .cookie-card { background: #1a1a1a; color: white; padding: 25px; border-radius: 12px; max-width: 500px; margin: 0 auto; border-top: 4px solid #e63946; }
         /* --- SEZIONE 1: TIMELINE MODULARE --- */
         .career-node {
             background: #fff;
@@ -99,11 +135,6 @@
             margin-bottom: 1.5rem;
             box-shadow: 0 10px 20px rgba(217, 4, 4, 0.2);
         }
-
-        /* --- FOOTER --- */
-        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); border-radius: 50px 50px 0 0; }
-        .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
-        #user-info { display: none; align-items: center; color: white; }
     </style>
 </head>
 <body>
@@ -111,7 +142,7 @@
     <div class="greek-column col-left"></div>
     <div class="greek-column col-right"></div>
 
-    <nav class="navbar navbar-expand-lg sticky-top shadow-lg">
+<nav class="navbar navbar-expand-lg sticky-top shadow-lg">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.html">
                 <img src="https://www.drgiuseppemusumeci.com/favicon.png" alt="Logo" width="55" class="me-2">
@@ -325,9 +356,22 @@ Presidente Regione Piemonte Associazione Nazionale Medici Cardiologi Ospedalieri
         </div>
     </footer>
 
+    <button id="cookie-settings-trigger" onclick="toggleCookieBanner()"><i class="bi bi-gear-fill"></i></button>
+    <div id="cookie-overlay" class="cookie-overlay">
+        <div class="cookie-card text-center">
+            <h3>Consenso Cookie</h3>
+            <p class="small">Ottimizziamo la navigazione per la tua sicurezza.</p>
+            <div class="d-flex gap-2 mt-4">
+                <button onclick="updateConsent('granted')" class="btn btn-danger flex-fill">Accetta</button>
+                <button onclick="updateConsent('denied')" class="btn btn-secondary flex-fill">Rifiuta</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
@@ -341,19 +385,26 @@ Presidente Regione Piemonte Associazione Nazionale Medici Cardiologi Ospedalieri
         const auth = firebase.auth();
 
         auth.onAuthStateChanged((user) => {
-            const btnLoginNav = document.getElementById('btn-login-nav');
+            const btnLogin = document.getElementById('btn-login-nav');
             const userInfo = document.getElementById('user-info');
             const userName = document.getElementById('user-name');
             if (user) {
-                if(btnLoginNav) btnLoginNav.style.display = 'none';
+                if(btnLogin) btnLogin.style.display = 'none';
                 if(userInfo) userInfo.style.display = 'flex';
-                if(userName) userName.innerText = user.displayName || user.email;
-            } else {
-                if(btnLoginNav) btnLoginNav.style.display = 'inline-block';
-                if(userInfo) userInfo.style.display = 'none';
+                if(userName) userName.innerText = user.displayName || user.email.split('@')[0];
             }
         });
+
         function logout() { auth.signOut().then(() => window.location.reload()); }
+        function updateConsent(status) {
+            localStorage.setItem('ae_cookie_consent', status);
+            document.getElementById('cookie-overlay').style.display = 'none';
+        }
+        function toggleCookieBanner() {
+            const o = document.getElementById('cookie-overlay');
+            o.style.display = (o.style.display === 'flex') ? 'none' : 'flex';
+        }
+        if(!localStorage.getItem('ae_cookie_consent')) document.getElementById('cookie-overlay').style.display = 'flex';
     </script>
 </body>
 </html>
