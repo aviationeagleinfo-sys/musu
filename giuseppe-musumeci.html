@@ -10,24 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('consent', 'default', {
-        'ad_storage': 'denied',
-        'analytics_storage': 'denied',
-        'ad_user_data': 'denied',
-        'ad_personalization': 'denied'
-      });
-    </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-HYME8VH6Y5');
-    </script>
-
     <style>
         :root {
             --med-red: #d90429;
@@ -72,17 +54,11 @@
 
         /* --- BUTTONS & FOOTER --- */
         .btn-medical { background-color: var(--tech-black); color: white; border-radius: 0; padding: 10px 25px; font-weight: 600; border: none; }
-        .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 0; border-top: 6px solid var(--deep-red); }
-        .footer-logo { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1.5rem; }
-        #user-info { display: none; align-items: center; color: white; }
-/* --- FOOTER --- */
         .main-footer { background-color: var(--footer-bg); color: #ffffff; padding: 80px 0 40px 0; margin-top: 100px; border-top: 6px solid var(--deep-red); }
+        .footer-logo { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 1.5rem; }
         .footer-link { color: #9da3a8; text-decoration: none; transition: 0.2s; font-size: 0.95rem; display: block; margin-bottom: 8px; }
         .footer-link:hover { color: var(--deep-red); padding-left: 5px; }
-        /* Cookie UI (Sincronizzata con file precedente) */
-        #cookie-settings-trigger { position: fixed; bottom: 20px; left: 20px; width: 45px; height: 45px; border-radius: 50%; background: #1a1a1a; color: #e63946; border: 2px solid #e63946; cursor: pointer; z-index: 9998; display: flex; align-items: center; justify-content: center; transition: transform 0.3s; }
-        .cookie-overlay { position: fixed; bottom: 0; left: 0; right: 0; top: 0; background: rgba(0,0,0,0.7); z-index: 9999; display: none; align-items: flex-end; padding: 20px; }
-        .cookie-card { background: #1a1a1a; color: white; padding: 25px; border-radius: 12px; max-width: 500px; margin: 0 auto; border-top: 4px solid #e63946; }
+        #user-info { display: none; align-items: center; color: white; }
     </style>
 </head>
 <body>
@@ -127,7 +103,6 @@
                             <li><a class="dropdown-item py-2 fw-semibold" href="contatti.html">Contatti</a></li>
                             <li><a class="dropdown-item py-2 fw-semibold" href="libera-professione.html">Libera Professione</a></li>
                             <li><a class="dropdown-item py-2 fw-semibold" href="documenti.html">Documenti&Articoli</a></li>
-                            
                         </ul>
                     </li>
                     <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="eventi.html">News&Eventi</a></li>
@@ -146,7 +121,6 @@
     </nav>
 
     <main>
-        
         <section class="about-section">
             <div class="container">
                 <div class="row align-items-center g-5">
@@ -199,42 +173,6 @@
                 </div>
             </div>
         </section>
-        
-        <section class="about-section">
-            <div class="container">
-                <div class="row align-items-center g-5">
-                    <div class="col-lg-5">
-                        <img src="https://www.drgiuseppemusumeci.com/mitraclip.png" alt="Giuseppe Musumeci" class="about-img">
-                    </div>
-                    <div class="col-lg-7">
-                        <span class="section-tag">Lorem</span>
-                        <h2 class="section-title">Ipsum</h2>
-                        <div class="red-divider"></div>
-                        <p class="lead fw-bold">dolor</p>
-                        <p>sit</p>
-                        <p>amet</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
- <section class="about-section">
-            <div class="container">
-                <div class="row align-items-center g-5">
-                    <div class="col-lg-7">
-                        <span class="section-tag">Lorem</span>
-                        <h2 class="section-title">Ipsum</h2>
-                        <div class="red-divider"></div>
-                        <p>dolor</p>
-                        <p>sit</p>
-                        <a href="incarichi.html" class="btn btn-medical mt-4">amet</a>
-                    </div>
-                    <div class="col-lg-5">
-                        <img src="https://www.drgiuseppemusumeci.com/image/no.jpg" alt="Attività Istituzionale" class="about-img" style="box-shadow: -20px 20px 0px var(--tech-black);">
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
     <footer class="main-footer">
@@ -243,12 +181,11 @@
                 <div class="col-lg-5">
                     <div class="footer-logo mb-3">GIUSEPPE<span class="brand-accent">MUSUMECI</span></div>
                     <p class="opacity-75">Giuseppe Musumeci MD<br>
-
-Direttore SC Cardiologia,<br>
-AO Ordine Mauriziano Torino<br>
-Largo Turati, 62, Torino, Italy<br>
-tel. +390115082515 <br>
-Presidente Regione Piemonte Associazione Nazionale Medici Cardiologi Ospedalieri (ANMCO)</p>
+                    Direttore SC Cardiologia,<br>
+                    AO Ordine Mauriziano Torino<br>
+                    Largo Turati, 62, Torino, Italy<br>
+                    tel. +390115082515 <br>
+                    Presidente Regione Piemonte ANMCO</p>
                     <div class="mt-4">
                         <a href="https://it.linkedin.com/in/giuseppe-musumeci-96414358" class="btn btn-outline-light btn-sm rounded-0 me-2"><i class="bi bi-linkedin"></i></a>
                         <a href="mailto:drgiuseppemusumeci@gmail.com" class="btn btn-outline-light btn-sm rounded-0"><i class="bi bi-envelope"></i></a>
@@ -271,26 +208,10 @@ Presidente Regione Piemonte Associazione Nazionale Medici Cardiologi Ospedalieri
                 </div>
             </div>
             <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between align-items-center">
-                <p class="mb-0"><br>&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati ove non esplicato altra licenza.</p>
-                
+                <p class="mb-0"><br>&copy; 2026 MD Giuseppe Musumeci. Tutti i diritti riservati.</p>
             </div>
         </div>
     </footer>
-
-    <button id="cookie-settings-trigger" onclick="toggleCookieBanner()" title="Impostazioni Cookie">
-        <svg viewBox="0 0 24 24" width="24" height="24"><path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.35 19.43,11.03L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.97 19.05,5.05L16.56,6.05C16.04,5.65 15.44,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.56,5.32 7.96,5.65 7.44,6.05L4.95,5.05C4.73,4.97 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11.03C4.53,11.35 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.95C7.96,18.35 8.56,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.44,18.68 16.04,18.35 16.56,17.95L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" /></svg>
-    </button>
-
-    <div id="cookie-overlay" class="cookie-overlay">
-        <div class="cookie-card">
-            <h3>Consenso ai Cookie</h3>
-            <p>Utilizziamo i cookie per analizzare la tua esperienza sul sito.</p>
-            <div class="cookie-actions d-flex gap-2">
-                <button onclick="updateConsent('granted')" class="btn btn-danger flex-fill fw-bold">Accetta Tutti</button>
-                <button onclick="updateConsent('denied')" class="btn btn-secondary flex-fill fw-bold">Solo Necessari</button>
-            </div>
-        </div>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -321,22 +242,135 @@ Presidente Regione Piemonte Associazione Nazionale Medici Cardiologi Ospedalieri
         });
 
         function logout() { auth.signOut().then(() => window.location.reload()); }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
 
-        // COOKIE LOGIC
-        function updateConsent(status) {
-            localStorage.setItem('ae_cookie_consent', status);
-            gtag('consent', 'update', { 'analytics_storage': status, 'ad_storage': status });
-            document.getElementById('cookie-overlay').style.display = 'none';
-        }
+<script>
+    // 2. INIZIALIZZAZIONE MOTORE ANALYTICS (Deve stare prima di tutto)
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    
+    // Leggiamo subito se c'è un consenso salvato
+    const initialConsent = localStorage.getItem('cookie_consent_status') === 'granted' ? 'granted' : 'denied';
+    
+    gtag('consent', 'default', {
+        'analytics_storage': initialConsent,
+        'ad_storage': initialConsent,
+        'ad_user_data': initialConsent,
+        'ad_personalization': initialConsent
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-HYME8VH6Y5');
+</script>
 
-        function toggleCookieBanner() {
+<style>
+    /* 3. STILE COORDINATO */
+    :root {
+        --brand-red: #d90429;
+        --brand-black: #1a1a1a;
+    }
+
+    #cookie-settings-trigger {
+        position: fixed; bottom: 20px; left: 20px; width: 48px; height: 48px;
+        border-radius: 50%; background: var(--brand-black); color: var(--brand-red);
+        border: 2px solid var(--brand-red); cursor: pointer; z-index: 9998;
+        display: flex; align-items: center; justify-content: center;
+        transition: 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    #cookie-settings-trigger:hover { transform: rotate(90deg); background: var(--brand-red); color: white; }
+
+    .cookie-overlay {
+        position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+        backdrop-filter: blur(8px); z-index: 9999; display: none;
+        align-items: center; justify-content: center; padding: 20px;
+    }
+
+    .cookie-card {
+        background: var(--brand-black); color: white; padding: 35px;
+        max-width: 450px; width: 100%; border-top: 6px solid var(--brand-red);
+        text-align: center; font-family: 'Inter', sans-serif;
+    }
+
+    .cookie-actions { display: flex; gap: 12px; margin-top: 25px; }
+    .btn-cookie { flex: 1; padding: 14px; border: none; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; transition: 0.3s; }
+    .btn-accept { background: var(--brand-red); color: white; }
+    .btn-reject { background: #333; color: #aaa; }
+    .btn-reject:hover { color: white; }
+    .link {
+        text-align: center;
+        color: #bfbfbf;
+    }
+</style>
+
+<button id="cookie-settings-trigger" onclick="toggleCookieBanner()">
+    <i class="bi bi-gear-fill fs-5"></i>
+</button>
+
+<div id="cookie-overlay" class="cookie-overlay">
+    <div class="cookie-card">
+        <i class="bi bi-shield-lock-fill text-danger" style="font-size: 3rem;"></i>
+        <h3 style="font-family: 'Outfit', sans-serif; margin: 15px 0;">Privacy & Cookie</h3>
+        <p style="font-size: 0.9rem; opacity: 0.8;">Accetta i cookie per permetterci di analizzare il traffico e migliorare la tua esperienza sul sito.</p>
+        <div class="cookie-actions">
+            <button onclick="handleConsent('granted')" class="btn-cookie btn-accept">Accetta Tutti</button>
+            <button onclick="handleConsent('denied')" class="btn-cookie btn-reject">Solo Necessari</button>
+        </div>
+        <br>
+        <a href="privacy.html" style="color: #bfbfbf;">VISITA L'INFORMATIVA SULLA PRIVACY</a>
+    </div>
+</div>
+
+<script>
+    // 5. LOGICA OPERATIVA
+    (function() {
+        const firebaseConfig = {
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
+            projectId: "giuseppe-4c318",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+        };
+        
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Funzione per mostrare/nascondere
+        window.toggleCookieBanner = function() {
             const overlay = document.getElementById('cookie-overlay');
             overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
-        }
+        };
 
-        if (!localStorage.getItem('ae_cookie_consent')) {
-            document.getElementById('cookie-overlay').style.display = 'flex';
-        }
-    </script>
+        // Funzione per salvare il consenso e parlare con Google
+        window.handleConsent = function(status) {
+            localStorage.setItem('cookie_consent_status', status);
+            sessionStorage.setItem('cookie_banner_shown_session', 'true');
+
+            // AGGIORNAMENTO REALE GA4
+            gtag('consent', 'update', {
+                'analytics_storage': status,
+                'ad_storage': status,
+                'ad_user_data': status,
+                'ad_personalization': status
+            });
+
+            document.getElementById('cookie-overlay').style.display = 'none';
+            console.log("Consenso GA4 inviato: " + status);
+        };
+
+        // Controllo Auth + Sessione
+        auth.onAuthStateChanged((user) => {
+            if (!user) {
+                const alreadySet = localStorage.getItem('cookie_consent_status');
+                const seenThisSession = sessionStorage.getItem('cookie_banner_shown_session');
+
+                if (!alreadySet && !seenThisSession) {
+                    setTimeout(toggleCookieBanner, 1500);
+                }
+            }
+        });
+    })();
+</script>
 </body>
 </html>
