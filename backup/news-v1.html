@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News&Aggiornamenti | Dr. Giuseppe Musumeci</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root { --eagle-red: #d90429; --eagle-dark: #2b2d42; }
+        body { background: #f4f7f6; font-family: 'Segoe UI', sans-serif; transition: padding-top 0.3s; }
+        
+        /* Overlay Sicurezza */
+        #password-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 20000;
+            display: none; align-items: center; justify-content: center; padding: 20px;
+        }
+
+        .news-card { border: none; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; transition: 0.3s; background: white; border-left: 5px solid transparent; }
+        .news-card:hover { transform: translateY(-3px); }
+        .admin-box { background: var(--eagle-dark); color: white; border-radius: 12px; padding: 25px; display: none; margin-bottom: 40px; border-top: 4px solid var(--eagle-red); }
+        .btn-eagle { background: var(--eagle-red); color: white; border: none; font-weight: 600; }
+        .btn-eagle:hover { background: #b30422; color: white; }
+        .date-tag { font-size: 0.8rem; color: #8d99ae; font-weight: 600; text-transform: uppercase; }
+        
+        .border-primary { border-left-color: #0d6efd !important; }
+        .border-success { border-left-color: #198754 !important; }
+        .border-danger { border-left-color: #dc3545 !important; }
+        .border-warning { border-left-color: #ffc107 !important; }
+        .border-info { border-left-color: #0dcaf0 !important; }
+        .border-dark { border-left-color: #212529 !important; }
+        .border-notice { border-left-color: #f59e42 !important; }
+    </style>
+</head>
+<body>
+
+<div id="password-overlay">
+    <div class="login-box text-center bg-dark p-4 p-md-5 rounded-4 border border-danger shadow-lg w-100" style="max-width: 400px;">
+        <h4 class="mb-4 text-danger"><i class="bi bi-shield-lock"></i> Admin Verification</h4>
+        
+        <div id="step-pass">
+            <input type="password" id="system-password" class="form-control mb-3 text-center" placeholder="Password di sistema...">
+        </div>
+
+        <div id="step-otp" style="display:none;">
+            <p class="text-white-50 small mb-2">Inserisci codice Authenticator</p>
+            <input type="text" id="otp-code" class="form-control mb-3 text-center fs-4" placeholder="000000" maxlength="6" style="letter-spacing: 5px;">
+        </div>
+
+        <button id="btn-unlock-action" onclick="handleSecurityFlow()" class="btn btn-danger w-100 fw-bold mb-2">PROSEGUI</button>
+        <button onclick="closeSecurity()" class="btn btn-link text-white btn-sm">Sola Lettura</button>
+    </div>
+</div>
+
+<div class="container py-5">
+    <header class="text-center mb-5">
+        <h1 class="fw-bold text-dark">NEWS <span class="text-danger">&</span> AGGIORNAMENTI</h1>
+        <p class="text-muted">Comunicazioni ufficiali e aggiornamenti tecnici</p>
+        <div id="userStatus" class="small mt-2"></div>
+    </header>
+
+    <section id="adminArea" class="admin-box">
+        <h4 class="mb-4"><i class="bi bi-pencil-square me-2"></i>Pubblica Nuovo Aggiornamento</h4>
+        <div class="row g-3">
+            <div class="col-md-4">
+                <label class="form-label small">Titolo</label>
+                <input type="text" id="newsTitle" class="form-control" placeholder="Titolo dell'articolo">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label small">Etichetta</label>
+                <select id="newsCategory" class="form-select">
+                    <option value="Generale">Generale</option>
+                    <option value="Tecnico">Tecnico</option>
+                    <option value="Importante">Importante ⚠️</option>
+                    <option value="Sicurezza">Sicurezza</option>
+                    <option value="Manutenzione">Manutenzione</option>
+                    <option value="News">News</option>
+                    <option value="Evento">Evento</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label small">Colore Evidenziatore</label>
+                <select id="newsColor" class="form-select">
+                    <option value="dark">Grigio Scuro (Default)</option>
+                    <option value="primary">Blu (Info)</option>
+                    <option value="success">Verde (Ok/Risolto)</option>
+                    <option value="danger">Rosso (Allarme)</option>
+                    <option value="warning">Giallo (Attenzione)</option>
+                    <option value="info">Azzurro (News)</option>
+                    <option value="notice">Arancione (Avviso)</option>
+                </select>
+            </div>
+            <div class="col-12">
+                <label class="form-label small">Link Esterno (Opzionale)</label>
+                <input type="text" id="newsLink" class="form-control" placeholder="https://...">
+            </div>
+            <div class="col-12">
+                <label class="form-label small">Contenuto</label>
+                <textarea id="newsContent" class="form-control" rows="4" placeholder="Scrivi qui il contenuto..."></textarea>
+            </div>
+            <div class="col-12 text-end mt-3">
+                <button class="btn btn-eagle px-5 py-2" id="btnPublish">Pubblica Messaggio</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="newsFeed" class="row justify-content-center">
+        <div class="text-center p-5">
+            <div class="spinner-border text-danger" role="status"></div>
+            <p class="mt-2">Sincronizzazione notizie...</p>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/otpauth/9.1.2/otpauth.umd.min.js"></script>
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+        authDomain: "giuseppe-4c318.firebaseapp.com",
+        projectId: "giuseppe-4c318",
+        storageBucket: "giuseppe-4c318.firebasestorage.app",
+        messagingSenderId: "658885311131",
+        appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+    };
+    
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+
+    const ADMINS = ['giuseppe.musumeci@gmail.com', 'aviationeagle.info@gmail.com', 'drgiuseppemusumeci@gmail.com'];
+    const OBFUSCATED_PASS = "VHVyYXRpNjI="; 
+    const TOTP_SECRET = "4S67MLT7N67EXK7U";
+    
+    let isSecurityCleared = false;
+    let loginStep = 1;
+
+    auth.onAuthStateChanged(user => {
+        if (user && ADMINS.includes(user.email.toLowerCase())) {
+            if(!isSecurityCleared) {
+                document.getElementById('password-overlay').style.display = 'flex';
+            }
+            document.getElementById('userStatus').innerHTML = `<span class="badge bg-success">Admin: ${user.email}</span>`;
+        }
+        loadNews();
+    });
+
+    window.handleSecurityFlow = () => {
+        if (loginStep === 1) {
+            const inputPass = document.getElementById("system-password").value;
+            if (btoa(inputPass) === OBFUSCATED_PASS) {
+                loginStep = 2;
+                document.getElementById('step-pass').style.display = 'none';
+                document.getElementById('step-otp').style.display = 'block';
+                document.getElementById('btn-unlock-action').innerText = "CONFERMA CODICE";
+            } else { 
+                alert("Password Errata."); 
+            }
+        } else if (loginStep === 2) {
+            const code = document.getElementById("otp-code").value.trim();
+            let totp = new OTPAuth.TOTP({
+                secret: OTPAuth.Secret.fromBase32(TOTP_SECRET),
+                digits: 6,
+                period: 30
+            });
+
+            if (totp.validate({ token: code, window: 1 }) !== null) {
+                isSecurityCleared = true;
+                document.getElementById('password-overlay').style.display = 'none';
+                document.getElementById('adminArea').style.display = 'block';
+                loadNews(); 
+            } else { 
+                alert("Codice errato o scaduto."); 
+            }
+        }
+    };
+
+    window.closeSecurity = () => {
+        document.getElementById('password-overlay').style.display = 'none';
+    };
+
+    document.getElementById('btnPublish').onclick = async () => {
+        const title = document.getElementById('newsTitle').value;
+        const content = document.getElementById('newsContent').value;
+        const category = document.getElementById('newsCategory').value;
+        const color = document.getElementById('newsColor').value;
+        const link = document.getElementById('newsLink').value;
+
+        if(!title || !content) return alert("Titolo e Contenuto sono obbligatori!");
+
+        try {
+            await db.collection('news').add({
+                titolo: title, 
+                testo: content, 
+                categoria: category, 
+                colore: color, 
+                link: link,
+                data: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            alert("Pubblicato!");
+            document.getElementById('newsTitle').value = "";
+            document.getElementById('newsContent').value = "";
+            document.getElementById('newsLink').value = "";
+        } catch (e) { alert("Errore: " + e.message); }
+    };
+
+    function loadNews() {
+        db.collection('news').orderBy('data', 'desc').onSnapshot(snap => {
+            const feed = document.getElementById('newsFeed');
+            if (snap.empty) {
+                feed.innerHTML = '<div class="col-12 text-center p-5"><p class="text-muted">Nessun aggiornamento presente.</p></div>';
+                return;
+            }
+            
+            feed.innerHTML = '';
+            snap.forEach(doc => {
+                const n = doc.data();
+                const date = n.data ? n.data.toDate().toLocaleDateString('it-IT', { day: '2-digit', month: 'short', year: 'numeric' }) : '...';
+                const badgeColor = n.colore || 'dark';
+
+                feed.innerHTML += `
+                    <div class="col-md-8 mb-4">
+                        <article class="news-card p-4 border-${badgeColor}">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <span class="date-tag"><i class="bi bi-calendar3 me-1"></i> ${date}</span>
+                                <span class="badge bg-${badgeColor}">${n.categoria}</span>
+                            </div>
+                            <h3 class="fw-bold mb-3">${n.titolo}</h3>
+                            <p class="text-secondary" style="white-space: pre-wrap;">${n.testo}</p>
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                ${n.link ? `<a href="${n.link}" target="_blank" class="btn btn-sm btn-outline-${badgeColor}">Dettagli <i class="bi bi-box-arrow-up-right"></i></a>` : '<span></span>'}
+                                ${isSecurityCleared ? `<button onclick="deleteNews('${doc.id}')" class="btn btn-link text-danger p-0"><i class="bi bi-trash"></i></button>` : ''}
+                            </div>
+                        </article>
+                    </div>`;
+            });
+        }, error => {
+            console.error("Errore Firestore:", error);
+            document.getElementById('newsFeed').innerHTML = '<p class="text-center text-danger">Errore nel caricamento dei dati.</p>';
+        });
+    }
+
+    window.deleteNews = async (id) => {
+        if(confirm("Eliminare definitivamente questo post?")) {
+            try {
+                await db.collection('news').doc(id).delete();
+            } catch (e) { alert("Errore eliminazione: " + e.message); }
+        }
+    };
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
+
+<script>
+    // 2. INIZIALIZZAZIONE MOTORE ANALYTICS (Deve stare prima di tutto)
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    
+    // Leggiamo subito se c'è un consenso salvato
+    const initialConsent = localStorage.getItem('cookie_consent_status') === 'granted' ? 'granted' : 'denied';
+    
+    gtag('consent', 'default', {
+        'analytics_storage': initialConsent,
+        'ad_storage': initialConsent,
+        'ad_user_data': initialConsent,
+        'ad_personalization': initialConsent
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-HYME8VH6Y5');
+</script>
+
+<style>
+    /* 3. STILE COORDINATO */
+    :root {
+        --brand-red: #d90429;
+        --brand-black: #1a1a1a;
+    }
+
+    #cookie-settings-trigger {
+        position: fixed; bottom: 20px; left: 20px; width: 48px; height: 48px;
+        border-radius: 50%; background: var(--brand-black); color: var(--brand-red);
+        border: 2px solid var(--brand-red); cursor: pointer; z-index: 9998;
+        display: flex; align-items: center; justify-content: center;
+        transition: 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    #cookie-settings-trigger:hover { transform: rotate(90deg); background: var(--brand-red); color: white; }
+
+    .cookie-overlay {
+        position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+        backdrop-filter: blur(8px); z-index: 9999; display: none;
+        align-items: center; justify-content: center; padding: 20px;
+    }
+
+    .cookie-card {
+        background: var(--brand-black); color: white; padding: 35px;
+        max-width: 450px; width: 100%; border-top: 6px solid var(--brand-red);
+        text-align: center; font-family: 'Inter', sans-serif;
+    }
+
+    .cookie-actions { display: flex; gap: 12px; margin-top: 25px; }
+    .btn-cookie { flex: 1; padding: 14px; border: none; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; transition: 0.3s; }
+    .btn-accept { background: var(--brand-red); color: white; }
+    .btn-reject { background: #333; color: #aaa; }
+    .btn-reject:hover { color: white; }
+    .link {
+        text-align: center;
+        color: #bfbfbf;
+    }
+</style>
+
+<button id="cookie-settings-trigger" onclick="toggleCookieBanner()">
+    <i class="bi bi-gear-fill fs-5"></i>
+</button>
+
+<div id="cookie-overlay" class="cookie-overlay">
+    <div class="cookie-card">
+        <i class="bi bi-shield-lock-fill text-danger" style="font-size: 3rem;"></i>
+        <h3 style="font-family: 'Outfit', sans-serif; margin: 15px 0;">Privacy & Cookie</h3>
+        <p style="font-size: 0.9rem; opacity: 0.8;">Accetta i cookie per permetterci di analizzare il traffico e migliorare la tua esperienza sul sito.</p>
+        <div class="cookie-actions">
+            <button onclick="handleConsent('granted')" class="btn-cookie btn-accept">Accetta Tutti</button>
+            <button onclick="handleConsent('denied')" class="btn-cookie btn-reject">Solo Necessari</button>
+        </div>
+        <br>
+        <a href="privacy.html" style="color: #bfbfbf;">VISITA L'INFORMATIVA SULLA PRIVACY</a>
+    </div>
+</div>
+
+<script>
+    // 5. LOGICA OPERATIVA
+    (function() {
+        const firebaseConfig = {
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "giuseppe-4c318.firebaseapp.com",
+            projectId: "giuseppe-4c318",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+        };
+        
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        // Funzione per mostrare/nascondere
+        window.toggleCookieBanner = function() {
+            const overlay = document.getElementById('cookie-overlay');
+            overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
+        };
+
+        // Funzione per salvare il consenso e parlare con Google
+        window.handleConsent = function(status) {
+            localStorage.setItem('cookie_consent_status', status);
+            sessionStorage.setItem('cookie_banner_shown_session', 'true');
+
+            // AGGIORNAMENTO REALE GA4
+            gtag('consent', 'update', {
+                'analytics_storage': status,
+                'ad_storage': status,
+                'ad_user_data': status,
+                'ad_personalization': status
+            });
+
+            document.getElementById('cookie-overlay').style.display = 'none';
+            console.log("Consenso GA4 inviato: " + status);
+        };
+
+        // Controllo Auth + Sessione
+        auth.onAuthStateChanged((user) => {
+            if (!user) {
+                const alreadySet = localStorage.getItem('cookie_consent_status');
+                const seenThisSession = sessionStorage.getItem('cookie_banner_shown_session');
+
+                if (!alreadySet && !seenThisSession) {
+                    setTimeout(toggleCookieBanner, 1500);
+                }
+            }
+        });
+    })();
+</script>
+</body>
+</html>
