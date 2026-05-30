@@ -5,99 +5,149 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy | Musumeci Digital Hub</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     
     <style>
-        :root { --med-red: #d90429; --tech-black: #2b2d42; --soft-gray: #f8f9fa; }
+        :root { 
+            --med-red: #d90429; 
+            --tech-black: #2b2d42; 
+            --soft-gray: #f8f9fa; 
+            --brand-black: #1a1a1a;
+        }
         body { background-color: white; font-family: 'Inter', sans-serif; color: var(--tech-black); }
         .privacy-header { background: var(--soft-gray); border-bottom: 3px solid var(--med-red); padding: 60px 0; }
         .content-section { padding: 40px 0; line-height: 1.8; }
         h3 { color: var(--med-red); font-weight: 700; font-size: 1.2rem; text-transform: uppercase; margin-top: 30px; }
         .legal-box { border-left: 4px solid var(--tech-black); padding-left: 20px; margin: 20px 0; font-style: italic; }
+
+        /* Stili Widget Cookie Centralizzati */
+        #cookie-settings-trigger {
+            position: fixed; bottom: 20px; left: 20px; width: 48px; height: 48px;
+            border-radius: 50%; background: var(--brand-black); color: var(--med-red);
+            border: 2px solid var(--med-red); cursor: pointer; z-index: 9998;
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        #cookie-settings-trigger:hover { transform: rotate(90deg); background: var(--med-red); color: white; }
+
+        .cookie-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px); z-index: 19999; display: none;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .cookie-card {
+            background: var(--brand-black); color: white; padding: 35px;
+            max-width: 450px; width: 100%; border-top: 6px solid var(--med-red);
+            text-align: center;
+        }
+        .cookie-actions { display: flex; gap: 12px; margin-top: 25px; }
+        .btn-cookie { flex: 1; padding: 14px; border: none; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; transition: 0.3s; }
+        .btn-accept { background: var(--med-red); color: white; }
+        .btn-reject { background: #333; color: #aaa; }
+        .btn-reject:hover { color: white; }
     </style>
 </head>
 <body>
+
 <nav class="navbar navbar-expand-lg sticky-top shadow-lg" id="global-navbar"></nav>
-
 <script src="navbar.js"></script>
-    <header class="privacy-header text-center">
-        <div class="container">
-            <h1 class="fw-bold">INFORMATIVA SULLA PRIVACY</h1>
-            <p class="text-muted">Protocollo di protezione dati conforme al Regolamento UE 2016/679 (GDPR)</p>
-        </div>
-    </header>
 
-    <main class="container content-section">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <h3>1. Titolare del Trattamento</h3>
-                <p>Il titolare del trattamento è il <strong>Prof. Giuseppe Musumeci</strong>. I dati raccolti tramite il Musumeci Digital Hub sono gestiti per finalità di comunicazione professionale, marketing informativo e promozione dei servizi digitali.</p>
+<header class="privacy-header text-center">
+    <div class="container">
+        <h1 class="fw-bold">INFORMATIVA SULLA PRIVACY</h1>
+        <p class="text-muted">Protocollo di protezione dati conforme al Regolamento UE 2016/679 (GDPR)</p>
+    </div>
+</header>
 
-                <h3>2. Tipologia di Dati Raccolti</h3>
-                <p>Attraverso l'interazione con la piattaforma e i sistemi di autenticazione, il sistema acquisisce:</p>
-                <ul>
-                    <li>Dati identificativi comuni (Nome, Cognome, indirizzo Email).</li>
-                    <li>Dati di navigazione e log di sistema (Indirizzi IP, tipologia di browser).</li>
-                    <li>Dati di autenticazione forniti da Identity Provider esterni (Google/Meta).</li>
-                </ul>
+<main class="container content-section">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h3>1. Titolare del Trattamento</h3>
+            <p>Il titolare del trattamento è il <strong>Prof. Giuseppe Musumeci</strong>. I dati raccolti tramite il Musumeci Digital Hub sono gestiti per finalità di comunicazione professionale, marketing informativo e promozione dei servizi digitali.</p>
 
-                <div class="legal-box">
-                    Nota: Il sistema utilizza protocolli di autenticazione sicuri. Musumeci Digital Hub non ha accesso né archivia le password personali degli utenti nei propri database, ma è capace di resettarla.
-                </div>
+            <h3>2. Tipologia di Dati Raccolti</h3>
+            <p>Attraverso l'interazione con la piattaforma e i sistemi di autenticazione, il sistema acquisisce:</p>
+            <ul>
+                <li>Dati identificativi comuni (Nome, Cognome, indirizzo Email).</li>
+                <li>Dati di navigazione e log di sistema (Indirizzi IP, tipologia di browser).</li>
+                <li>Dati di autenticazione forniti da Identity Provider esterni (Google/Meta).</li>
+            </ul>
 
-                <h3>3. Finalità e Base Giuridica</h3>
-                <p>Il trattamento dei dati ha come finalità l'invio di comunicazioni promozionali, la gestione delle richieste di contatto e l'analisi del traffico per l'ottimizzazione pubblicitaria. La base giuridica è il legittimo interesse del titolare e il consenso esplicito fornito dall'interessato.</p>
+            <div class="legal-box">
+                Nota: Il sistema utilizza protocolli di autenticazione sicuri. Musumeci Digital Hub non ha accesso né archivia le password personali degli utenti nei propri database, ma è capace di resettarla.
+            </div>
 
-                <h3>4. Sicurezza e Conservazione</h3>
-                <p>I dati sono ospitati su infrastrutture cloud ad alto standard di sicurezza (Firebase/Google Cloud). Adottiamo misure tecniche per la protezione contro accessi non autorizzati, inclusa la crittografia SSL/TLS per tutto il traffico in entrata e in uscita.</p>
+            <h3>3. Finalità e Base Giuridica</h3>
+            <p>Il trattamento dei dati ha come finalità l'invio di comunicazioni promozionali, la gestione delle richieste di contatto e l'analisi del traffico per l'ottimizzazione pubblicitaria. La base giuridica è il legittimo interesse del titolare e il consenso esplicito fornito dall'interessato.</p>
 
-                <h3>5. Diritti dell'Interessato</h3>
-                <p>Ai sensi del GDPR, l'utente ha il diritto di richiedere l'accesso ai propri dati, la rettifica, la portabilità o la cancellazione definitiva ("Diritto all'oblio"). Tali richieste possono essere inoltrate tramite i canali di contatto ufficiali presenti nel sito.</p>
-                
-                <h3>6. Cookie e Analisi del Traffico</h3>
-                <p>Utilizziamo cookie analitici (come Google Analytics) per migliorare l'esperienza utente e comprendere come viene utilizzato il sito. Sebbene il nostro sistema sia progettato per attivare il tracciamento solo dopo aver ricevuto il consenso esplicito tramite il banner dedicato, la natura dinamica del software potrebbe dar luogo a rari errori tecnici o bug di sistema.</p>
+            <h3>4. Sicurezza e Conservazione</h3>
+            <p>I dati sono ospitati su infrastrutture cloud ad alto standard di sicurezza (Firebase/Google Cloud). Adottiamo misure tecniche per la protezione contro accessi non autorizzati, inclusa la crittografia SSL/TLS per tutto il traffico in entrata e in uscita.</p>
 
-                <div class="legal-box">
-                    <strong>Avviso sulle anomalie tecniche:</strong> Qualora dovesse verificarsi un errore nel codice che causi l'attivazione degli strumenti di analisi prima o in assenza del consenso, Musumeci Digital Hub si impegna a intervenire tempestivamente per correggere l'anomalia non appena identificata. Fino alla risoluzione di tali eventuali errori, il sistema potrebbe operare in modo non conforme alle preferenze espresse; invitiamo gli utenti a segnalare qualsiasi comportamento anomalo per aiutarci nel monitoraggio costante.
-                </div>
+            <h3>5. Diritti dell'Interessato</h3>
+            <p>Ai sensi del GDPR, l'utente ha il diritto di richiedere l'accesso ai propri dati, la rettifica, la portabilità o la cancellazione definitiva ("Diritto all'oblio"). Tali richieste possono essere inoltrate tramite i canali di contatto ufficiali presenti nel sito.</p>
+            
+            <h3>6. Cookie e Analisi del Traffico</h3>
+            <p>Utilizziamo cookie analitici (como Google Analytics) per migliorare l'esperienza utente e comprendere come viene utilizzato il sito. Sebbene il nostro sistema sia progettato per attivare il tracciamento solo dopo aver ricevuto il consenso esplicito tramite il banner dedicato, la natura dinamica del software potrebbe dar luogo a rari errori tecnici o bug di sistema.</p>
 
-                <h3>7. Diritti dell'Interessato</h3>
-                <p>In conformità al GDPR, l'utente può richiedere in qualsiasi momento l'accesso, la rettifica o la cancellazione dei propri dati inviando una comunicazione ai recapiti indicati.</p>
-                
-                <h3>8. Contatti</h3>
-                <p>Per qualsiasi chiarimento in merito alla presente informativa, per segnalare malfunzionamenti tecnici del sistema di consenso o per esercitare i propri diritti (accesso, cancellazione o opposizione al trattamento), è possibile contattare direttamente il Titolare al seguente indirizzo email:</p>
-                
-                <div class="text-center my-4">
-                    <a href="mailto:privacy@drgiuseppemusumeci.com" class="fw-bold" style="color: var(--bg-main); text-decoration: none; font-size: 1.1rem; border-bottom: 2px solid var(--accent-coral);">
-                        privacy@drgiuseppemusumeci.com
-                    </a>
-                </div>
-                
+            <div class="legal-box">
+                <strong>Avviso sulle anomalie tecniche:</strong> Qualora dovesse verificarsi un erro nel codice che causi l'attivazione degli strumenti di analisi prima o in assenza del consenso, Musumeci Digital Hub si impegna a intervenire tempestivamente per correggere l'anomalia non appena identificata. Fino alla risoluzione di tali eventuali errori, il sistema potrebbe operare in modo non conforme alle preferenze espresse; invitiamo gli utenti a segnalare qualsiasi comportamento anomalo per aiutarci nel monitoraggio costante.
+            </div>
 
-                <p class="small text-muted">Ci impegniamo a rispondere a ogni richiesta nel minor tempo possibile, garantendo la massima trasparenza nella gestione dei vostri dati.</p>
-                <br>
-                
-                <h3>9. Servizi di contatto e-mail</h3>
-                <p>Attenzione, tutti i nostri indirizzi email ufficiali usano il dominio <b>drgiuseppemusumeci.com</b> eccetto <b>drgiuseppemusumeci@gmail.com</b> usato per utenti con problemi ai provider di posta. Tutti gli indirizzi eccetto info@drgiuseppemusumeci.com e drgiuseppemusumeci@gmail.com non hanno un logo (IMMAGINE PROFILO) con logo si trovano, però, gli indirizzi email del team (PESONAL).</p>
+            <h3>7. Contatti</h3>
+            <p>Per qualsiasi chiarimento in merito alla presente informativa, per segnalare malfunzionamenti tecnici del sistema di consenso o per esercitare i propri diritti (accesso, cancellazione o opposizione al trattamento), è possibile contattare direttamente il Titolare al seguente indirizzo email:</p>
+            
+            <div class="text-center my-4">
+                <a href="mailto:privacy@drgiuseppemusumeci.com" class="fw-bold" style="color: var(--med-red); text-decoration: none; font-size: 1.1rem; border-bottom: 2px solid var(--tech-black);">
+                    privacy@drgiuseppemusumeci.com
+                </a>
+            </div>
+            
+            <p class="small text-muted">Ci impegniamo a rispondere a ogni richiesta nel minor tempo possibile, garantendo la massima trasparenza nella gestione dei vostri dati.</p>
+            <br>
+            
+            <h3>8. Servizi di contatto e-mail</h3>
+            <p>Attenzione, tutti i nostri indirizzi email ufficiali usano il dominio <b>drgiuseppemusumeci.com</b> eccetto <b>drgiuseppemusumeci@gmail.com</b> usato per utenti con problemi ai provider di posta. Tutti gli indirizzi eccetto info@drgiuseppemusumeci.com e drgiuseppemusumeci@gmail.com non hanno un logo (IMMAGINE PROFILO) con logo si trovano, però, gli indirizzi email del team (PERSONAL).</p>
 
-                <div class="text-center mt-5">
-                    <a href="index.html" class="btn btn-dark rounded-0 px-4">TORNA ALLA HOME</a>
-                </div>
+            <div class="text-center mt-5">
+                <a href="index.html" class="btn btn-dark rounded-0 px-4">TORNA ALLA HOME</a>
             </div>
         </div>
-    </main>
-      
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    </div>
+</main>
+
+<button id="cookie-settings-trigger" onclick="toggleCookieBanner()">
+    <i class="bi bi-gear-fill fs-5"></i>
+</button>
+
+<div id="cookie-overlay" class="cookie-overlay">
+    <div class="cookie-card">
+        <i class="bi bi-shield-lock-fill text-danger" style="font-size: 3rem;"></i>
+        <h3 style="margin: 15px 0;">Privacy & Cookie</h3>
+        <p style="font-size: 0.9rem; opacity: 0.8;">Accetta i cookie per permetterci di analizzare il traffico e migliorare la tua esperienza sul sito.</p>
+        <div class="cookie-actions">
+            <button onclick="handleConsent('granted')" class="btn-cookie btn-accept">Accetta Tutti</button>
+            <button onclick="handleConsent('denied')" class="btn-cookie btn-reject">Solo Necessari</button>
+        </div>
+        <br>
+        <a href="privacy.html" style="color: #bfbfbf; font-size: 0.8rem; text-decoration: none;">VISITA L'INFORMATIVA SULLA PRIVACY</a>
+    </div>
+</div>
+
+<footer class="main-footer" id="global-footer"></footer>
+<script src="footer.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
 
 <script>
-    // 2. INIZIALIZZAZIONE MOTORE ANALYTICS (Deve stare prima di tutto)
+    // 1. MOTORE GOOGLE ANALYTICS (Inizializzazione immediata per tracciamento consensi)
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     
-    // Leggiamo subito se c'è un consenso salvato
     const initialConsent = localStorage.getItem('cookie_consent_status') === 'granted' ? 'granted' : 'denied';
     
     gtag('consent', 'default', {
@@ -108,67 +158,8 @@
     });
     gtag('js', new Date());
     gtag('config', 'G-HYME8VH6Y5');
-</script>
 
-<style>
-    /* 3. STILE COORDINATO */
-    :root {
-        --brand-red: #d90429;
-        --brand-black: #1a1a1a;
-    }
-
-    #cookie-settings-trigger {
-        position: fixed; bottom: 20px; left: 20px; width: 48px; height: 48px;
-        border-radius: 50%; background: var(--brand-black); color: var(--brand-red);
-        border: 2px solid var(--brand-red); cursor: pointer; z-index: 9998;
-        display: flex; align-items: center; justify-content: center;
-        transition: 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    }
-    #cookie-settings-trigger:hover { transform: rotate(90deg); background: var(--brand-red); color: white; }
-
-    .cookie-overlay {
-        position: fixed; inset: 0; background: rgba(0,0,0,0.85);
-        backdrop-filter: blur(8px); z-index: 9999; display: none;
-        align-items: center; justify-content: center; padding: 20px;
-    }
-
-    .cookie-card {
-        background: var(--brand-black); color: white; padding: 35px;
-        max-width: 450px; width: 100%; border-top: 6px solid var(--brand-red);
-        text-align: center; font-family: 'Inter', sans-serif;
-    }
-
-    .cookie-actions { display: flex; gap: 12px; margin-top: 25px; }
-    .btn-cookie { flex: 1; padding: 14px; border: none; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; transition: 0.3s; }
-    .btn-accept { background: var(--brand-red); color: white; }
-    .btn-reject { background: #333; color: #aaa; }
-    .btn-reject:hover { color: white; }
-    .link {
-        text-align: center;
-        color: #bfbfbf;
-    }
-</style>
-
-<button id="cookie-settings-trigger" onclick="toggleCookieBanner()">
-    <i class="bi bi-gear-fill fs-5"></i>
-</button>
-
-<div id="cookie-overlay" class="cookie-overlay">
-    <div class="cookie-card">
-        <i class="bi bi-shield-lock-fill text-danger" style="font-size: 3rem;"></i>
-        <h3 style="font-family: 'Outfit', sans-serif; margin: 15px 0;">Privacy & Cookie</h3>
-        <p style="font-size: 0.9rem; opacity: 0.8;">Accetta i cookie per permetterci di analizzare il traffico e migliorare la tua esperienza sul sito.</p>
-        <div class="cookie-actions">
-            <button onclick="handleConsent('granted')" class="btn-cookie btn-accept">Accetta Tutti</button>
-            <button onclick="handleConsent('denied')" class="btn-cookie btn-reject">Solo Necessari</button>
-        </div>
-        <br>
-        <a href="privacy.html" style="color: #bfbfbf;">VISITA L'INFORMATIVA SULLA PRIVACY</a>
-    </div>
-</div>
-
-<script>
-    // 5. LOGICA OPERATIVA
+    // 2. LOGICA OPERATIVA APPLICATIVA
     (function() {
         const firebaseConfig = {
             apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
@@ -180,18 +171,15 @@
         if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
 
-        // Funzione per mostrare/nascondere
         window.toggleCookieBanner = function() {
             const overlay = document.getElementById('cookie-overlay');
             overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
         };
 
-        // Funzione per salvare il consenso e parlare con Google
         window.handleConsent = function(status) {
             localStorage.setItem('cookie_consent_status', status);
             sessionStorage.setItem('cookie_banner_shown_session', 'true');
 
-            // AGGIORNAMENTO REALE GA4
             gtag('consent', 'update', {
                 'analytics_storage': status,
                 'ad_storage': status,
@@ -200,15 +188,13 @@
             });
 
             document.getElementById('cookie-overlay').style.display = 'none';
-            console.log("Consenso GA4 inviato: " + status);
+            console.log("Consenso GA4 registrato: " + status);
         };
 
-        // Controllo Auth + Sessione
         auth.onAuthStateChanged((user) => {
             if (!user) {
                 const alreadySet = localStorage.getItem('cookie_consent_status');
                 const seenThisSession = sessionStorage.getItem('cookie_banner_shown_session');
-
                 if (!alreadySet && !seenThisSession) {
                     setTimeout(toggleCookieBanner, 1500);
                 }
