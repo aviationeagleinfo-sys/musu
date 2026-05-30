@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         </ul>
                     </li>
                     <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="eventi.html">News&Eventi</a></li>
-                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="#video">Video</a></li>
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href=".media#video">Video</a></li>
                     <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="https://change.drgiuseppemusumeci.com/">Change</a></li>
                     <li class="nav-item">
                         <a href="login.html" id="btn-login-nav" class="btn btn-medical btn-sm">ACCESSO HUB</a>
