@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termini e Condizioni | Musumeci Digital Hub</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        :root { 
+            --med-red: #d90429; 
+            --tech-black: #2b2d42; 
+            --soft-gray: #f8f9fa; 
+            --brand-black: #1a1a1a;
+        }
+        body { background-color: white; font-family: 'Inter', sans-serif; color: var(--tech-black); }
+        .terms-header { background: var(--soft-gray); border-bottom: 3px solid var(--med-red); padding: 60px 0; }
+        .content-section { padding: 40px 0; line-height: 1.8; }
+        h3 { color: var(--med-red); font-weight: 700; font-size: 1.2rem; text-transform: uppercase; margin-top: 30px; }
+        .legal-box { border-left: 4px solid var(--tech-black); padding-left: 20px; margin: 20px 0; font-style: italic; }
+
+        /* Stili Widget Cookie Centralizzati */
+        #cookie-settings-trigger {
+            position: fixed; bottom: 20px; left: 20px; width: 48px; height: 48px;
+            border-radius: 50%; background: var(--brand-black); color: var(--med-red);
+            border: 2px solid var(--med-red); cursor: pointer; z-index: 9998;
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        #cookie-settings-trigger:hover { transform: rotate(90deg); background: var(--med-red); color: white; }
+
+        .cookie-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(8px); z-index: 19999; display: none;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .cookie-card {
+            background: var(--brand-black); color: white; padding: 35px;
+            max-width: 450px; width: 100%; border-top: 6px solid var(--med-red);
+            text-align: center;
+        }
+        .cookie-actions { display: flex; gap: 12px; margin-top: 25px; }
+        .btn-cookie { flex: 1; padding: 14px; border: none; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 0.75rem; transition: 0.3s; }
+        .btn-accept { background: var(--med-red); color: white; }
+        .btn-reject { background: #333; color: #aaa; }
+        .btn-reject:hover { color: white; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg sticky-top shadow-lg" id="global-navbar"></nav>
+<script src="navbar.js?v=2091"></script>
+
+<header class="terms-header text-center">
+    <div class="container">
+        <h1 class="fw-bold">TERMINI E CONDIZIONI D'USO</h1>
+        <p class="text-muted">Regolamento contrattuale per l'utilizzo dei servizi digitali e della piattaforma</p>
+    </div>
+</header>
+
+<main class="container content-section">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h3>1. Accettazione dei Termini</h3>
+            <p>L'accesso e l'utilizzo del <strong>Musumeci Digital Hub</strong> (e di tutti i suoi sottodomini associati) sono subordinati all'accettazione dei presenti Termini e Condizioni. Se l'utente non concorda con una qualsiasi delle clausole qui riportate, è invitato a interrompere immediatamente la navigazione e l'uso dei servizi correlati.</p>
+
+            <h3>2. Finalità della Piattaforma e Limitazione di Responsabilità</h3>
+            <p>I contenuti, i moduli informativi, gli articoli e i servizi presenti sulla piattaforma hanno finalità prevalentemente divulgativa, informativa e di gestione della comunicazione professionale del <strong>Dr. Giuseppe Musumeci</strong>.</p>
+            <p>Nessuna informazione o risorsa software distribuita tramite l'hub deve essere interpretata come un consulto medico o specialistico vincolante. Il Titolare non si assume alcuna responsabilità per decisioni personali o professionali prese dagli utenti sulla base dei soli dati esposti nel portale.</p>
+
+            <div class="legal-box">
+                Nota sulla sicurezza degli account: L'infrastruttura utilizza protocolli delegati di Identity Provider esterni. Pur gestendo l'architettura applicativa, il database del codice non acquisisce in chiaro né memorizza le password personali relative ai vostri profili Google o Meta.
+            </div>
+
+            <h3>3. Proprietà Intellettuale e Marchi</h3>
+            <p>Tutti i diritti di proprietà intellettuale relativi ai testi, alla grafica, al codice sorgente personalizzato, ai loghi e ai layout grafici del Musumeci Digital Hub appartengono in via esclusiva al Titolare o ai suoi licenziatari. È fatto espresso divieto di duplicare, distribuire o riutilizzare commercialmente porzioni dell'hub senza formale autorizzazione scritta.</p>
+
+            <h3>4. Malfunzionamenti e Continuità del Servizio</h3>
+            <p>Il team tecnico opera costantemente per garantire la stabilità dei servizi cloud integrati. Tuttavia, la natura dinamica degli applicativi web può generare occasionali interruzioni dovute ad aggiornamenti software, disconnessioni dei provider di rete o anomalie impreviste.</p>
+
+            <div class="legal-box">
+                <strong>Clausola di salvaguardia tecnica:</strong> In caso di bug bloccanti, errori di indirizzamento o incongruenze nelle API di autenticazione, Musumeci Digital Hub si impegna a predisporre patch correttive nel minor tempo possibile. Il Titolare rimane esente da responsabilità per eventuali ritardi operativi imputabili a disservizi temporanei di piattaforme terze (es. Google, Facebook, ecc...).
+            </div>
+
+            <h3>5. Modifiche Unilaterali del Regolamento</h3>
+            <p>Il Titolare si riserva il diritto insindacabile di modificare o aggiornare le presenti clausole in qualsiasi momento, per adeguarle a nuove funzionalità software o a mutate disposizioni normative, anche senza preavviso di alcun tipo. La prosecuzione dell'uso del sito web a seguito della pubblicazione delle modifiche implica la piena accettazione del nuovo testo.</p>
+            
+            <h3>6. Comunicazioni Ufficiali e Assistenza</h3>
+            <p>Per segnalare problemi contrattuali, richiedere delucidazioni sull'utilizzo degli applicativi o inviare notifiche formali inerenti ai presenti termini, l'indirizzo telematico dedicato è il seguente:</p>
+            
+            <div class="text-center my-4">
+                <a href="mailto:privacy@drgiuseppemusumeci.com" class="fw-bold" style="color: var(--med-red); text-decoration: none; font-size: 1.1rem; border-bottom: 2px solid var(--tech-black);">
+                    privacy@drgiuseppemusumeci.com
+                </a>
+            </div>
+            
+            <h3>7. Utilizzo dei Canali E-mail del Network</h3>
+            <p>Tutti i servizi e le comunicazioni digitali del network si avvalgono del dominio ufficiale <b>drgiuseppemusumeci.com</b>. Si ricorda che l'indirizzo <b>drgiuseppemusumeci@gmail.com</b> è attivo esclusivamente come canale di backup sussidiario per la risoluzione di problemi di consegna dei provider esterni.</p>
+
+            <div class="text-center mt-5">
+                <a href="/" class="btn btn-dark rounded-0 px-4">TORNA ALLA HOME</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<button id="cookie-settings-trigger" onclick="toggleCookieBanner()">
+    <i class="bi bi-gear-fill fs-5"></i>
+</button>
+
+<div id="cookie-overlay" class="cookie-overlay">
+    <div class="cookie-card">
+        <i class="bi bi-shield-lock-fill text-danger" style="font-size: 3rem;"></i>
+        <h3 style="margin: 15px 0;">Privacy & Cookie</h3>
+        <p style="font-size: 0.9rem; opacity: 0.8;">Accetta i cookie per permetterci di analizzare il traffico e migliorare la tua esperienza sul sito.</p>
+        <div class="cookie-actions">
+            <button onclick="handleConsent('granted')" class="btn-cookie btn-accept">Accetta Tutti</button>
+            <button onclick="handleConsent('denied')" class="btn-cookie btn-reject">Solo Necessari</button>
+        </div>
+        <br>
+        <a href="privacy.html" style="color: #bfbfbf; font-size: 0.8rem; text-decoration: none;">VISITA L'INFORMATIVA SULLA PRIVACY</a>
+    </div>
+</div>
+
+<footer class="main-footer" id="global-footer"></footer>
+<script src="footer.js?v=1876"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HYME8VH6Y5"></script>
+
+<script>
+    // 1. MOTORE GOOGLE ANALYTICS (Inizializzazione immediata per tracciamento consensi)
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    
+    const initialConsent = localStorage.getItem('cookie_consent_status') === 'granted' ? 'granted' : 'denied';
+    
+    gtag('consent', 'default', {
+        'analytics_storage': initialConsent,
+        'ad_storage': initialConsent,
+        'ad_user_data': initialConsent,
+        'ad_personalization': initialConsent
+    });
+    gtag('js', new Date());
+    gtag('config', 'G-HYME8VH6Y5');
+
+    // 2. LOGICA OPERATIVA APPLICATIVA
+    (function() {
+        const firebaseConfig = {
+            apiKey: "AIzaSyCt6Ti-xk-_7j-CI_MLILkjj6fJem9VPOY",
+            authDomain: "account.drgiuseppemusumeci.com", // Aggiornato su 'account' per evitare conflitti con i redirect URI
+            projectId: "giuseppe-4c318",
+            appId: "1:658885311131:web:9bb26a19cec41dd331e43e"
+        };
+        
+        if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        window.toggleCookieBanner = function() {
+            const overlay = document.getElementById('cookie-overlay');
+            overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
+        };
+
+        window.handleConsent = function(status) {
+            localStorage.setItem('cookie_consent_status', status);
+            sessionStorage.setItem('cookie_banner_shown_session', 'true');
+
+            gtag('consent', 'update', {
+                'analytics_storage': status,
+                'ad_storage': status,
+                'ad_user_data': status,
+                'ad_personalization': status
+            });
+
+            document.getElementById('cookie-overlay').style.display = 'none';
+            console.log("Consenso GA4 registrato: " + status);
+        };
+
+        auth.onAuthStateChanged((user) => {
+            if (!user) {
+                const alreadySet = localStorage.getItem('cookie_consent_status');
+                const seenThisSession = sessionStorage.getItem('cookie_banner_shown_session');
+                if (!alreadySet && !seenThisSession) {
+                    setTimeout(toggleCookieBanner, 1500);
+                }
+            }
+        });
+    })();
+</script>
+</body>
+</html>
