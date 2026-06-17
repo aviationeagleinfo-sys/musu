@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Operatori & Staff</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Outfit:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <style>
+        :root {
+            --med-red: #d90429;
+            --deep-red: #b00202;
+            --soft-red-white: #f5d7d7;
+            --tech-black: #2b2d42;
+            --clean-white: #ffffff;
+            --soft-gray: #f8f9fa;
+        }
+
+        body { 
+            background-color: var(--soft-gray); 
+            color: var(--tech-black); 
+            font-family: 'Inter', sans-serif; 
+        }
+
+        .portal-header {
+            background: linear-gradient(90deg, var(--tech-black) 0%, var(--deep-red) 100%);
+            color: white;
+            padding: 40px 0;
+            border-bottom: 5px solid var(--med-red);
+            margin-bottom: 40px;
+        }
+
+        .portal-card {
+            background: white;
+            border: none;
+            border-radius: 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--med-red);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .btn-portal {
+            background-color: var(--tech-black);
+            color: white;
+            border-radius: 0;
+            padding: 12px 25px;
+            font-weight: 600;
+            border: none;
+            transition: 0.3s;
+        }
+        .btn-portal:hover {
+            background-color: var(--med-red);
+            color: white;
+        }
+
+        .btn-admin-action {
+            padding: 5px 15px;
+            font-size: 0.85rem;
+            border-radius: 0;
+        }
+
+        .badge-status {
+            font-size: 0.8rem;
+            padding: 6px 12px;
+            border-radius: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER PORTALE -->
+    <header class="portal-header text-center">
+        <div class="container">
+            <h1 style="font-family: 'Outfit', sans-serif;" class="fw-bold m-0">GestiStaff Portale</h1>
+            <p class="lead opacity-75 m-0 mt-2">Gestione Operatori, Ferie e Permessi</p>
+        </div>
+    </header>
+
+    <main class="container mb-5">
+        
+        <!-- SECTION 1: LOGIN / ACCESSO -->
+        <section id="auth-section" class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="portal-card text-center">
+                    <i class="bi bi-shield-lock text-danger" style="font-size: 3rem;"></i>
+                    <h3 style="font-family: 'Outfit';" class="fw-bold my-3">Autenticazione</h3>
+                    
+                    <div id="login-alert" class="alert alert-danger d-none small"></div>
+
+                    <form id="loginForm">
+                        <div class="mb-3 text-start">
+                            <label class="form-label small fw-bold text-muted">Indirizzo Email</label>
+                            <input type="email" id="loginEmail" class="form-control rounded-0" placeholder="nome@esempio.com (Lascia vuoto se sei Admin)">
+                        </div>
+                        <div class="mb-4 text-start">
+                            <label class="form-label small fw-bold text-muted">Codice Operatore / Dipendente</label>
+                            <input type="password" id="loginCode" class="form-control rounded-0" placeholder="Inserisci il tuo codice di accesso" required>
+                        </div>
+                        <button type="submit" class="btn btn-portal w-100">ACCEDI AL PORTALE</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: PANNELLO ADMIN -->
+        <section id="admin-panel" class="d-none">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 style="font-family: 'Outfit';" class="fw-bold text-danger m-0"><i class="bi bi-cone-striped me-2"></i>Pannello Amministrazione</h2>
+                <button onclick="logout()" class="btn btn-sm btn-outline-secondary rounded-0">Disconnetti Admin</button>
+            </div>
+
+            <!-- Elenco Richieste da Approvare -->
+            <div class="portal-card">
+                <h4 class="fw-bold mb-4" style="font-family: 'Outfit';"><i class="bi bi-mailbox2 me-2"></i>Richieste di Ferie e Permessi da Elaborare</h4>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Operatore</th>
+                                <th>Tipo</th>
+                                <th>Giorni</th>
+                                <th>Motivazione</th>
+                                <th>Stato</th>
+                                <th class="text-end">Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-requests-table">
+                            <!-- Iniezione dinamica tramite JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Modifica Anagrafica Operatore -->
+            <div class="portal-card">
+                <h4 class="fw-bold mb-3" style="font-family: 'Outfit';"><i class="bi bi-person-gear me-2"></i>Modifica Dati Operatore</h4>
+                <p class="text-muted small">Inserisci il codice del dipendente che desideri modificare per caricare i suoi dati correnti.</p>
+                
+                <div class="row g-3 mb-4">
+                    <div class="col-md-8">
+                        <input type="text" id="searchOpCode" class="form-control rounded-0" placeholder="Codice Operatore da cercare">
+                    </div>
+                    <div class="col-md-4">
+                        <button onclick="loadOperatorData()" class="btn btn-portal w-100 p-2">CERCA OPERATORE</button>
+                    </div>
+                </div>
+
+                <div id="admin-edit-form" class="d-none border-top pt-4">
+                    <h5 class="fw-bold text-muted mb-3">Scheda Anagrafica Corrente</h5>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label small fw-bold">Email</label>
+                            <input type="email" id="editOpEmail" class="form-control rounded-0">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small fw-bold">Numero di Telefono</label>
+                            <input type="text" id="editOpPhone" class="form-control rounded-0">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small fw-bold">Indirizzo</label>
+                            <input type="text" id="editOpAddress" class="form-control rounded-0">
+                        </div>
+                        <div class="col-12 text-end mt-4">
+                            <button onclick="saveOperatorChanges()" class="btn btn-success rounded-0 fw-bold px-4">SALVA MODIFICHE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: PANNELLO OPERATORE SEMPLICE -->
+        <section id="operator-panel" class="d-none">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 style="font-family: 'Outfit';" class="fw-bold text-dark m-0"><i class="bi bi-person-workspace me-2"></i>Area Personale Dipendente</h2>
+                <button onclick="logout()" class="btn btn-sm btn-outline-secondary rounded-0">Disconnetti</button>
+            </div>
+
+            <div class="row">
+                <!-- Visualizzazione Dati Profilo -->
+                <div class="col-md-5">
+                    <div class="portal-card">
+                        <h4 class="fw-bold mb-4" style="font-family: 'Outfit';"><i class="bi bi-card-checklist me-2"></i>I Tuoi Dati</h4>
+                        
+                        <div class="mb-3 border-bottom pb-2">
+                            <span class="d-block small text-muted fw-bold">Indirizzo Email</span>
+                            <span id="op-display-email" class="fw-bold">-</span>
+                        </div>
+                        <div class="mb-3 border-bottom pb-2">
+                            <span class="d-block small text-muted fw-bold">Telefono</span>
+                            <span id="op-display-phone" class="fw-bold">-</span>
+                        </div>
+                        <div class="mb-3 border-bottom pb-2">
+                            <span class="d-block small text-muted fw-bold">Indirizzo Residenza</span>
+                            <span id="op-display-address" class="fw-bold">-</span>
+                        </div>
+                        <div class="p-3 bg-light border text-center">
+                            <span class="d-block small text-muted fw-bold uppercase">Ferie Rimanenti</span>
+                            <h2 id="op-display-holidays" class="fw-bold text-danger m-0 mt-1">0</h2>
+                            <span class="small text-muted">Giorni disponibili</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Invio Nuova Richiesta -->
+                <div class="col-md-7">
+                    <div class="portal-card">
+                        <h4 class="fw-bold mb-4" style="font-family: 'Outfit';"><i class="bi bi-calendar-plus me-2"></i>Invia Nuova Richiesta</h4>
+                        
+                        <form id="requestForm">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-muted">Tipologia Assenza</label>
+                                    <select id="reqType" class="form-select rounded-0" required>
+                                        <option value="Ferie">Ferie</option>
+                                        <option value="Permesso">Permesso</option>
+                                        <option value="Malattia">Malattia</option>
+                                        <option value="Altro">Altro (Specificare in motivazione)</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small fw-bold text-muted">Numero Giorni richiesti</label>
+                                    <input type="number" id="reqDays" class="form-control rounded-0" min="0" value="1" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label small fw-bold text-muted">Motivazione / Note</label>
+                                    <textarea id="reqNotes" class="form-control rounded-0" rows="4" placeholder="Fornire i dettagli o le date di riferimento..." required></textarea>
+                                </div>
+                                <div class="col-12 text-end mt-4">
+                                    <button type="submit" class="btn btn-portal px-4">INVIA RICHIESTA ALL'AMMINISTRAZIONE</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FIREBASE COMPAT LIBS -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // Configurazione Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyDYcwhZdpOkNOJwt_2oIBGIDED4y7fVVm0",
+            authDomain: "staff-operatori-mg.firebaseapp.com",
+            projectId: "staff-operatori-mg",
+            storageBucket: "staff-operatori-mg.firebasestorage.app",
+            messagingSenderId: "797244866930",
+            appId: "1:797244866930:web:b93ca19a318711f8b89deb"
+        };
+        
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        let currentSessionUser = null;
+
+        // Logica di autenticazione
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('loginEmail').value.trim();
+            const codeInput = document.getElementById('loginCode').value.trim();
+            const alertBox = document.getElementById('login-alert');
+
+            alertBox.classList.add('d-none');
+
+            // 1. ACCESSO ADMIN
+            if (emailInput === "" && codeInput === "6669992023") {
+                showAdminPanel();
+                return;
+            }
+
+            // 2. ACCESSO OPERATORE
+            if (emailInput !== "") {
+                db.collection("operatori").doc(codeInput).get().then((doc) => {
+                    if (doc.exists && doc.data().email.toLowerCase() === emailInput.toLowerCase()) {
+                        currentSessionUser = { codice: doc.id, ...doc.data() };
+                        showOperatorPanel(currentSessionUser);
+                    } else {
+                        throw new Error("Credenziali errate o account operatore non corrispondente.");
+                    }
+                }).catch((err) => {
+                    alertBox.innerText = err.message;
+                    alertBox.classList.remove('d-none');
+                });
+            } else {
+                alertBox.innerText = "Inserisci un indirizzo email per l'accesso operatore, oppure usa le credenziali corrette Admin.";
+                alertBox.classList.remove('d-none');
+            }
+        });
+
+        function showAdminPanel() {
+            document.getElementById('auth-section').classList.add('d-none');
+            document.getElementById('admin-panel').classList.remove('d-none');
+            listenToRequests();
+        }
+
+        // Ascolto richieste real-time (Admin)
+        function listenToRequests() {
+            db.collection("richieste").orderBy("dataInvio", "desc").onSnapshot((snapshot) => {
+                const tableBody = document.getElementById('admin-requests-table');
+                tableBody.innerHTML = "";
+
+                if(snapshot.empty) {
+                    tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-muted py-4">Nessuna richiesta inserita nel database.</td></tr>`;
+                    return;
+                }
+
+                snapshot.forEach((doc) => {
+                    const req = doc.data();
+                    let badgeColor = "bg-warning text-dark";
+                    if(req.stato === "Approvato") badgeColor = "bg-success";
+                    if(req.stato === "Rifiutato") badgeColor = "bg-danger";
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><strong>Cod: ${req.codice_operatore}</strong></td>
+                        <td><span class="badge bg-secondary rounded-0">${req.tipo}</span></td>
+                        <td>${req.giorni} gg</td>
+                        <td><small>${req.motivazione}</small></td>
+                        <td><span class="badge ${badgeColor} badge-status">${req.stato}</span></td>
+                        <td class="text-end">
+                            ${req.stato === "In attesa" ? `
+                                <button onclick="updateRequestStatus('${doc.id}', 'Approvato')" class="btn btn-success btn-admin-action me-1"><i class="bi bi-check-lg"></i></button>
+                                <button onclick="updateRequestStatus('${doc.id}', 'Rifiutato')" class="btn btn-danger btn-admin-action"><i class="bi bi-x-lg"></i></button>
+                            ` : `<span class="text-muted small">Elaborata</span>`}
+                        </td>
+                    `;
+                    tableBody.appendChild(tr);
+                });
+            });
+        }
+
+        function updateRequestStatus(id, nuovoStato) {
+            db.collection("richieste").doc(id).update({
+                stato: nuovoStato
+            }).then(() => {
+                alert("Richiesta aggiornata in: " + nuovoStato);
+            });
+        }
+
+        // Carica dati operatore per modifica (Admin)
+        function loadOperatorData() {
+            const opCode = document.getElementById('searchOpCode').value.trim();
+            if(!opCode) return alert("Inserisci un codice valido.");
+
+            db.collection("operatori").doc(opCode).get().then((doc) => {
+                if(doc.exists) {
+                    const data = doc.data();
+                    document.getElementById('editOpEmail').value = data.email || "";
+                    document.getElementById('editOpPhone').value = data.telefono || "";
+                    document.getElementById('editOpAddress').value = data.indirizzo || "";
+                    document.getElementById('admin-edit-form').classList.remove('d-none');
+                    document.getElementById('admin-edit-form').dataset.activeCode = opCode;
+                } else {
+                    alert("Operatore non trovato. Creazione di una nuova scheda con questo codice.");
+                    document.getElementById('editOpEmail').value = "";
+                    document.getElementById('editOpPhone').value = "";
+                    document.getElementById('editOpAddress').value = "";
+                    document.getElementById('admin-edit-form').classList.remove('d-none');
+                    document.getElementById('admin-edit-form').dataset.activeCode = opCode;
+                }
+            });
+        }
+
+        // Salva modifiche anagrafica (Modifica ESCLUSIVAMENTE email, telefono, indirizzo)
+        function saveOperatorChanges() {
+            const activeCode = document.getElementById('admin-edit-form').dataset.activeCode;
+            const email = document.getElementById('editOpEmail').value.trim();
+            const telefono = document.getElementById('editOpPhone').value.trim();
+            const indirizzo = document.getElementById('editOpAddress').value.trim();
+
+            db.collection("operatori").doc(activeCode).set({
+                email: email,
+                telefono: telefono,
+                indirizzo: indirizzo
+            }, { merge: true }).then(() => {
+                alert("Anagrafica operatore salvata correttamente!");
+                document.getElementById('admin-edit-form').classList.add('d-none');
+                document.getElementById('searchOpCode').value = "";
+            });
+        }
+
+        // Mostra pannello operatore semplice
+        function showOperatorPanel(user) {
+            document.getElementById('auth-section').classList.add('d-none');
+            document.getElementById('operator-panel').classList.remove('d-none');
+
+            document.getElementById('op-display-email').innerText = user.email;
+            document.getElementById('op-display-phone').innerText = user.telefono || "Non specificato";
+            document.getElementById('op-display-address').innerText = user.indirizzo || "Non specificato";
+            
+            // Lettura del valore esclusivamente dalla chiave "ferie" del database
+            document.getElementById('op-display-holidays').innerText = user.ferie !== undefined ? user.ferie : "0";
+        }
+
+        // Invio form richiesta ferie/permessi
+        document.getElementById('requestForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const giorniVal = parseInt(document.getElementById('reqDays').value);
+            
+            if(giorniVal < 0 || isNaN(giorniVal)) {
+                alert("Il numero di giorni non può essere un valore negativo.");
+                return;
+            }
+
+            const nuovaRichiesta = {
+                codice_operatore: currentSessionUser.codice,
+                tipo: document.getElementById('reqType').value,
+                giorni: giorniVal,
+                motivazione: document.getElementById('reqNotes').value.trim(),
+                stato: "In attesa",
+                dataInvio: new Date().toISOString()
+            };
+
+            db.collection("richieste").add(nuovaRichiesta).then(() => {
+                alert("Richiesta inviata con successo all'amministrazione!");
+                document.getElementById('requestForm').reset();
+                document.getElementById('reqDays').value = "1";
+            }).catch(err => alert("Errore durante l'invio: " + err.message));
+        });
+
+        function logout() {
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>
