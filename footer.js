@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         <a href="index.html" class="footer-link">Home</a>
                         <a href="login.html" class="footer-link">Accesso Hub</a>
                         <a href="news.html" class="footer-link">Aggiornamenti</a>
+                        <a href="/security/operatori.html" class="footer-link">Operatori - RESERVED</a>
                     </nav>
                 </div>
                 <div class="col-6 col-lg-4">
