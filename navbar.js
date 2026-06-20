@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <li class="nav-item dropdown px-lg-2">
                         <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" data-bs-toggle="dropdown">Chi Sono</a>
                         <ul class="dropdown-menu shadow border-0" style="border-radius: 15px;">
-                            <li><a class="dropdown-item" href="giuseppe-musumeci.html">Giuseppe Musumeci</a></li>
+                            <li><a class="dropdown-item" href="aggiornamento-pagina">Giuseppe Musumeci</a></li>
                             <li><a class="dropdown-item" href="formazione.html">Formazione</a></li>
                             <li><a class="dropdown-item" href="carriera.html">Carriera</a></li>
                         </ul>
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     <li class="nav-item dropdown px-lg-2">
                         <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" data-bs-toggle="dropdown">Cosa faccio</a>
                         <ul class="dropdown-menu shadow border-0" style="border-radius: 15px;">
-                            <li><a class="dropdown-item" href="direttore.html">Direttore</a></li>
+                            <li><a class="dropdown-item" href="aggiornamento-pagina">Direttore</a></li>
                             <li><a class="dropdown-item" href="interventistica.html">Interventistica Strutturale</a></li>
                             <li><a class="dropdown-item" href="cardiologia.html">Cardiologia Clinica</a></li>
                             <li><a class="dropdown-item" href="patologie.html">Patologie Cardiovascolari</a></li>
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             <li><a class="dropdown-item" href="documenti.html">Documenti&Articoli</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="eventi.html">News&Eventi</a></li>
+                    <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="aggiornamento-pagina">News&Eventi</a></li>
                     <li class="nav-item px-lg-2"><a class="nav-link fw-bold text-uppercase" href="https://drgiuseppemusumeci.com/media.html#video">Video</a></li>
                     <li class="nav-item px-lg-2 me-lg-3"><a class="nav-link fw-bold text-uppercase" href="https://change.drgiuseppemusumeci.com/">Change</a></li>
                     <li class="nav-item">
