@@ -332,5 +332,29 @@
         });
     })();
 </script>
+<script>
+    // Ascolta lo stato dell'utente (Loggato o Ospite)
+    auth.onAuthStateChanged((user) => {
+        const btnLoginNav = document.getElementById('btn-login-nav');
+        const userInfo = document.getElementById('user-info');
+        const userName = document.getElementById('user-name');
+        
+        if (user) {
+            // Se l'utente è loggato: nasconde il tasto login e mostra il profilo
+            if(btnLoginNav) btnLoginNav.style.display = 'none';
+            if(userInfo) userInfo.style.display = 'flex';
+            if(userName) userName.innerText = user.displayName || user.email;
+        } else {
+            // Se l'utente non è loggato: mostra il tasto login e nasconde il profilo
+            if(btnLoginNav) btnLoginNav.style.display = 'inline-block';
+            if(userInfo) userInfo.style.display = 'none';
+        }
+    });
+
+    // Funzione per eseguire il Logout e ricaricare la pagina
+    function logout() { 
+        auth.signOut().then(() => window.location.reload()); 
+    }
+</script>
 </body>
 </html>
