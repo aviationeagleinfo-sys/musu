@@ -69,11 +69,13 @@ document.addEventListener("DOMContentLoaded", function() {
                         <a class="nav-link dropdown-toggle fw-bold text-uppercase" href="#" data-bs-toggle="dropdown">Cosa faccio</a>
                         <ul class="dropdown-menu shadow border-0" style="border-radius: 15px;">
                             <li><a class="dropdown-item" href="aggiornamento-pagina">Direttore</a></li>
+                            <li><a class="dropdown-item" href="visita-privata.html">Visite Private</a></li>
                             <li><a class="dropdown-item" href="interventistica.html">Interventistica Strutturale</a></li>
                             <li><a class="dropdown-item" href="cardiologia.html">Cardiologia Clinica</a></li>
                             <li><a class="dropdown-item" href="patologie.html">Patologie Cardiovascolari</a></li>
                             <li><a class="dropdown-item" href="incarichi.html">Incarichi Istituzionali</a></li>
                             <li><a class="dropdown-item" href="media.html">Comunicazione e Media</a></li>
+                            
                         </ul>
                     </li>
                     <li class="nav-item dropdown px-lg-2">
